@@ -11,47 +11,48 @@ enum fieldType {
 public class FieldInput : MonoBehaviour
 {
     [SerializeField]
-    TMP_InputField[] fields;
+    TMP_InputField[] m_Fields;
     [SerializeField]
-    EditWindow m_window;
+    EditWindow m_Window;
     [SerializeField]
-    fieldType m_fieldType;
-    Vector3 value;
-    // Start is called before the first frame update
+    fieldType m_FieldType;
+    
+    Vector3 m_Value;
+    
     void Start()
     {
-        fields[0].onValueChanged.AddListener(delegate {ValueChanged(0);});
-        fields[1].onValueChanged.AddListener(delegate {ValueChanged(1);});
-        fields[2].onValueChanged.AddListener(delegate {ValueChanged(2);});
+        m_Fields[0].onValueChanged.AddListener(delegate {ValueChanged(0);});
+        m_Fields[1].onValueChanged.AddListener(delegate {ValueChanged(1);});
+        m_Fields[2].onValueChanged.AddListener(delegate {ValueChanged(2);});
     }
 
-    void setFieldValues(Vector3 newValues)
+    public void setFieldValues(Vector3 newValues)
     {
         for (int i = 0; i < 3; i++)
         {
-            fields[i].text = newValues[i].ToString();
+            m_Fields[i].text = newValues[i].ToString();
         }
     }
 
     public void ValueChanged(int index)
     {
         float newValue;
-        if (fields[index].text == "" || fields[index].text == "-")
+        if (m_Fields[index].text == "" || m_Fields[index].text == "-")
             newValue = 0;
         else
-            newValue = float.Parse(fields[index].text);
-        value[index] = newValue;
+            newValue = float.Parse(m_Fields[index].text);
+        m_Value[index] = newValue;
         
-        switch (m_fieldType)
+        switch (m_FieldType)
         {
             case fieldType.transform:
-                m_window.ChangeTargetPosition(value);
+                m_Window.ChangeTargetPosition(m_Value);
                 break;
             case fieldType.rotate:
-                m_window.ChangeTargetRotation(value);
+                m_Window.ChangeTargetRotation(m_Value);
                 break;
             case fieldType.scale:
-                m_window.ChangeTargetScale(value);
+                m_Window.ChangeTargetScale(m_Value);
                 break;
         }
 
