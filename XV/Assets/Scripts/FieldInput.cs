@@ -16,8 +16,9 @@ public class FieldInput : MonoBehaviour
     EditWindow m_Window;
     [SerializeField]
     fieldType m_FieldType;
+    
     Vector3 m_Value;
-    // Start is called before the first frame update
+    
     void Start()
     {
         m_Fields[0].onValueChanged.AddListener(delegate {ValueChanged(0);});

@@ -6,11 +6,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class ItemThumbnail : MonoBehaviour
 {
-    Button m_Button;
     [SerializeField]
     GameObject m_ThumbnailObject;
+    
+    Button m_Button;
 
-    // Start is called before the first frame update
     void Start()
     {
         m_Button = GetComponent<Button>();

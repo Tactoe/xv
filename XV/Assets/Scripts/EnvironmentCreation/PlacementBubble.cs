@@ -9,10 +9,10 @@ public class PlacementBubble : MonoBehaviour
     Color m_CorrectColor;
     [SerializeField]
     Color m_WrongColor;
+    
     List<int> m_NearbyObjects;
-
-    MeshRenderer m_Mesh;    
-    // Start is called before the first frame update
+    MeshRenderer m_Mesh;
+    
     void Start()
     {
         m_Mesh = GetComponent<MeshRenderer>();
