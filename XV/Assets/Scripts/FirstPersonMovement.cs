@@ -26,6 +26,22 @@ public class FirstPersonMovement : MonoBehaviour
         Is_flying = false;
     }
 
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("loool");
+            // 
+            Is_flying = Is_flying ? false : true;
+        if (Is_flying){
+                rigidbody.useGravity = false;
+            }
+        else{
+                rigidbody.useGravity = true;                
+            }
+
+        }
+    }
+
     void FixedUpdate()
     {
         // Update IsRunning from input.
@@ -47,17 +63,6 @@ public class FirstPersonMovement : MonoBehaviour
         rigidbody.velocity = transform.rotation * new Vector3(targetVelocity.x, rigidbody.velocity.y, targetVelocity.y);
 
         // if(Input.GetKey(KeyCode.Space) && Input.GetKey(KeyCode.LeftShift)){
-        if(Input.GetKey(KeyCode.P)){
-            Debug.Log("loool");
-            // 
-            Is_flying = Is_flying ? false : true;
-            if (Is_flying){
-                rigidbody.useGravity = false;
-            }
-            else{
-                rigidbody.useGravity = true;                
-            }
 
-        }
     }
 }
