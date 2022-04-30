@@ -5,6 +5,7 @@ public enum EditorState { normal, placingItem };
 public class ItemHandler : MonoBehaviour
 {
     public static ItemHandler Instance;
+
     EditorState m_CurrentState;
     GameObject m_CurrentObjectToPlace;
     Camera m_Cam;
@@ -12,6 +13,8 @@ public class ItemHandler : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null)
+            Destroy(Instance.gameObject);
         Instance = this;
     }
 
@@ -29,13 +32,24 @@ public class ItemHandler : MonoBehaviour
     {
         if (m_CurrentState != EditorState.placingItem)
             m_CurrentState = EditorState.placingItem;
+        if (m_CurrentObjectToPlace != null)
+            Destroy(m_CurrentObjectToPlace);
         m_CurrentObjectToPlace = Instantiate(i_ItemToPlace, Vector3.one * 1000, Quaternion.identity);
+        m_CurrentObjectToPlace.transform.Find("Hitbox").gameObject.SetActive(false);
+        m_CurrentObjectToPlace.transform.Find("PlacementBubble").gameObject.SetActive(true);
     }
 
     public bool TryPlaceObject()
     {
-        m_CurrentObjectToPlace = null;
-        return true;
+        PlacementBubble pb = m_CurrentObjectToPlace.transform.Find("PlacementBubble").GetComponent<PlacementBubble>();
+        if (pb.CanBePlaced)
+        {
+            m_CurrentObjectToPlace.transform.Find("Hitbox").gameObject.SetActive(true);
+            pb.gameObject.SetActive(false);
+            m_CurrentObjectToPlace = null;
+            return true;
+        }
+        return false;
     }
 
     private void Update()
@@ -50,7 +64,7 @@ public class ItemHandler : MonoBehaviour
                 case EditorState.normal:
                     if (Input.GetMouseButtonDown(0) && m_HitInfo.collider.CompareTag("Object"))
                     {
-                        print(m_HitInfo.collider.GetComponent<ItemData>().Weight);
+                        m_HitInfo.collider.GetComponent<ItemData>().DisplayWindow();
                     }
                 break;
                 case EditorState.placingItem:
