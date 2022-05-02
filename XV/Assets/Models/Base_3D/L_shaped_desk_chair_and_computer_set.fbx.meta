@@ -3,7 +3,72 @@ guid: 8013f5329fcc6634aa837aeffcda8fa5
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BackColor
+    second: {fileID: 2100000, guid: fdd69502e46bc4f32b9b826ffce9dae6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_001
+    second: {fileID: 2100000, guid: 92822153dfa2448da874e6527d778e5c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_005
+    second: {fileID: 2100000, guid: ae3d8f4dcbcfe438788177afe97ff389, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_006
+    second: {fileID: 2100000, guid: 46160e89cbccd4ab5a496a7822c9c270, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_007
+    second: {fileID: 2100000, guid: 7ebdda915d4704eb18b6bdd8ab5fca6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_008
+    second: {fileID: 2100000, guid: 71aafe97eb1234cad9ec661516aadea9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_009
+    second: {fileID: 2100000, guid: 85c8aef43a5fc4305bdd90be09729780, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_A12
+    second: {fileID: 2100000, guid: cc0af5f8ce72e4c1287ee4cd1173faec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_H04
+    second: {fileID: 2100000, guid: fd86e11e60e5f4d2bab74c8cce160812, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_I02
+    second: {fileID: 2100000, guid: 3d2c139ff74f1496babfd1981c570f56, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ROLLING_CHAIR_SEAT_AND_LEG
+    second: {fileID: 2100000, guid: 0ffb6f172499948fe9fb035bbbd69d24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ROLLING_CHAIR_WHEEL
+    second: {fileID: 2100000, guid: 63b0b80290940422eb1e374c147b1e20, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood_Floor_Light
+    second: {fileID: 2100000, guid: 18680139d4dd1413db280944e9c5b941, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

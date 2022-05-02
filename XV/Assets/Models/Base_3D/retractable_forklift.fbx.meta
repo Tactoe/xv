@@ -3,7 +3,42 @@ guid: e1ce91d42eedc144a96be807b38fe751
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BackColor
+    second: {fileID: 2100000, guid: 29ed29619847d4c7c84585764f34feaf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_007
+    second: {fileID: 2100000, guid: e4f41bff22fd84daabc72c9087795cbc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_B01
+    second: {fileID: 2100000, guid: 8b88f23f745384e43a5f8f1f133c0e25, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_D01
+    second: {fileID: 2100000, guid: f0cce9796451d4928a54aafa0f10c7fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FrontColor
+    second: {fileID: 2100000, guid: c88437286ef0c4ca194fd7ed6e68281b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tile_Hexagon_White
+    second: {fileID: 2100000, guid: 6b730e7aadbb64a9690c981d162b875e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _Metal_Corrogated_Shiny_1
+    second: {fileID: 2100000, guid: e21659f5f5bd34a4b9acd6cb5db7227a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

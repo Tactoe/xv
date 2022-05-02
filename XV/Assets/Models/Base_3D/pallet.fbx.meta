@@ -3,7 +3,42 @@ guid: 531e7b518f7230b43ac8a67fb1c471aa
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BackColor
+    second: {fileID: 2100000, guid: 7461606e7d10645fda42ab70803e4646, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EPAL_Motiv_Richtlinie_1_
+    second: {fileID: 2100000, guid: 8ffbc8bb16b634ff6898a77ac9908c36, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood_OSB
+    second: {fileID: 2100000, guid: 35b7bdd8df8f04b5e86bd3e2df91d447, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _Beige_3
+    second: {fileID: 2100000, guid: 5a824b75b80ae4071ba8a52d7443a060, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cartonfilmplastique
+    second: {fileID: 2100000, guid: e04cad71de3ef41fca0ac1c7986b5234, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eur
+    second: {fileID: 2100000, guid: 3fb17ef0d00954b52be9458becb1d5d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ippc
+    second: {fileID: 2100000, guid: 4d7281b6db67b4a21a168d5487341c7a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

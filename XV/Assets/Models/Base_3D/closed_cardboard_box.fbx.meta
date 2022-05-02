@@ -3,7 +3,32 @@ guid: c80610316e0763348b3ae88d96dec336
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BackColor
+    second: {fileID: 2100000, guid: b8ec1a205687a423c9040a26e2fe1cba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cardboard
+    second: {fileID: 2100000, guid: b0fa45bf9809941b68943730b36fcdea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FrontColor
+    second: {fileID: 2100000, guid: df14391d4e44d44f897eb80fa9ac0c9b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Logo
+    second: {fileID: 2100000, guid: b7dfd6762f6dd497e88302f0834dcc84, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tape
+    second: {fileID: 2100000, guid: 630b2cd484c2042c9a47b2b091c8659a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

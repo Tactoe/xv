@@ -3,7 +3,57 @@ guid: da4fb16466c02774283155f480206e5c
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BackColor
+    second: {fileID: 2100000, guid: fcebc06234c9f4b9c9c85656bf649f68, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_005
+    second: {fileID: 2100000, guid: 5a33e42a1e3484758813da008181a00e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_006
+    second: {fileID: 2100000, guid: cd7e9607ea70945db807b483578880c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_008
+    second: {fileID: 2100000, guid: f11013ea4456a4afb8f0eacfdb012e94, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_009
+    second: {fileID: 2100000, guid: da53eaeaea21746dcb75495bb1033792, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_A06
+    second: {fileID: 2100000, guid: bdc88b55411834467898c38585e09c6e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_D01
+    second: {fileID: 2100000, guid: 4d9c841df1b1443f69b69cfd267e17ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_D06
+    second: {fileID: 2100000, guid: b8e41ed07c5964315bd5e689aa139cd5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_I07
+    second: {fileID: 2100000, guid: efdab4f43a4064c818631200880631df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _1
+    second: {fileID: 2100000, guid: 0b323a00f2c4b4b12ad50dfa80e4c204, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

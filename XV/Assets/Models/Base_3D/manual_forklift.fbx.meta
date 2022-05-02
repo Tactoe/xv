@@ -3,7 +3,32 @@ guid: 0218c9f3a1fb55a47a941d779bfb5bdd
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_007
+    second: {fileID: 2100000, guid: c3a4965761e354ab1b52b952b0f7b9ba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_A02
+    second: {fileID: 2100000, guid: eb60e15e3f82f416e9c73df755bab56a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_D01
+    second: {fileID: 2100000, guid: acb67326c67b642d1b8ba538dd37c031, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal_Seamed
+    second: {fileID: 2100000, guid: 2303d45a957a246f49f0bc3989d57aa8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _Metal_Aluminum_Anodized_1
+    second: {fileID: 2100000, guid: c7e0bcb54e1464e03a9b5f09cc262c9b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -3,7 +3,42 @@ guid: 97087561fbe75e440bf1a9680ea5a0e5
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BackColor
+    second: {fileID: 2100000, guid: 03ab8142472724992842f3c6477db57c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FrontColor
+    second: {fileID: 2100000, guid: d5cb3bef39ef64aebad46da1608ccb1b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _Black_
+    second: {fileID: 2100000, guid: bde478c9ef70e4eb3badd5404d424d5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _Black_1
+    second: {fileID: 2100000, guid: 968b87e2ec1d64c83a800acc643de44d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _Carpet_LightGray_
+    second: {fileID: 2100000, guid: ae36a8e0f171a44b8b7a85679ca456c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _Charcoal_1
+    second: {fileID: 2100000, guid: 03dfa3824560d47369d3b7276c05caa8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _CorrogateShiny_
+    second: {fileID: 2100000, guid: fe037f82ccebe4848890ed394a3bde9f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

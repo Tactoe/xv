@@ -3,7 +3,42 @@ guid: a3cf7a5fa77616f43909ddaebf276d7d
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BackColor
+    second: {fileID: 2100000, guid: ff73072bdd22e44f19763ffa80988a0c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _15
+    second: {fileID: 2100000, guid: 4d8c94a8b85fe44b19949c538b6c13e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _19
+    second: {fileID: 2100000, guid: f616fa06788e444fdad5849a9243c447, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _20
+    second: {fileID: 2100000, guid: 5abdd05361ad84db6aaf039e98988461, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _24
+    second: {fileID: 2100000, guid: 490a3d13afe6549b6aa291f6370433c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _25
+    second: {fileID: 2100000, guid: e2437c29bd460459fb3d6d124e8356bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _Beige_3
+    second: {fileID: 2100000, guid: dc421895dfee64a07900921fddaed136, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

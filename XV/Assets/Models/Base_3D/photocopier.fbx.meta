@@ -3,7 +3,67 @@ guid: 7ea58769e64866842b2acec82db669df
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BackColor
+    second: {fileID: 2100000, guid: 64d38cf53b2e04f358493622584c7c5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_001
+    second: {fileID: 2100000, guid: 9b89fdcdfff06472aa888269894f0170, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_007
+    second: {fileID: 2100000, guid: 7973082488f9a434f9ef3c76dd0293e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DVAS063W
+    second: {fileID: 2100000, guid: 3f51b13daca6c4ac2b6a3f4fb89cd0bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FrontColor
+    second: {fileID: 2100000, guid: 49602b1e6991043188bc9e074d64025e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PRGPS50280
+    second: {fileID: 2100000, guid: e7c94c3568e864f25b40a4d5af755193, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _DimGray_
+    second: {fileID: 2100000, guid: b5a4b4b7095d44065839ac6647cccb23, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _Gold_
+    second: {fileID: 2100000, guid: a0a90d13dada0439eba87180e404ea35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _LightGray_
+    second: {fileID: 2100000, guid: 778a9a87096a4465fa3c7703d4b26360, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _MediumAquamarine_
+    second: {fileID: 2100000, guid: dc55e24dfcaf348c2a01e0be1c192387, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _Tomato_
+    second: {fileID: 2100000, guid: d87c6be2372f041d7b5a3582d77ff534, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: biz
+    second: {fileID: 2100000, guid: 745e1084feb6740cfa96270eb4ad563c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
