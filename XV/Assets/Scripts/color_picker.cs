@@ -46,7 +46,7 @@ public class color_picker : MonoBehaviour
     }
 
     public Color OK(){
-        //return my_demo_square.color
+        return my_demo_square.color;
     }
 }
 
