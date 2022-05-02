@@ -28,8 +28,10 @@ public class FieldInput : MonoBehaviour
 
     public void setFieldValues(Vector3 newValues)
     {
+        float roundDecimal = 1000f;
         for (int i = 0; i < 3; i++)
         {
+            newValues[i] = Mathf.Round(newValues[i] * roundDecimal) / roundDecimal;
             m_Fields[i].text = newValues[i].ToString();
         }
     }
@@ -37,8 +39,13 @@ public class FieldInput : MonoBehaviour
     public void ValueChanged(int index)
     {
         float newValue;
-        if (m_Fields[index].text == "" || m_Fields[index].text == "-")
+        if (m_Fields[index].text == "")
             newValue = 0;
+        else if (m_Fields[index].text == "-")
+        {
+            m_Fields[index].text = "-0";
+            newValue = 0;
+        }
         else
             newValue = float.Parse(m_Fields[index].text);
         m_Value[index] = newValue;

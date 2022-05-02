@@ -6,10 +6,15 @@ public class ItemHandler : MonoBehaviour
 {
     public static ItemHandler Instance;
 
+    [SerializeField]
+    float m_RotationSpeed;
     EditorState m_CurrentState;
     GameObject m_CurrentObjectToPlace;
     Camera m_Cam;
     RaycastHit m_HitInfo;
+
+    public delegate void ChangeMode(EditorState i_NewState);
+    public static event ChangeMode ModeChanged;
 
     void Awake()
     {
@@ -21,6 +26,7 @@ public class ItemHandler : MonoBehaviour
      void Start()
     {
         m_Cam = GetComponent<Camera>();
+        NormalMode();
     }
 
     public bool CheckIfState(EditorState i_State)
@@ -31,24 +37,33 @@ public class ItemHandler : MonoBehaviour
     public void NormalMode()
     {
         m_CurrentState = EditorState.normal;
+        if (ModeChanged != null)
+            ModeChanged(m_CurrentState);
     }
 
     public void EditMode(GameObject i_ItemToEdit)
     {
         i_ItemToEdit.GetComponent<ItemData>().DisplayWindow();
         m_CurrentState = EditorState.editItem;
+        if (ModeChanged != null)
+            ModeChanged(m_CurrentState);
     }
 
-    public void PlaceMode(GameObject i_ItemToPlace)
+    public void PlaceMode(GameObject i_ItemToPlace, bool i_InstantiateItem = true)
     {
         if (m_CurrentState != EditorState.placingItem)
             m_CurrentState = EditorState.placingItem;
         if (m_CurrentObjectToPlace != null)
             Destroy(m_CurrentObjectToPlace);
-        m_CurrentObjectToPlace = Instantiate(i_ItemToPlace, Vector3.one * 1000, Quaternion.identity);
+        if (i_InstantiateItem)
+            m_CurrentObjectToPlace = Instantiate(i_ItemToPlace, Vector3.one * 1000, Quaternion.identity);
+        else
+            m_CurrentObjectToPlace = i_ItemToPlace;
         m_CurrentObjectToPlace.name = i_ItemToPlace.name;
         m_CurrentObjectToPlace.transform.Find("Hitbox").gameObject.SetActive(false);
         m_CurrentObjectToPlace.transform.Find("PlacementBubble").gameObject.SetActive(true);
+        if (ModeChanged != null)
+            ModeChanged(m_CurrentState);
     }
 
     public bool TryPlaceObject()
@@ -90,6 +105,14 @@ public class ItemHandler : MonoBehaviour
                     }
                 break;
             }
+        }
+        if ((Input.GetKey(KeyCode.LeftArrow)
+            || Input.GetKey(KeyCode.RightArrow))
+            && CheckIfState(EditorState.placingItem))
+        {
+            float direction = Input.GetKey(KeyCode.LeftArrow) ? 1 : -1;
+            m_CurrentObjectToPlace.transform.Rotate(Vector3.up * Time.deltaTime * m_RotationSpeed * direction);
+
         }
     }
 }
