@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class color_picker : MonoBehaviour
 {
-    public Image my_demo_square;
+    public Image myDemoSquare;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,31 +22,31 @@ public class color_picker : MonoBehaviour
     public void OnValueChanged_red(float newValue)
     {
         Debug.Log("{RED} ma value = " + newValue);
-        Color old_color = my_demo_square.color;
-        my_demo_square.color = new Color(newValue, old_color.g, old_color.b, 1);
-        Debug.Log("my colo = " + my_demo_square.color);
+        Color oldColor = myDemoSquare.color;
+        myDemoSquare.color = new Color(newValue, oldColor.g, oldColor.b, 1);
+        Debug.Log("my colo = " + myDemoSquare.color);
     }
     
     public void OnValueChanged_green(float newValue)
     {
         Debug.Log("{GREE} ma value = " + newValue);
-        Color old_color = my_demo_square.color;
-        my_demo_square.color = new Color(old_color.r, newValue, old_color.b, 1);
-        Debug.Log("my colo = " + my_demo_square.color);
+        Color oldColor = myDemoSquare.color;
+        myDemoSquare.color = new Color(oldColor.r, newValue, oldColor.b, 1);
+        Debug.Log("my colo = " + myDemoSquare.color);
         
     }
     
     public void OnValueChanged_blu(float newValue)
     {
         Debug.Log("{BLU} ma value = " + newValue);
-        Color old_color = my_demo_square.color;
-        my_demo_square.color = new Color(old_color.r, old_color.g, newValue, 1);
-        Debug.Log("my colo = " + my_demo_square.color);
+        Color oldColor = myDemoSquare.color;
+        myDemoSquare.color = new Color(oldColor.r, oldColor.g, newValue, 1);
+        Debug.Log("my colo = " + myDemoSquare.color);
         
     }
 
     public Color OK(){
-        return my_demo_square.color;
+        return myDemoSquare.color;
     }
 }
 
