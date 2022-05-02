@@ -318,6 +318,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 531e7b518f7230b43ac8a67fb1c471aa, type: 3}
+--- !u!1 &134327859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 134327860}
+  m_Layer: 0
+  m_Name: Scene
+  m_TagString: Scene
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &134327860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134327859}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 969459663}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &190255843
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,6 +1174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0665d0eae91e74b944768e15b97987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ObjectList:
+  - {fileID: 8631103098591783743, guid: 69de509b75920c946af80dd0299ba927, type: 3}
+  - {fileID: 804078404494383186, guid: 506d352d30711b04dae78962b43ef2c4, type: 3}
 --- !u!4 &396141730
 Transform:
   m_ObjectHideFlags: 0
@@ -2448,7 +2483,7 @@ GameObject:
   - component: {fileID: 969459661}
   - component: {fileID: 969459660}
   m_Layer: 0
-  m_Name: DefaultPlane
+  m_Name: ScenePlane
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2524,13 +2559,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 969459659}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 35, y: 0.09, z: 35}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 134327860}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1078182721 stripped
 RectTransform:
@@ -4010,9 +4045,9 @@ GameObject:
   - component: {fileID: 1674645816}
   - component: {fileID: 1674645815}
   - component: {fileID: 1674645814}
-  - component: {fileID: 1674645812}
   - component: {fileID: 1674645811}
   - component: {fileID: 1674645817}
+  - component: {fileID: 1674645818}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Object
@@ -4036,21 +4071,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1674645812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1674645810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aad760b54bf3afa4c9460a725cc30807, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Weight: 10
-  Renderers: []
-  Materials: []
 --- !u!23 &1674645814
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4130,6 +4150,25 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1674645818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674645810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b8061a55cb9a2439c25bc0ebb52b2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data:
+    PrefabName: 
+    ItemName: 
+    ColorOverride: []
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+    Scale: {x: 0, y: 0, z: 0}
 --- !u!1 &1827968232
 GameObject:
   m_ObjectHideFlags: 0

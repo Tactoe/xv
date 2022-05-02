@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Linq;
 
 public class RendererObject
 {
@@ -83,9 +81,10 @@ public class EditWindow : MonoBehaviour
             child.gameObject.SetActive(true);
         }
         Target = i_Target;
-        m_NameText.text = Target.name;
+        ItemData itemData = Target.GetComponentInChildren<Item>().Data;
+        m_NameText.text = itemData.ItemName;
         m_NameText.onEndEdit.AddListener(delegate (string i_Name) {
-            Target.name = i_Name;
+            Target.GetComponentInChildren<Item>().Data.ItemName = i_Name;
         });
         m_Fields[0].setFieldValues(Target.transform.localPosition);
         m_Fields[1].setFieldValues(Target.transform.localEulerAngles);
@@ -116,12 +115,12 @@ public class EditWindow : MonoBehaviour
 
     public void ChangeTargetPosition(Vector3 i_NewPos)
     {
-        Target.transform.position = i_NewPos;
+        Target.transform.localPosition = i_NewPos;
     }
     
     public void ChangeTargetRotation(Vector3 i_NewRot)
     {
-        Target.transform.rotation =  Quaternion.Euler(i_NewRot);
+        Target.transform.localRotation =  Quaternion.Euler(i_NewRot);
     }
     public void ChangeTargetScale(Vector3 i_NewScale)
     {
@@ -134,6 +133,8 @@ public class EditWindow : MonoBehaviour
         CloseWindow();
     }
 
+    // ########### COLOR CHANGE ##################
+    
     List<RendererObject> ExtractMats(Transform target, List<RendererObject> i_MaterialList)
     {
         foreach (Transform child in target)
@@ -186,7 +187,6 @@ public class EditWindow : MonoBehaviour
         }
     }
     
-    [ContextMenu("ChangeCol")]
     public void ChangeColor()
     {
         for (int i = 0; i < m_TargetRenderers.Count; i++)
@@ -203,5 +203,4 @@ public class EditWindow : MonoBehaviour
         }
     }
     
-    // ########### TRANSFORM CHANGE ##################
 }

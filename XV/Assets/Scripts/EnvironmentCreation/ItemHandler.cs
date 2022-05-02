@@ -43,7 +43,7 @@ public class ItemHandler : MonoBehaviour
 
     public void EditMode(GameObject i_ItemToEdit)
     {
-        i_ItemToEdit.GetComponent<ItemData>().DisplayWindow();
+        EditWindow.Instance.EnableWindow(i_ItemToEdit.transform.parent.gameObject);
         m_CurrentState = EditorState.editItem;
         if (ModeChanged != null)
             ModeChanged(m_CurrentState);
@@ -59,7 +59,10 @@ public class ItemHandler : MonoBehaviour
             m_CurrentObjectToPlace = Instantiate(i_ItemToPlace, Vector3.one * 1000, Quaternion.identity);
         else
             m_CurrentObjectToPlace = i_ItemToPlace;
-        m_CurrentObjectToPlace.name = i_ItemToPlace.name;
+        ItemData itemData = m_CurrentObjectToPlace.GetComponentInChildren<Item>().Data;
+        itemData.PrefabName = i_ItemToPlace.name;
+        itemData.ItemName = i_ItemToPlace.name;
+        m_CurrentObjectToPlace.transform.parent = GameObject.FindGameObjectWithTag("Scene").transform;
         m_CurrentObjectToPlace.transform.Find("Hitbox").gameObject.SetActive(false);
         m_CurrentObjectToPlace.transform.Find("PlacementBubble").gameObject.SetActive(true);
         if (ModeChanged != null)
