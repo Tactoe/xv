@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 namespace FFmpegOut
 {
@@ -11,29 +12,33 @@ namespace FFmpegOut
     {
         #region Public properties
 
-        [SerializeField] int _width = 1920;
+        private bool imRecording = false;
 
+        Image _MyRecImg;
+        // public Image MyRecImg {
+        //     get { return _MyRecImg; }
+        //     set { _MyRecImg = value; }
+        // }
+
+        [SerializeField] int _width = 1920;
         public int width {
             get { return _width; }
             set { _width = value; }
         }
 
         [SerializeField] int _height = 1080;
-
         public int height {
             get { return _height; }
             set { _height = value; }
         }
 
         [SerializeField] FFmpegPreset _preset;
-
         public FFmpegPreset preset {
             get { return _preset; }
             set { _preset = value; }
         }
 
         [SerializeField] float _frameRate = 60;
-
         public float frameRate {
             get { return _frameRate; }
             set { _frameRate = value; }
@@ -92,28 +97,28 @@ namespace FFmpegOut
 
         void OnDisable()
         {
-            if (_session != null)
-            {
-                // Close and dispose the FFmpeg session.
-                _session.Close();
-                _session.Dispose();
-                _session = null;
-            }
+            // if (_session != null)
+            // {
+            //     // Close and dispose the FFmpeg session.
+            //     _session.Close();
+            //     _session.Dispose();
+            //     _session = null;
+            // }
 
-            if (_tempRT != null)
-            {
-                // Dispose the frame texture.
-                GetComponent<Camera>().targetTexture = null;
-                Destroy(_tempRT);
-                _tempRT = null;
-            }
+            // if (_tempRT != null)
+            // {
+            //     // Dispose the frame texture.
+            //     GetComponent<Camera>().targetTexture = null;
+            //     Destroy(_tempRT);
+            //     _tempRT = null;
+            // }
 
-            if (_blitter != null)
-            {
-                // Destroy the blitter game object.
-                Destroy(_blitter);
-                _blitter = null;
-            }
+            // if (_blitter != null)
+            // {
+            //     // Destroy the blitter game object.
+            //     Destroy(_blitter);
+            //     _blitter = null;
+            // }
         }
 
         IEnumerator Start()
@@ -124,9 +129,24 @@ namespace FFmpegOut
                 yield return eof;
                 _session?.CompletePushFrames();
             }
+            
         }
 
         void Update()
+        {
+            _MyRecImg = GameObject.Find("Image_rec").GetComponent<Image>();
+            if(imRecording)
+            {
+                RecorderOn();
+                _MyRecImg.color = new Color(1f, 0f, 0f, 1f);
+            }
+            else
+            {
+                _MyRecImg.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+            }
+        }
+
+        void RecorderOn()
         {
             var camera = GetComponent<Camera>();
 
@@ -195,6 +215,38 @@ namespace FFmpegOut
             }
         }
 
+        void RecorderOff()
+        {
+            if (_session != null)
+            {
+                // Close and dispose the FFmpeg session.
+                _session.Close();
+                _session.Dispose();
+                _session = null;
+            }
+
+            if (_tempRT != null)
+            {
+                // Dispose the frame texture.
+                GetComponent<Camera>().targetTexture = null;
+                Destroy(_tempRT);
+                _tempRT = null;
+            }
+
+            if (_blitter != null)
+            {
+                // Destroy the blitter game object.
+                Destroy(_blitter);
+                _blitter = null;
+            }
+        }
+
+        public void startStopRecord()
+        {
+            imRecording = imRecording ? false : true;
+            if (!imRecording){ RecorderOff();}
+
+        }
         #endregion
     }
 }
