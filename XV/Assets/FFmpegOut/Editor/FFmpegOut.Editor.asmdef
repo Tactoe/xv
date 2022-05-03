@@ -1,0 +1,19 @@
+{
+    "name": "FFmpegOut.Editor",
+    "rootNamespace": "",
+    "references": [
+        "FFmpegOut"
+    ],
+    "includePlatforms": [
+        "Editor",
+        "macOSStandalone"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
