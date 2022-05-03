@@ -18,6 +18,7 @@ TagManager:
   - GetOut
   - PickUp
   - Drop
+  - Storage
   layers:
   - Default
   - TransparentFX

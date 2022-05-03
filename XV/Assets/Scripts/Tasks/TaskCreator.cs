@@ -37,6 +37,29 @@ public class TaskCreator : MonoBehaviour
 			m_TmpTask = null;
 		}
 
+		else if (m_TmpTask.CompareTag("PickUp")){
+			if (i_hit.transform.parent.CompareTag("Storage"))
+			{
+				m_TmpTask.GetComponent<Task>().Interactable = i_hit.transform.parent.gameObject;
+				m_TmpTask.transform.position = i_hit.transform.position;
+				m_TmpTask = null;
+			}
+			else
+				Cancel();
+
+		}
+		else if (m_TmpTask.CompareTag("Drop")){
+			if (i_hit.transform.parent.CompareTag("Storage"))
+			{
+				m_TmpTask.GetComponent<Task>().Interactable = i_hit.transform.parent.gameObject;
+				m_TmpTask.transform.position = i_hit.transform.position;
+				m_TmpTask = null;
+			}
+			//TODO if table et sol et ANYWHERE
+			else
+				Cancel();
+
+		}
 		else if (m_TmpTask.CompareTag("GetIn"))
 		{
 			if (i_hit.transform.parent.CompareTag("Vehicule"))

@@ -74,12 +74,42 @@ public class Worker : MonoBehaviour
 
 	public IEnumerator Do()
 	{
+		m_Moving = false;
 		string tag = Tasks.GetChild(m_TaskIndex).tag;
-		if (tag == "GetIn")
+		// if (tag == "GetIn")
+		// {
+		// }
+		// else if (tag == "GetOut")
+		// {
+		// }
+		// else if( tag == "PickUp")
+		// {
+		// }
+		// else if(tag == )
+
+		Transform mPosSlot = gameObject.transform.Find("Slot");
+		
+		switch(tag) 
 		{
-		}
-		else if (tag == "GetOut")
-		{
+			case "GetIn":
+				Debug.Log("GetIn");
+				break;
+			case "GetOut":
+				Debug.Log("GetOut");
+				break;
+			case "PickUp":
+				Animator.SetBool("Carrying", true);
+				yield return new WaitForSeconds(1f);
+				Tasks.GetChild(m_TaskIndex).gameObject.GetComponent<Task>().Interactable.GetComponent<Storage>().PickUp(mPosSlot);
+				break;
+			case "Drop":
+				Animator.SetBool("Carrying", false);
+				yield return new WaitForSeconds(1f);
+				Tasks.GetChild(m_TaskIndex).gameObject.GetComponent<Task>().Interactable.GetComponent<Storage>().DropIn(mPosSlot);
+				break;
+			case "Use":
+				Debug.Log("Use");
+				break;
 		}
 
 		yield return new WaitForSeconds(0.5f);
@@ -95,11 +125,25 @@ public class Worker : MonoBehaviour
 			{
 				if (!NavAgent.hasPath || NavAgent.velocity.sqrMagnitude == 0f)
 				{
-					m_Moving = false;
+					// m_Moving = false;
 					StartCoroutine(Do());
 				}
 			}
 		}
 		Animator.SetFloat("Speed", NavAgent.velocity.magnitude);
 	}
+
+	void OnTriggerEnter(Collider other)
+    {
+		Debug.Log("lolilol");
+		Debug.Log(other);
+		Debug.Log(other.gameObject.name);
+		Debug.Log(other.transform.parent.parent.gameObject.name);
+		GameObject m_inter = other.transform.parent.parent.gameObject;
+        if(m_Moving && m_inter == Tasks.GetChild(m_TaskIndex).gameObject.GetComponent<Task>().Interactable )
+		{
+			
+			StartCoroutine(Do());
+		}
+    }
 }

@@ -19,7 +19,9 @@ public class TaskList : MonoBehaviour
 	void Awake()
 	{
 		m_Loop.isOn = false;
-		m_TaskList = transform.GetChild(0).GetChild(6).GetChild(0).GetChild(0);
+		// m_TaskList = transform.GetChild(0).GetChild(6).GetChild(0).GetChild(0);
+		m_TaskList = GameObject.Find("Content2").transform;
+		Debug.Log("m_task = " + m_TaskList);
 		m_Target = GameObject.Find("ItemWindow").GetComponent<EditWindow>();
 		m_Content.SetActive(false);
 	}
