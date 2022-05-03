@@ -38,8 +38,11 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - IGUI
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Gizmos
+    uniqueID: 3113168533
     locked: 0
