@@ -24,6 +24,9 @@ public class EditWindow : MonoBehaviour
     public static EditWindow Instance;
     public GameObject Target;
     
+    
+    [SerializeField]
+    GameObject m_ColorPicker;
     [SerializeField]
     Transform m_ColorPanelTF;
     [SerializeField]
@@ -185,6 +188,11 @@ public class EditWindow : MonoBehaviour
             m_TargetColors.Add(renderer.mat.color);
             GameObject tmp = Instantiate(m_ColorBand, m_ColorPanelTF);
             tmp.GetComponent<Image>().color = renderer.mat.color;
+            tmp.GetComponent<Button>().onClick.AddListener(delegate {
+                GameObject picker = Instantiate(m_ColorPicker, transform);
+                float xPos = ((transform as RectTransform).sizeDelta.x / 2) + (transform as RectTransform).anchoredPosition.x + (picker.transform as RectTransform).sizeDelta.x;
+                (picker.transform as RectTransform).anchoredPosition = new Vector2(xPos, (transform as RectTransform).anchoredPosition.y);
+            });
         }
     }
     
