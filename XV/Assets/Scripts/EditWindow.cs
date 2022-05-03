@@ -26,6 +26,8 @@ public class EditWindow : MonoBehaviour
     
     
     [SerializeField]
+    GameObject m_TaskButton;
+    [SerializeField]
     GameObject m_ColorPicker;
     [SerializeField]
     Transform m_ColorPanelTF;
@@ -93,6 +95,11 @@ public class EditWindow : MonoBehaviour
         m_Fields[0].setFieldValues(Target.transform.localPosition);
         m_Fields[1].setFieldValues(Target.transform.localEulerAngles);
         m_Fields[2].setFieldValues(Target.transform.localScale);
+
+		if (Target.CompareTag("Worker"))
+			m_TaskButton.SetActive(true);
+		else
+			m_TaskButton.SetActive(false);
 
         GetColor();
     }

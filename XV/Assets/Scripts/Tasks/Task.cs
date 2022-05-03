@@ -6,15 +6,15 @@ using TMPro;
 
 public class Task : MonoBehaviour
 {
-	private SpriteRenderer m_sprite;
-	private LineRenderer m_line;
-	private GameObject m_camera;
+	private SpriteRenderer m_Sprite;
+	private LineRenderer m_Line;
+	private GameObject m_Camera;
 
 	void Awake()
 	{
-		m_camera = GameObject.Find("Main Camera");
-		m_line = gameObject.GetComponent<LineRenderer>();
-		m_sprite = gameObject.GetComponent<SpriteRenderer>();
+		m_Camera = GameObject.Find("Main Camera");
+		m_Line = gameObject.GetComponent<LineRenderer>();
+		m_Sprite = gameObject.GetComponent<SpriteRenderer>();
 	}
 	void Start()
 	{
@@ -22,13 +22,13 @@ public class Task : MonoBehaviour
 	}
 	void Update()
 	{
-		m_line.SetPosition(0, transform.position);
+		m_Line.SetPosition(0, transform.position);
 		if (transform.GetSiblingIndex() > 0)
-			m_line.SetPosition(1, transform.parent.GetChild(transform.GetSiblingIndex() - 1).position);
+			m_Line.SetPosition(1, transform.parent.GetChild(transform.GetSiblingIndex() - 1).position);
 		else
-			m_line.SetPosition(1, transform.parent.position);
+			m_Line.SetPosition(1, transform.parent.position);
 
-		transform.LookAt(m_camera.transform);
-		transform.localScale = Vector3.one * (Vector3.Distance(transform.position, m_camera.transform.position) / 7f);
+		transform.LookAt(m_Camera.transform);
+		transform.localScale = Vector3.one * (Vector3.Distance(transform.position, m_Camera.transform.position) / 7f);
 	}
 }

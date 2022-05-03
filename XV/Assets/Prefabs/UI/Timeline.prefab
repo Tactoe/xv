@@ -274,9 +274,8 @@ MonoBehaviour:
   Running: 0
   Working: 0
   Timer: 0
-  m_timer: 0
-  m_playButton: {fileID: 3914195629875070598}
-  m_stopButton: {fileID: 3914195628529072547}
+  m_PlayButton: {fileID: 3914195629875070598}
+  m_StopButton: {fileID: 3914195628529072547}
 --- !u!1 &3914195629739261156
 GameObject:
   m_ObjectHideFlags: 0

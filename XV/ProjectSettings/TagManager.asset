@@ -7,6 +7,17 @@ TagManager:
   - Ground
   - Object
   - Scene
+  - Worker
+  - Vehicule
+  - Station
+  - Ressource
+  - Furniture
+  - Move
+  - Use
+  - GetIn
+  - GetOut
+  - PickUp
+  - Drop
   layers:
   - Default
   - TransparentFX

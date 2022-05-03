@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Use
       objectReference: {fileID: 0}
+    - target: {fileID: 5262196289231503862, guid: d55851bb413d945c0b1bafb3a006489f, type: 3}
+      propertyPath: m_TagString
+      value: Use
+      objectReference: {fileID: 0}
     - target: {fileID: 6854266640589565144, guid: d55851bb413d945c0b1bafb3a006489f, type: 3}
       propertyPath: m_Sprite
       value: 
