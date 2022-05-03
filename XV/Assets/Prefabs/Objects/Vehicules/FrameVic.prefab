@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 8355932000926285363}
   m_Layer: 0
   m_Name: FrameVic
-  m_TagString: Untagged
+  m_TagString: Vehicule
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

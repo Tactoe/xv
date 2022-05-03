@@ -22,7 +22,7 @@ public class Worker : MonoBehaviour
 	{
 		m_Timeline = GameObject.Find("Timeline").GetComponent<Timeline>();
 		m_Camera = GameObject.Find("Main Camera").GetComponent<Camera>();
-		Tasks = transform.GetChild(1);
+		Tasks = transform.GetChild(2);
 	}
 
 	public void Go()

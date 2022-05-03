@@ -25,13 +25,29 @@ public class TaskCreator : MonoBehaviour
 			if (m_TmpTask)
 				Cancel();
 			m_TmpTask =
-			Instantiate(m_TaskPrefab, transform.parent.parent.parent.GetComponent<TaskList>().Worker.transform.GetChild(1));
+			Instantiate(m_TaskPrefab, transform.parent.parent.parent.GetComponent<TaskList>().Worker.transform.GetChild(2));
 			m_TmpTask.name = m_TaskPrefab.name;
 		}
 	}
-	void Create()
+	void Create(RaycastHit i_hit)
 	{
-		m_TmpTask = null;
+		if (m_TmpTask.CompareTag("Move") || m_TmpTask.CompareTag("GetOut"))
+		{
+			m_TmpTask.transform.position = new Vector3(m_TmpTask.transform.position.x, 0, m_TmpTask.transform.position.z);
+			m_TmpTask = null;
+		}
+
+		else if (m_TmpTask.CompareTag("GetIn"))
+		{
+			if (i_hit.transform.parent.CompareTag("Vehicule"))
+			{
+				m_TmpTask.GetComponent<Task>().Interactable = i_hit.transform.parent.gameObject;
+				m_TmpTask.transform.position = i_hit.transform.position;
+				m_TmpTask = null;
+			}
+			else
+				Cancel();
+		}
 	}
 	void Cancel()
 	{
@@ -61,7 +77,7 @@ public class TaskCreator : MonoBehaviour
 			if (Physics.Raycast(ray, out hit))
 				m_TmpTask.transform.position = hit.point;
 			if (Input.GetMouseButton(0) && !Hovering)
-				Create();
+				Create(hit);
 			else if (Input.GetMouseButton(1))
 				Cancel();
 		}

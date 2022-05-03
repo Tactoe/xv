@@ -9,6 +9,7 @@ public class Task : MonoBehaviour
 	private SpriteRenderer m_Sprite;
 	private LineRenderer m_Line;
 	private GameObject m_Camera;
+	public GameObject Interactable;
 
 	void Awake()
 	{
@@ -18,8 +19,8 @@ public class Task : MonoBehaviour
 	}
 	void Start()
 	{
-		
 	}
+
 	void Update()
 	{
 		m_Line.SetPosition(0, transform.position);
