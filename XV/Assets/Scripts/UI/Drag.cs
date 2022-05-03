@@ -4,27 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Drag : MonoBehaviour
+public class Drag : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     Canvas m_Canvas;
-    // Start is called before the first frame update
     void Start()
     {
         m_Canvas = GetComponentInParent<Canvas>();
     }
 
-    public void DragHandler(BaseEventData i_Event)
+    public void OnPointerDown(PointerEventData i_EventData)
     {
-        PointerEventData pointer = (PointerEventData)i_Event;
-        Vector2 offset = (Vector2)transform.position - pointer.position;
-        Vector2 pos;
-        
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            (RectTransform)m_Canvas.transform,
-            pointer.position,
-            m_Canvas.worldCamera,
-            out pos
-        );
-        transform.position = m_Canvas.transform.TransformPoint(pos);
+    }
+
+    public void OnBeginDrag(PointerEventData i_EventData)
+    {
+    }
+    
+    public void OnEndDrag(PointerEventData i_EventData)
+    {
+    }
+
+    public void OnDrag(PointerEventData i_EventData)
+    {
+        (transform as RectTransform).anchoredPosition += i_EventData.delta / m_Canvas.scaleFactor;
     }
 }

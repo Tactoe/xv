@@ -16,7 +16,8 @@ public class FillAssetScrollView : MonoBehaviour
         foreach(GameObject asset in m_Assets)
         {
             GameObject itemThumbnail = Instantiate(m_Thumbnail, m_ContentTF);
-            itemThumbnail.GetComponent<ItemThumbnail>().ThumbnailObject = asset;
+            itemThumbnail.GetComponent<ItemThumbnail>().Init(asset);
+            //itemThumbnail.GetComponent<ItemThumbnail>().GenerateThumbnails(asset);
         }
         
     }
