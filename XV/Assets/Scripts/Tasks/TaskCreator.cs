@@ -38,7 +38,7 @@ public class TaskCreator : MonoBehaviour
 		}
 
 		else if (m_TmpTask.CompareTag("PickUp")){
-			if (i_hit.transform.parent.CompareTag("Storage"))
+			if (i_hit.transform.parent.CompareTag("Storage") || i_hit.transform.parent.CompareTag("Station"))
 			{
 				m_TmpTask.GetComponent<Task>().Interactable = i_hit.transform.parent.gameObject;
 				m_TmpTask.transform.position = i_hit.transform.position;
@@ -49,16 +49,27 @@ public class TaskCreator : MonoBehaviour
 
 		}
 		else if (m_TmpTask.CompareTag("Drop")){
-			if (i_hit.transform.parent.CompareTag("Storage"))
+			if (i_hit.transform.parent.CompareTag("Storage") || i_hit.transform.parent.CompareTag("Station"))
 			{
 				m_TmpTask.GetComponent<Task>().Interactable = i_hit.transform.parent.gameObject;
 				m_TmpTask.transform.position = i_hit.transform.position;
 				m_TmpTask = null;
 			}
-			//TODO if table et sol et ANYWHERE
+			//TODO if sol et ANYWHERE
 			else
 				Cancel();
 
+		}
+		else if (m_TmpTask.CompareTag("Use"))
+		{
+			if (i_hit.transform.parent.CompareTag("Station"))
+			{
+				m_TmpTask.GetComponent<Task>().Interactable = i_hit.transform.parent.gameObject;
+				m_TmpTask.transform.position = i_hit.transform.position;
+				m_TmpTask = null;
+			}
+			else
+				Cancel();
 		}
 		else if (m_TmpTask.CompareTag("GetIn"))
 		{

@@ -88,7 +88,7 @@ public class Worker : MonoBehaviour
 		// else if(tag == )
 
 		Transform mPosSlot = gameObject.transform.Find("Slot");
-		
+		GameObject my_interact = Tasks.GetChild(m_TaskIndex).gameObject.GetComponent<Task>().Interactable;
 		switch(tag) 
 		{
 			case "GetIn":
@@ -100,15 +100,27 @@ public class Worker : MonoBehaviour
 			case "PickUp":
 				Animator.SetBool("Carrying", true);
 				yield return new WaitForSeconds(1f);
-				Tasks.GetChild(m_TaskIndex).gameObject.GetComponent<Task>().Interactable.GetComponent<Storage>().PickUp(mPosSlot);
+				if (my_interact.GetComponent<Storage>() != null){
+					my_interact.GetComponent<Storage>().PickUp(mPosSlot);
+				}
+				else if(my_interact.GetComponent<Station>() != null){
+					my_interact.GetComponent<Station>().PickUp(mPosSlot);
+				}
 				break;
 			case "Drop":
 				Animator.SetBool("Carrying", false);
 				yield return new WaitForSeconds(1f);
-				Tasks.GetChild(m_TaskIndex).gameObject.GetComponent<Task>().Interactable.GetComponent<Storage>().DropIn(mPosSlot);
+				if (my_interact.GetComponent<Storage>() != null){
+					my_interact.GetComponent<Storage>().DropIn(mPosSlot);
+				}
+				else if(my_interact.GetComponent<Station>() != null){
+					my_interact.GetComponent<Station>().DropIn(mPosSlot);
+				}
 				break;
 			case "Use":
-				Debug.Log("Use");
+				if(my_interact.GetComponent<Station>() != null){
+					my_interact.GetComponent<Station>().Use();
+				}
 				break;
 		}
 
