@@ -36,7 +36,6 @@ public class SaveManager : MonoBehaviour
         saveData.Array = ToSerialize.ToArray();
         print(ToSerialize);
         PlayerPrefs.SetString("Save", JsonUtility.ToJson(saveData));
-        print(PlayerPrefs.GetString("Save"));
     }
 
     void SetItemDataPosition(Transform i_Transform, ItemData ok)
@@ -50,9 +49,7 @@ public class SaveManager : MonoBehaviour
     void Load()
     {
         SaveDataObject saveDataObject = JsonUtility.FromJson<SaveDataObject>(PlayerPrefs.GetString("Save"));
-        print(PlayerPrefs.GetString("Save"));
         ItemData[] ToBuild = saveDataObject.Array;
-        print(ToBuild);
         foreach(ItemData item in ToBuild)
         {
             GameObject toInstantiate = null;
@@ -63,31 +60,14 @@ public class SaveManager : MonoBehaviour
                     toInstantiate = obj;
                 }
             }
-            print("Instantiating stuff");
             GameObject instantiated = Instantiate(toInstantiate, m_SceneAnchor.transform);
-            ItemData instantiatedItemData = instantiated.GetComponentInChildren<Item>().Data;
-            instantiatedItemData = item;
+            instantiated.GetComponentInChildren<Item>().Data = item;
             instantiated.transform.position = item.Position;
             instantiated.transform.localEulerAngles = item.Rotation;
             instantiated.transform.localScale = item.Scale;
 
         }
     }
-
-    List<GameObject> BuildGameObjectList(Transform i_Anchor, List<GameObject> i_GOList)
-    {
-        foreach(Transform child in i_Anchor)
-        {
-            if (!child.CompareTag("Ground"))
-                i_GOList.Add(child.gameObject);
-            if (child.childCount > 0)
-            {
-                BuildGameObjectList(child, i_GOList);
-            }
-        }
-        return i_GOList;
-    }
-
 
     // Update is called once per frame
     void Update()

@@ -82,6 +82,7 @@ public class EditWindow : MonoBehaviour
         }
         Target = i_Target;
         ItemData itemData = Target.GetComponentInChildren<Item>().Data;
+        print(itemData.ItemName);
         m_NameText.text = itemData.ItemName;
         m_NameText.onEndEdit.AddListener(delegate (string i_Name) {
             Target.GetComponentInChildren<Item>().Data.ItemName = i_Name;

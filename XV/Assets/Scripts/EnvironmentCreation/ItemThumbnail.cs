@@ -6,8 +6,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class ItemThumbnail : MonoBehaviour
 {
-    [SerializeField]
-    GameObject m_ThumbnailObject;
+    public GameObject ThumbnailObject;
     
     Button m_Button;
 
@@ -15,7 +14,7 @@ public class ItemThumbnail : MonoBehaviour
     {
         m_Button = GetComponent<Button>();
         m_Button.onClick.AddListener(delegate {
-            ItemHandler.Instance.PlaceMode(m_ThumbnailObject);
+            ItemHandler.Instance.PlaceMode(ThumbnailObject);
         });
     }
 
