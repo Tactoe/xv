@@ -73,5 +73,13 @@ public class SaveManager : MonoBehaviour
     void Update()
     {
         
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Save();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Load();
+        }
     }
 }
