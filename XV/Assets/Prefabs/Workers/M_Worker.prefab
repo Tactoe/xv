@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3148995120404878105, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_Name
-      value: Worker
+      value: M_Worker
       objectReference: {fileID: 0}
     - target: {fileID: 5517462015301427994, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_RootOrder
@@ -54,6 +54,14 @@ PrefabInstance:
     - target: {fileID: 5517462015301427994, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782370991446463625, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782370991446463625, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8238061878327864773, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_Avatar
