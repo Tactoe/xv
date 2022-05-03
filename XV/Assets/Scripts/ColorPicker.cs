@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class color_picker : MonoBehaviour
+public class ColorPicker : MonoBehaviour
 {
     public Image myDemoSquare;
+    
     // Start is called before the first frame update
     void Start()
     {

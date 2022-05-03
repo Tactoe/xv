@@ -1,15 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemData : MonoBehaviour
+[Serializable]
+public class ItemData
 {
-    public float Weight;
-    public MeshRenderer[] Renderers;
-    public Material[] Materials;
-
-    public void DisplayWindow()
-    {
-        EditWindow.Instance.EnableWindow(transform.parent.gameObject);
-    }
+    public string PrefabName;
+    public string ItemName;
+    public Color[] ColorOverride;
+    public Vector3 Position;
+    public Vector3 Rotation;
+    public Vector3 Scale;
 }

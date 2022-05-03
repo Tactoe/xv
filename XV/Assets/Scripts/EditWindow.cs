@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Linq;
 
 public class RendererObject
 {
@@ -26,6 +24,9 @@ public class EditWindow : MonoBehaviour
     public static EditWindow Instance;
     public GameObject Target;
     
+    
+    [SerializeField]
+    GameObject m_ColorPicker;
     [SerializeField]
     Transform m_ColorPanelTF;
     [SerializeField]
@@ -38,6 +39,8 @@ public class EditWindow : MonoBehaviour
     List<Color> m_TargetColors;
     [SerializeField]
     List<RendererObject> m_TargetRenderers;
+
+    bool m_TrackMovement;
 
     void Awake()
     {
@@ -58,20 +61,34 @@ public class EditWindow : MonoBehaviour
         {
             DestroyObject();
         }
+        if (m_TrackMovement)
+        {
+            m_Fields[0].setFieldValues(Target.transform.localPosition);
+            m_Fields[1].setFieldValues(Target.transform.localEulerAngles);
+            m_Fields[2].setFieldValues(Target.transform.localScale);
+        }
     }
     
+    void Movement(EditorState i_State)
+    {
+            m_TrackMovement = i_State == EditorState.placingItem;
+    }
+
     // ########### WINDOW TOGGLE ##################
 
     public void EnableWindow(GameObject i_Target)
     {
+        ItemHandler.ModeChanged += Movement;
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(true);
         }
         Target = i_Target;
-        m_NameText.text = Target.name;
+        ItemData itemData = Target.GetComponentInChildren<Item>().Data;
+        print(itemData.ItemName);
+        m_NameText.text = itemData.ItemName;
         m_NameText.onEndEdit.AddListener(delegate (string i_Name) {
-            Target.name = i_Name;
+            Target.GetComponentInChildren<Item>().Data.ItemName = i_Name;
         });
         m_Fields[0].setFieldValues(Target.transform.localPosition);
         m_Fields[1].setFieldValues(Target.transform.localEulerAngles);
@@ -82,24 +99,32 @@ public class EditWindow : MonoBehaviour
 
     public void CloseWindow()
     {
+        ItemHandler.ModeChanged -= Movement;
         m_NameText.onEndEdit.RemoveAllListeners();
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
         }
+        m_TrackMovement = false;
         ItemHandler.Instance.NormalMode();
     }
 
     // ########### TRANSFORM CHANGE ##################
 
+    public void MoveObjectAgain()
+    {
+        m_TrackMovement = true;
+        ItemHandler.Instance.PlaceMode(Target, false);
+    }
+
     public void ChangeTargetPosition(Vector3 i_NewPos)
     {
-        Target.transform.position = i_NewPos;
+        Target.transform.localPosition = i_NewPos;
     }
     
     public void ChangeTargetRotation(Vector3 i_NewRot)
     {
-        Target.transform.rotation =  Quaternion.Euler(i_NewRot);
+        Target.transform.localRotation =  Quaternion.Euler(i_NewRot);
     }
     public void ChangeTargetScale(Vector3 i_NewScale)
     {
@@ -112,6 +137,8 @@ public class EditWindow : MonoBehaviour
         CloseWindow();
     }
 
+    // ########### COLOR CHANGE ##################
+    
     List<RendererObject> ExtractMats(Transform target, List<RendererObject> i_MaterialList)
     {
         foreach (Transform child in target)
@@ -121,6 +148,8 @@ public class EditWindow : MonoBehaviour
             {
                 for (int i = 0; i < mesh.sharedMaterials.Length; i++)
                 {
+                    if (!mesh.sharedMaterials[i].shader.name.Contains("Multiple"))
+                        continue;
                     bool isNewMat = true;
                     for(int j = 0; j < i_MaterialList.Count; j++)
                     {
@@ -145,19 +174,28 @@ public class EditWindow : MonoBehaviour
         return i_MaterialList;
     }
 
-    [ContextMenu("GetCol")]
     public void GetColor()
     {
-        m_TargetRenderers = ExtractMats(Target.transform, new List<RendererObject>()).Distinct().ToList(); 
+        foreach (Transform child in m_ColorPanelTF)
+        {
+            Destroy(child.gameObject);
+        }
+        m_TargetRenderers?.Clear();
+        m_TargetColors?.Clear();
+        m_TargetRenderers = ExtractMats(Target.transform, new List<RendererObject>());
         foreach (RendererObject renderer in m_TargetRenderers)
         {
             m_TargetColors.Add(renderer.mat.color);
             GameObject tmp = Instantiate(m_ColorBand, m_ColorPanelTF);
             tmp.GetComponent<Image>().color = renderer.mat.color;
+            tmp.GetComponent<Button>().onClick.AddListener(delegate {
+                GameObject picker = Instantiate(m_ColorPicker, transform);
+                float xPos = ((transform as RectTransform).sizeDelta.x / 2) + (transform as RectTransform).anchoredPosition.x + (picker.transform as RectTransform).sizeDelta.x;
+                (picker.transform as RectTransform).anchoredPosition = new Vector2(xPos, (transform as RectTransform).anchoredPosition.y);
+            });
         }
     }
     
-    [ContextMenu("ChangeCol")]
     public void ChangeColor()
     {
         for (int i = 0; i < m_TargetRenderers.Count; i++)
@@ -174,5 +212,4 @@ public class EditWindow : MonoBehaviour
         }
     }
     
-    // ########### TRANSFORM CHANGE ##################
 }
