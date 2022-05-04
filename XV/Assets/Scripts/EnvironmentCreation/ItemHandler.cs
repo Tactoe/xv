@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum EditorState { normal, editItem, placingItem, firstPerson };
+public enum EditorState { normal, editItem, placingItem, exploring };
 
 public class ItemHandler : MonoBehaviour
 {
@@ -46,9 +46,9 @@ public class ItemHandler : MonoBehaviour
             ModeChanged(m_CurrentState);
     }
     
-    public void FPSMode()
+    public void ExploreMode()
     {
-        m_CurrentState = EditorState.firstPerson;
+        m_CurrentState = EditorState.exploring;
         Cursor.lockState = CursorLockMode.Locked;
         m_FPSController.SetActive(true);
         GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -131,13 +131,9 @@ public class ItemHandler : MonoBehaviour
 
     void HandleInputs()
     {
-        if (CheckIfState(EditorState.normal) || CheckIfState(EditorState.firstPerson))
+        if (CheckIfState(EditorState.exploring) && Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Input.GetKeyDown(KeyCode.P))
-                if (CheckIfState(EditorState.normal))
-                    FPSMode();
-                else
-                    NormalMode();
+            NormalMode();
         }
         if ((Input.GetKey(KeyCode.LeftArrow)
             || Input.GetKey(KeyCode.RightArrow))
