@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9070917340636311268}
   - component: {fileID: 212067302035357912}
   - component: {fileID: -2136524054551060919}
+  - component: {fileID: -8414383154349803788}
   m_Layer: 5
   m_Name: ColorBand
   m_TagString: Untagged
@@ -121,3 +122,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-8414383154349803788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578323940916339661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 023fd4ab3c3409b4c93cf600f42b5fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ColorPicker: {fileID: 2706798342610893160, guid: 0aea253bb1eee994592bef0ce65ef249, type: 3}

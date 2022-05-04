@@ -190,33 +190,31 @@ public class EditWindow : MonoBehaviour
         m_TargetRenderers?.Clear();
         m_TargetColors?.Clear();
         m_TargetRenderers = ExtractMats(Target.transform, new List<RendererObject>());
+        int index = 0;
         foreach (RendererObject renderer in m_TargetRenderers)
         {
             m_TargetColors.Add(renderer.mat.color);
             GameObject tmp = Instantiate(m_ColorBand, m_ColorPanelTF);
+            tmp.name = index.ToString();
             tmp.GetComponent<Image>().color = renderer.mat.color;
-            tmp.GetComponent<Button>().onClick.AddListener(delegate {
-                GameObject picker = Instantiate(m_ColorPicker, transform);
-                float xPos = ((transform as RectTransform).sizeDelta.x / 2) + (transform as RectTransform).anchoredPosition.x + (picker.transform as RectTransform).sizeDelta.x;
-                (picker.transform as RectTransform).anchoredPosition = new Vector2(xPos, (transform as RectTransform).anchoredPosition.y);
-            });
+            index++;
         }
     }
+
     
-    public void ChangeColor()
+    public void ChangeColor(Color i_NewColor, int i_Index)
     {
-        for (int i = 0; i < m_TargetRenderers.Count; i++)
+        int i = i_Index;
+        MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+        m_ColorPanelTF.transform.GetChild(i).GetComponent<Image>().color = i_NewColor;
+        m_TargetColors[i] = i_NewColor;
+        for(int j = 0; j < m_TargetRenderers[i].meshRenderers.Count; j++)
         {
-            MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
-            for(int j = 0; j < m_TargetRenderers[i].meshRenderers.Count; j++)
-            {
-                MeshRenderer meshRenderer = m_TargetRenderers[i].meshRenderers[j];
-                int materialIndex = m_TargetRenderers[i].meshRenderMatIndexes[j];
-                meshRenderer.GetPropertyBlock(propertyBlock);
-                propertyBlock.SetColor("_Color", m_TargetColors[i]);
-                meshRenderer.SetPropertyBlock(propertyBlock, materialIndex);
-            }
+            MeshRenderer meshRenderer = m_TargetRenderers[i].meshRenderers[j];
+            int materialIndex = m_TargetRenderers[i].meshRenderMatIndexes[j];
+            meshRenderer.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetColor("_Color", m_TargetColors[i]);
+            meshRenderer.SetPropertyBlock(propertyBlock, materialIndex);
         }
     }
-    
 }

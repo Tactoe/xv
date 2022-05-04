@@ -113,6 +113,14 @@ public class ItemHandler : MonoBehaviour
                         EditMode(m_HitInfo.collider.gameObject);
                     }
                 break;
+                case EditorState.editItem:
+                    if (Input.GetMouseButtonDown(0) && m_HitInfo.collider.CompareTag("Object"))
+                    {
+                        EditWindow.Instance.CloseWindow();
+                        EditWindow.Instance.EnableWindow(m_HitInfo.collider.gameObject);
+                        EditMode(m_HitInfo.collider.gameObject);
+                    }
+                break;
                 case EditorState.placingItem:
                     if (m_HitInfo.collider.CompareTag("Ground"))
                     {
@@ -126,10 +134,10 @@ public class ItemHandler : MonoBehaviour
                 break;
             }
         }
-        HandleInputs();
+        HandleKeyboardInputs();
     }
 
-    void HandleInputs()
+    void HandleKeyboardInputs()
     {
         if (CheckIfState(EditorState.exploring) && Input.GetKeyDown(KeyCode.Escape))
         {
