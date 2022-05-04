@@ -56,7 +56,8 @@ public class SaveManager : MonoBehaviour
             GameObject toInstantiate = null;
             foreach (GameObject obj in m_ObjectList)
             {
-                if (item.PrefabName == obj.name)
+                string prefabName = item.PrefabName.Replace("(Clone)", "");
+                if (prefabName == obj.name)
                 {
                     toInstantiate = obj;
                 }

@@ -89,7 +89,7 @@ public class ItemHandler : MonoBehaviour
         itemData.PrefabName = i_ItemToPlace.name;
         itemData.ItemName = i_ItemToPlace.name;
 		Transform scene = GameObject.FindGameObjectWithTag("Scene").transform;
-        m_CurrentObjectToPlace.transform.parent = scene;//.Find(m_CurrentObjectToPlace.tag);
+        m_CurrentObjectToPlace.transform.parent = scene;
         m_CurrentObjectToPlace.transform.Find("Hitbox").gameObject.SetActive(false);
         m_CurrentObjectToPlace.transform.Find("PlacementBubble").gameObject.SetActive(true);
     }
