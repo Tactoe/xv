@@ -21,6 +21,13 @@ public class AssetThumbnail : MonoBehaviour
         m_ThumbnailObject = i_ThumbnailObject;
         m_Img.sprite = i_ThumbnailSprite;
         m_Title.text = i_ThumbnailObject.name;
+        // m_Button.onClick.AddListener(delegate {
+        //     ItemHandler.Instance.PlaceMode(m_ThumbnailObject);
+        // });
+    }
+
+    void OnEnable()
+    {
         m_Button.onClick.AddListener(delegate {
             ItemHandler.Instance.PlaceMode(m_ThumbnailObject);
         });

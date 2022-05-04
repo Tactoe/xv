@@ -22,20 +22,24 @@ public class AssetLoader : MonoBehaviour {
     }
 
     void Start() {
-        var bundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "Bundles", "export"));
-        if (bundle == null) {
-            Debug.Log("Failed to load AssetBundle!");
-            return;
-        }
-        GameObject[] customModels = bundle.LoadAllAssets<GameObject>();
-        Sprite[] customThumbnails = bundle.LoadAllAssets<Sprite>();
-        foreach (GameObject model in customModels)
+        string bundlePath = Path.Combine(Application.streamingAssetsPath, "Bundles", "export");
+        if (Directory.Exists(bundlePath))
         {
-            m_Assets.Add(model);
-        }
-        foreach (Sprite thumbnail in customThumbnails)
-        {
-            m_Thumbnails.Add(thumbnail);
+            AssetBundle bundle = AssetBundle.LoadFromFile(bundlePath);
+            if (bundle == null) {
+                Debug.Log("Failed to load AssetBundle!");
+                return;
+            }
+            GameObject[] customModels = bundle.LoadAllAssets<GameObject>();
+            Sprite[] customThumbnails = bundle.LoadAllAssets<Sprite>();
+            foreach (GameObject model in customModels)
+            {
+                m_Assets.Add(model);
+            }
+            foreach (Sprite thumbnail in customThumbnails)
+            {
+                m_Thumbnails.Add(thumbnail);
+            }
         }
         m_AssetScrollView.Init(m_Assets, m_Thumbnails);
     }
