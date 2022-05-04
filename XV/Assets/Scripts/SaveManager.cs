@@ -34,8 +34,8 @@ public class SaveManager : MonoBehaviour
         }
         SaveDataObject saveData = new SaveDataObject();
         saveData.Array = ToSerialize.ToArray();
-        print(ToSerialize);
         PlayerPrefs.SetString("Save", JsonUtility.ToJson(saveData));
+        print(PlayerPrefs.GetString("Save"));
     }
 
     void SetItemDataPosition(Transform i_Transform, ItemData ok)
@@ -48,6 +48,7 @@ public class SaveManager : MonoBehaviour
     [ContextMenu("Load")]
     void Load()
     {
+        print(PlayerPrefs.GetString("Save"));
         SaveDataObject saveDataObject = JsonUtility.FromJson<SaveDataObject>(PlayerPrefs.GetString("Save"));
         ItemData[] ToBuild = saveDataObject.Array;
         foreach(ItemData item in ToBuild)
@@ -60,14 +61,23 @@ public class SaveManager : MonoBehaviour
                     toInstantiate = obj;
                 }
             }
+            if (toInstantiate == null)
+            {
+                Debug.Log("Saved object was not found in prefab list");
+                continue;
+            }
             GameObject instantiated = Instantiate(toInstantiate, m_SceneAnchor.transform);
             instantiated.GetComponentInChildren<Item>().Data = item;
+            instantiated.name = item.PrefabName;
             instantiated.transform.position = item.Position;
             instantiated.transform.localEulerAngles = item.Rotation;
             instantiated.transform.localScale = item.Scale;
-            ColorOverrider colorOverrider = instantiated.AddComponent<ColorOverrider>();
-            colorOverrider.ApplyColorOverride(item.ColorOverride);
-            Destroy(colorOverrider);
+            if (item.ColorOverride.Count > 0)
+            {
+                ColorOverrider colorOverrider = instantiated.AddComponent<ColorOverrider>();
+                colorOverrider.ApplyColorOverride(item.ColorOverride);
+                Destroy(colorOverrider);
+            }
         }
     }
 
