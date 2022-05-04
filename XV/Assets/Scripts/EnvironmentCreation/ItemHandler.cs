@@ -7,6 +7,10 @@ public class ItemHandler : MonoBehaviour
     public static ItemHandler Instance;
 
     [SerializeField]
+    Transform m_SceneItemListTF;
+    [SerializeField]
+    GameObject m_SceneItemSelector;
+    [SerializeField]
     GameObject m_FPSController;
     [SerializeField]
     float m_RotationSpeed;
@@ -42,8 +46,7 @@ public class ItemHandler : MonoBehaviour
         GetComponent<PlayerMovement>().enabled = true;
         m_FPSController.SetActive(false);
         Cursor.lockState = CursorLockMode.None;
-        if (ModeChanged != null)
-            ModeChanged(m_CurrentState);
+        ModeChanged?.Invoke(m_CurrentState);
     }
     
     public void ExploreMode()
@@ -53,37 +56,42 @@ public class ItemHandler : MonoBehaviour
         m_FPSController.SetActive(true);
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<PlayerMovement>().enabled = false;
-        if (ModeChanged != null)
-            ModeChanged(m_CurrentState);
+        ModeChanged?.Invoke(m_CurrentState);
     }
 
     public void EditMode(GameObject i_ItemToEdit)
     {
-        EditWindow.Instance.EnableWindow(i_ItemToEdit.transform.parent.gameObject);
         m_CurrentState = EditorState.editItem;
-        if (ModeChanged != null)
-            ModeChanged(m_CurrentState);
+        EditWindow.Instance.EnableWindow(i_ItemToEdit.transform.parent.gameObject);
+        ModeChanged?.Invoke(m_CurrentState);
     }
 
     public void PlaceMode(GameObject i_ItemToPlace, bool i_InstantiateItem = true)
     {
-        if (m_CurrentState != EditorState.placingItem)
-            m_CurrentState = EditorState.placingItem;
+        m_CurrentState = EditorState.placingItem;
         if (m_CurrentObjectToPlace != null)
             Destroy(m_CurrentObjectToPlace);
         if (i_InstantiateItem)
+        {
             m_CurrentObjectToPlace = Instantiate(i_ItemToPlace, Vector3.one * 1000, Quaternion.identity);
+            GameObject tmp = Instantiate(m_SceneItemSelector, m_SceneItemListTF);
+            tmp.GetComponent<SceneItemSelector>().Init(m_CurrentObjectToPlace, i_ItemToPlace.name);
+        }
         else
             m_CurrentObjectToPlace = i_ItemToPlace;
+        SetupItem(i_ItemToPlace);
+        ModeChanged?.Invoke(m_CurrentState);
+    }
+
+    void SetupItem(GameObject i_ItemToPlace)
+    {
         ItemData itemData = m_CurrentObjectToPlace.GetComponentInChildren<Item>().Data;
         itemData.PrefabName = i_ItemToPlace.name;
         itemData.ItemName = i_ItemToPlace.name;
 		Transform scene = GameObject.FindGameObjectWithTag("Scene").transform;
-        m_CurrentObjectToPlace.transform.parent = scene.Find(m_CurrentObjectToPlace.tag);
+        m_CurrentObjectToPlace.transform.parent = scene;//.Find(m_CurrentObjectToPlace.tag);
         m_CurrentObjectToPlace.transform.Find("Hitbox").gameObject.SetActive(false);
         m_CurrentObjectToPlace.transform.Find("PlacementBubble").gameObject.SetActive(true);
-        if (ModeChanged != null)
-            ModeChanged(m_CurrentState);
     }
 
     public bool TryPlaceObject()

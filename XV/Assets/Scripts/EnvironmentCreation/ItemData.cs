@@ -8,7 +8,7 @@ public class ItemData
 {
     public string PrefabName;
     public string ItemName;
-    public Color[] ColorOverride;
+    public List<string> ColorOverride;
     public Vector3 Position;
     public Vector3 Rotation;
     public Vector3 Scale;

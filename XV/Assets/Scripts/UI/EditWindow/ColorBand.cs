@@ -20,10 +20,11 @@ public class ColorBand : MonoBehaviour
         GameObject previousColorPicker = FindObjectOfType<ColorPicker>()?.gameObject;
         if (previousColorPicker != null)
             Destroy(previousColorPicker);
-        GameObject pickerGO = Instantiate(m_ColorPicker, transform.parent);
+        RectTransform editWindowRT = (transform.root.GetChild(0) as RectTransform);
+        GameObject pickerGO = Instantiate(m_ColorPicker, transform.root);
         ColorPicker picker = pickerGO.GetComponent<ColorPicker>();
         picker.CurrentColorIndex = int.Parse(gameObject.name);
-        float xPos = ((transform as RectTransform).sizeDelta.x / 2) + (transform as RectTransform).anchoredPosition.x;
-        (pickerGO.transform as RectTransform).anchoredPosition = new Vector2(xPos, (transform as RectTransform).anchoredPosition.y);
+        float xPos = (editWindowRT.sizeDelta.x / 2) + editWindowRT.anchoredPosition.x;
+        (pickerGO.transform as RectTransform).anchoredPosition = new Vector2(xPos, editWindowRT.anchoredPosition.y);
     }
 }

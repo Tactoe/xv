@@ -1069,8 +1069,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1d5b32b7b664cbb8b54b96cbf01777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myDemoSquare: {fileID: 2706798342744043987}
+  DemoSquare: {fileID: 2706798342744043987}
   CurrentColorIndex: 0
+  Sliders:
+  - {fileID: 2706798342268533396}
+  - {fileID: 2706798341647972303}
+  - {fileID: 2706798342007673540}
 --- !u!114 &1415114281
 MonoBehaviour:
   m_ObjectHideFlags: 0

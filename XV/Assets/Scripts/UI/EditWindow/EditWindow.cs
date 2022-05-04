@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 using TMPro;
 
 public class RendererObject
@@ -23,7 +24,6 @@ public class EditWindow : MonoBehaviour
 {
     public static EditWindow Instance;
     public GameObject Target;
-    
     
     [SerializeField]
     GameObject m_TaskButton;
@@ -101,7 +101,7 @@ public class EditWindow : MonoBehaviour
 		else
 			m_TaskButton.SetActive(false);
 
-        GetColor();
+        GetColor(itemData.ColorOverride);
     }
 
     public void CloseWindow()
@@ -181,7 +181,7 @@ public class EditWindow : MonoBehaviour
         return i_MaterialList;
     }
 
-    public void GetColor()
+    public void GetColor(List<string> i_ColorOverride)
     {
         foreach (Transform child in m_ColorPanelTF)
         {
@@ -191,14 +191,29 @@ public class EditWindow : MonoBehaviour
         m_TargetColors?.Clear();
         m_TargetRenderers = ExtractMats(Target.transform, new List<RendererObject>());
         int index = 0;
+        if (i_ColorOverride.Count == 0)
+        {
+            i_ColorOverride = new List<string>();
+            for (int i = 0; i < m_TargetRenderers.Count; i++)
+                i_ColorOverride.Add(null);
+        }
+        print(i_ColorOverride[0]);
         foreach (RendererObject renderer in m_TargetRenderers)
         {
-            m_TargetColors.Add(renderer.mat.color);
+            if (i_ColorOverride[index] != null)
+            {
+                Color overrideColor = new Color();
+                ColorUtility.TryParseHtmlString(i_ColorOverride[index], out overrideColor);
+                m_TargetColors.Add(overrideColor);
+            }
+            else
+                m_TargetColors.Add(renderer.mat.color);
             GameObject tmp = Instantiate(m_ColorBand, m_ColorPanelTF);
             tmp.name = index.ToString();
-            tmp.GetComponent<Image>().color = renderer.mat.color;
+            tmp.GetComponent<Image>().color = m_TargetColors.Last();
             index++;
         }
+        Target.GetComponentInChildren<Item>().Data.ColorOverride = i_ColorOverride;
     }
 
     
@@ -216,5 +231,7 @@ public class EditWindow : MonoBehaviour
             propertyBlock.SetColor("_Color", m_TargetColors[i]);
             meshRenderer.SetPropertyBlock(propertyBlock, materialIndex);
         }
+        print(Target.GetComponentInChildren<Item>().Data.ColorOverride.Count);
+        Target.GetComponentInChildren<Item>().Data.ColorOverride[i] = "#" + ColorUtility.ToHtmlStringRGB(i_NewColor);
     }
 }
