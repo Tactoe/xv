@@ -1,11 +1,13 @@
 using UnityEngine;
 
-public enum EditorState { normal, editItem, placingItem };
+public enum EditorState { normal, editItem, placingItem, firstPerson };
 
 public class ItemHandler : MonoBehaviour
 {
     public static ItemHandler Instance;
 
+    [SerializeField]
+    GameObject m_FPSController;
     [SerializeField]
     float m_RotationSpeed;
     EditorState m_CurrentState;
@@ -37,6 +39,20 @@ public class ItemHandler : MonoBehaviour
     public void NormalMode()
     {
         m_CurrentState = EditorState.normal;
+        GetComponent<PlayerMovement>().enabled = true;
+        m_FPSController.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        if (ModeChanged != null)
+            ModeChanged(m_CurrentState);
+    }
+    
+    public void FPSMode()
+    {
+        m_CurrentState = EditorState.firstPerson;
+        Cursor.lockState = CursorLockMode.Locked;
+        m_FPSController.SetActive(true);
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<PlayerMovement>().enabled = false;
         if (ModeChanged != null)
             ModeChanged(m_CurrentState);
     }
@@ -110,13 +126,26 @@ public class ItemHandler : MonoBehaviour
                 break;
             }
         }
+        HandleInputs();
+    }
+
+    void HandleInputs()
+    {
+        if (CheckIfState(EditorState.normal) || CheckIfState(EditorState.firstPerson))
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+                if (CheckIfState(EditorState.normal))
+                    FPSMode();
+                else
+                    NormalMode();
+        }
         if ((Input.GetKey(KeyCode.LeftArrow)
             || Input.GetKey(KeyCode.RightArrow))
             && CheckIfState(EditorState.placingItem))
         {
             float direction = Input.GetKey(KeyCode.LeftArrow) ? 1 : -1;
             m_CurrentObjectToPlace.transform.Rotate(Vector3.up * Time.deltaTime * m_RotationSpeed * direction);
-
         }
     }
+    
 }

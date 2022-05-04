@@ -2,11 +2,11 @@
 
 public class Jump : MonoBehaviour
 {
-    Rigidbody rigidbody;
-    public float jumpStrength = 2;
+    Rigidbody m_RB;
+    public float JumpStrength = 2;
     public event System.Action Jumped;
-    bool fly_check;
-    FirstPersonMovement fpm;
+    bool m_IsFlying;
+    PlayerMovement m_Fpm;
 
     [SerializeField, Tooltip("Prevents jumping when the transform is in mid-air.")]
     GroundCheck groundCheck;
@@ -21,18 +21,18 @@ public class Jump : MonoBehaviour
     void Awake()
     {
         // Get rigidbody.
-        rigidbody = GetComponent<Rigidbody>();
-        fpm = GetComponentInChildren<FirstPersonMovement>();
+        m_RB = GetComponent<Rigidbody>();
+        m_Fpm = GetComponentInChildren<PlayerMovement>();
 
     }
 
     void LateUpdate()
     {
-        fly_check = fpm.Is_flying;
+        m_IsFlying = m_Fpm.IsFlying;
         // Jump when the Jump button is pressed and we are on the ground.
-        if (Input.GetButtonDown("Jump") && (!groundCheck || groundCheck.isGrounded) && !fly_check)
+        if (Input.GetButtonDown("Jump") && (!groundCheck || groundCheck.isGrounded) && !m_IsFlying)
         {
-            rigidbody.AddForce(Vector3.up * 100 * jumpStrength);
+            m_RB.AddForce(Vector3.up * 100 * JumpStrength);
             Jumped?.Invoke();
         }
     }

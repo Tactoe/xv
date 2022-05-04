@@ -2,7 +2,6 @@
 
 public class FirstPersonLook : MonoBehaviour
 {
-    [SerializeField]
     Transform character;
     public float sensitivity = 2;
     public float smoothing = 1.5f;
@@ -13,14 +12,12 @@ public class FirstPersonLook : MonoBehaviour
 
     void Reset()
     {
-        // Get the character from the FirstPersonMovement in parents.
-        character = GetComponentInParent<FirstPersonMovement>().transform;
+        character = transform.parent;
     }
 
     void Start()
     {
-        // Lock the mouse cursor to the game screen.
-        Cursor.lockState = CursorLockMode.Locked;
+        character = transform.parent;
     }
 
     void Update()
