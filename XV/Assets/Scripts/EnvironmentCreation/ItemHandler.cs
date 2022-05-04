@@ -83,7 +83,7 @@ public class ItemHandler : MonoBehaviour
         ModeChanged?.Invoke(m_CurrentState);
     }
 
-    void SetupItem(GameObject i_ItemToPlace)
+    public void SetupItem(GameObject i_ItemToPlace)
     {
         ItemData itemData = m_CurrentObjectToPlace.GetComponentInChildren<Item>().Data;
         itemData.PrefabName = i_ItemToPlace.name;

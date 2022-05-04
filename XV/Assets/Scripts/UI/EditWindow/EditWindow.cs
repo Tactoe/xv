@@ -101,7 +101,7 @@ public class EditWindow : MonoBehaviour
 		else
 			m_TaskButton.SetActive(false);
 
-        GetColor(itemData.ColorOverride);
+        BuildColorPanel(itemData.ColorOverride);
     }
 
     public void CloseWindow()
@@ -146,42 +146,7 @@ public class EditWindow : MonoBehaviour
 
     // ########### COLOR CHANGE ##################
     
-    List<RendererObject> ExtractMats(Transform target, List<RendererObject> i_MaterialList)
-    {
-        foreach (Transform child in target)
-        {
-            MeshRenderer mesh = child.GetComponent<MeshRenderer>();
-            if (mesh != null)
-            {
-                for (int i = 0; i < mesh.sharedMaterials.Length; i++)
-                {
-                    if (!mesh.sharedMaterials[i].shader.name.Contains("Multiple"))
-                        continue;
-                    bool isNewMat = true;
-                    for(int j = 0; j < i_MaterialList.Count; j++)
-                    {
-                        if (i_MaterialList[j].mat.color == mesh.sharedMaterials[i].color
-                            && i_MaterialList[j].mat.name == mesh.sharedMaterials[i].name)
-                        {
-                            i_MaterialList[j].meshRenderers.Add(mesh);
-                            i_MaterialList[j].meshRenderMatIndexes.Add(i);
-                            isNewMat = false;
-                            break;
-                        }
-                    }
-                    if (isNewMat)
-                    {
-                        RendererObject tmp = new RendererObject(mesh.sharedMaterials[i], mesh, i);
-                        i_MaterialList.Add(tmp);
-                    }
-                }
-            }
-            ExtractMats(child, i_MaterialList);
-        }
-        return i_MaterialList;
-    }
-
-    public void GetColor(List<string> i_ColorOverride)
+    public void BuildColorPanel(List<string> i_ColorOverride)
     {
         foreach (Transform child in m_ColorPanelTF)
         {
@@ -189,15 +154,18 @@ public class EditWindow : MonoBehaviour
         }
         m_TargetRenderers?.Clear();
         m_TargetColors?.Clear();
-        m_TargetRenderers = ExtractMats(Target.transform, new List<RendererObject>());
+        
+        ColorOverrider overrider = Target.AddComponent<ColorOverrider>();
+        m_TargetRenderers = overrider.ExtractMats(Target.transform, new List<RendererObject>());
+        Destroy(overrider);
         int index = 0;
+        // Initialize colorOverride list if it's null
         if (i_ColorOverride.Count == 0)
         {
             i_ColorOverride = new List<string>();
             for (int i = 0; i < m_TargetRenderers.Count; i++)
                 i_ColorOverride.Add(null);
         }
-        print(i_ColorOverride[0]);
         foreach (RendererObject renderer in m_TargetRenderers)
         {
             if (i_ColorOverride[index] != null)

@@ -65,7 +65,9 @@ public class SaveManager : MonoBehaviour
             instantiated.transform.position = item.Position;
             instantiated.transform.localEulerAngles = item.Rotation;
             instantiated.transform.localScale = item.Scale;
-
+            ColorOverrider colorOverrider = instantiated.AddComponent<ColorOverrider>();
+            colorOverrider.ApplyColorOverride(item.ColorOverride);
+            Destroy(colorOverrider);
         }
     }
 
