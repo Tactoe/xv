@@ -8,7 +8,6 @@ public class Station : MonoBehaviour
 	// Start is called before the first frame update
 	public void Start()
 	{
-		Debug.Log("coucou");
 	}
 
 	// Update is called once per frame
@@ -20,7 +19,8 @@ public class Station : MonoBehaviour
 	public void DropIn(Transform i_parent)
 	{
 		//Get the object in the worker's hands and destroy it
-
+		if (transform.Find("Slot").childCount > 0)
+			return;
 		GameObject myObj = i_parent.GetChild(0).gameObject;
         myObj.transform.parent = transform.Find("Slot");
         myObj.transform.localPosition = Vector3.zero;
@@ -29,7 +29,9 @@ public class Station : MonoBehaviour
 
 	public void PickUp(Transform i_pos)
 	{
-		GameObject myObj = transform.Find("Slot").gameObject;//objet sur la table
+		if (transform.Find("Slot").childCount == 0)
+			return;
+		GameObject myObj = transform.Find("Slot").GetChild(0).gameObject;//objet sur la table
         myObj.transform.parent = i_pos;
 		myObj.transform.localPosition = Vector3.zero;
 	}

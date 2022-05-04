@@ -8,6 +8,7 @@ public class TaskCreator : MonoBehaviour
 	private GameObject m_TaskPrefab;
 	private Camera m_Camera;
 	static private GameObject m_TmpTask;
+	[SerializeField]
 	static private Timeline m_Timeline;
 	static public bool Hovering;
 	void Awake()
@@ -25,11 +26,11 @@ public class TaskCreator : MonoBehaviour
 			if (m_TmpTask)
 				Cancel();
 			m_TmpTask =
-			Instantiate(m_TaskPrefab, transform.parent.parent.parent.GetComponent<TaskList>().Worker.transform.GetChild(2));
+			Instantiate(m_TaskPrefab, transform.parent.parent.parent.GetComponent<TaskList>().Worker.transform.Find("Tasks"));
 			m_TmpTask.name = m_TaskPrefab.name;
 		}
 	}
-	void Create(RaycastHit i_hit)
+	void Create(RaycastHit i_Hit)
 	{
 		if (m_TmpTask.CompareTag("Move") || m_TmpTask.CompareTag("GetOut"))
 		{
@@ -38,10 +39,10 @@ public class TaskCreator : MonoBehaviour
 		}
 
 		else if (m_TmpTask.CompareTag("PickUp")){
-			if (i_hit.transform.parent.CompareTag("Storage") || i_hit.transform.parent.CompareTag("Station"))
+			if (i_Hit.transform.parent.CompareTag("Storage") || i_Hit.transform.parent.CompareTag("Station"))
 			{
-				m_TmpTask.GetComponent<Task>().Interactable = i_hit.transform.parent.gameObject;
-				m_TmpTask.transform.position = i_hit.transform.position;
+				m_TmpTask.GetComponent<Task>().Interactable = i_Hit.transform.parent.gameObject;
+				m_TmpTask.transform.position = i_Hit.transform.position;
 				m_TmpTask = null;
 			}
 			else
@@ -49,10 +50,17 @@ public class TaskCreator : MonoBehaviour
 
 		}
 		else if (m_TmpTask.CompareTag("Drop")){
-			if (i_hit.transform.parent.CompareTag("Storage") || i_hit.transform.parent.CompareTag("Station"))
+			if (i_Hit.transform.parent.CompareTag("Storage")
+			|| i_Hit.transform.CompareTag("Ground") 
+			|| i_Hit.transform.parent.CompareTag("Station"))
 			{
-				m_TmpTask.GetComponent<Task>().Interactable = i_hit.transform.parent.gameObject;
-				m_TmpTask.transform.position = i_hit.transform.position;
+				if (!i_Hit.transform.CompareTag("Ground"))
+				{
+					m_TmpTask.GetComponent<Task>().Interactable = i_Hit.transform.parent.gameObject;
+					m_TmpTask.transform.position = i_Hit.transform.position;
+				}
+				else
+					m_TmpTask.transform.position = new Vector3(m_TmpTask.transform.position.x, 0, m_TmpTask.transform.position.z);
 				m_TmpTask = null;
 			}
 			//TODO if sol et ANYWHERE
@@ -62,10 +70,10 @@ public class TaskCreator : MonoBehaviour
 		}
 		else if (m_TmpTask.CompareTag("Use"))
 		{
-			if (i_hit.transform.parent.CompareTag("Station"))
+			if (i_Hit.transform.parent.CompareTag("Station"))
 			{
-				m_TmpTask.GetComponent<Task>().Interactable = i_hit.transform.parent.gameObject;
-				m_TmpTask.transform.position = i_hit.transform.position;
+				m_TmpTask.GetComponent<Task>().Interactable = i_Hit.transform.parent.gameObject;
+				m_TmpTask.transform.position = i_Hit.transform.position;
 				m_TmpTask = null;
 			}
 			else
@@ -73,10 +81,10 @@ public class TaskCreator : MonoBehaviour
 		}
 		else if (m_TmpTask.CompareTag("GetIn"))
 		{
-			if (i_hit.transform.parent.CompareTag("Vehicule"))
+			if (i_Hit.transform.parent.CompareTag("Vehicule"))
 			{
-				m_TmpTask.GetComponent<Task>().Interactable = i_hit.transform.parent.gameObject;
-				m_TmpTask.transform.position = i_hit.transform.position;
+				m_TmpTask.GetComponent<Task>().Interactable = i_Hit.transform.parent.gameObject;
+				m_TmpTask.transform.position = i_Hit.transform.position;
 				m_TmpTask = null;
 			}
 			else

@@ -10,6 +10,7 @@ public class Task : MonoBehaviour
 	private LineRenderer m_Line;
 	private GameObject m_Camera;
 	public GameObject Interactable;
+	public int Wait = 0;
 
 	void Awake()
 	{
@@ -28,7 +29,8 @@ public class Task : MonoBehaviour
 			m_Line.SetPosition(1, transform.parent.GetChild(transform.GetSiblingIndex() - 1).position);
 		else
 			m_Line.SetPosition(1, transform.parent.position);
-
+		if (Interactable && Interactable.transform.position != transform.position)
+			transform.position = Interactable.transform.position;
 		transform.LookAt(m_Camera.transform);
 		transform.localScale = Vector3.one * (Vector3.Distance(transform.position, m_Camera.transform.position) / 7f);
 	}
