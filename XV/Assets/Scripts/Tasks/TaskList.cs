@@ -21,7 +21,6 @@ public class TaskList : MonoBehaviour
 		m_Loop.isOn = false;
 		// m_TaskList = transform.GetChild(0).GetChild(6).GetChild(0).GetChild(0);
 		m_TaskList = GameObject.Find("Content2").transform;
-		Debug.Log("m_task = " + m_TaskList);
 		m_Target = GameObject.Find("ItemWindow").GetComponent<EditWindow>();
 		m_Content.SetActive(false);
 	}
@@ -33,11 +32,11 @@ public class TaskList : MonoBehaviour
 			UpdateList();
 	}
 
-	public void UpdateList()
+	public void UpdateList(bool i_idxChanged = false)
 	{
 		Worker = m_Target.Target;
 		m_ScriptWorker = Worker.GetComponent<Worker>();
-		if (m_ScriptWorker.Tasks.childCount != m_TaskList.childCount)
+		if (m_ScriptWorker.Tasks.childCount != m_TaskList.childCount || i_idxChanged)
 		{
 			foreach (Transform child in m_TaskList)
 			{
@@ -49,6 +48,8 @@ public class TaskList : MonoBehaviour
 				uitask.GetComponent<TaskDestructor>().Task = child.gameObject;
 				uitask.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text =
 				"#" + child.GetSiblingIndex() + " : " + child.gameObject.name;
+				uitask.transform.Find("Wait").GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text =
+				child.GetComponent<Task>().Wait.ToString();
 			}
 			transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Tasks : " + Worker.name;
 		}
@@ -58,7 +59,7 @@ public class TaskList : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (m_Target.Target)
+		if (m_Target.Target && m_Target.Target.CompareTag("Worker"))
 			UpdateList();
 	}
 }

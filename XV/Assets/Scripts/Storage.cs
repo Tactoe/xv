@@ -8,7 +8,6 @@ public class Storage : MonoBehaviour
 	// Start is called before the first frame update
 	public void Start()
 	{
-		Debug.Log("coucou");
 	}
 
 	// Update is called once per frame

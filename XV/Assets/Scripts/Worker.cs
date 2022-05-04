@@ -9,20 +9,25 @@ public class Worker : MonoBehaviour
 	public Animator Animator;
 	public Transform Tasks;
 	public NavMeshAgent NavAgent;
-	private Camera m_Camera;
+	[HideInInspector]
+	public Vector3 Destination;
+	[HideInInspector]
+	public bool Moving = false;
+	[HideInInspector]
+	public GameObject Vehicule;
+	public int TaskIndex;
+
 	private Vector3[] m_Origin = new Vector3[3];
+	private Camera m_Camera;
 	private Timeline m_Timeline;
 	[SerializeField]
-	private int m_TaskIndex;
-	[SerializeField]
 	private bool m_Over = false;
-	private bool m_Moving = false;
 
 	void Awake()
 	{
 		m_Timeline = GameObject.Find("Timeline").GetComponent<Timeline>();
 		m_Camera = GameObject.Find("Main Camera").GetComponent<Camera>();
-		Tasks = transform.GetChild(2);
+		Tasks = transform.Find("Tasks");
 	}
 
 	public void Go()
@@ -30,35 +35,37 @@ public class Worker : MonoBehaviour
 		m_Origin[0] = transform.localPosition;
 		m_Origin[1] = transform.localEulerAngles;
 		m_Origin[2] = transform.localScale;
-		m_TaskIndex = 0;
+		Tasks.parent = Tasks.parent.parent.parent;
+		TaskIndex = 0;
 		Move();
 	}
 
-	public void Reset()
-	{
-		StopAllCoroutines();
-		m_Moving = false;
-		m_Over = false;
-		m_TaskIndex = 0;
-		transform.localPosition = m_Origin[0];
-		transform.localEulerAngles = m_Origin[1];
-		transform.localScale = m_Origin[2];		
-		NavAgent.SetDestination(transform.position);
-		Tasks.parent = transform;
-		Tasks.parent.position = new Vector3(transform.position.x, 0, transform.position.z);
-	}
+	// public void Reset()
+	// {
+	// 	StopAllCoroutines();
+	// 	Moving = false;
+	// 	m_Over = false;
+	// 	TaskIndex = 0;
+	// 	transform.localPosition = m_Origin[0];
+	// 	transform.localEulerAngles = m_Origin[1];
+	// 	transform.localScale = m_Origin[2];		
+	// 	NavAgent.SetDestination(transform.position);
+	// 	Tasks.parent = transform;
+	// 	Tasks.parent.position = new Vector3(transform.position.x, 0, transform.position.z);
+	// }
 
 	void Move()
 	{
-		Tasks.parent = null;
-		if (m_TaskIndex < Tasks.childCount)
+		if (TaskIndex < Tasks.childCount)
 		{
-			m_Moving = true;
-			NavAgent.SetDestination(Tasks.GetChild(m_TaskIndex).position);
+			Destination = Tasks.GetChild(TaskIndex).position;
+			Moving = true;
+			if (NavAgent.enabled)
+			NavAgent.SetDestination(Tasks.GetChild(TaskIndex).position);
 		}
 		else 
 		{
-			m_TaskIndex = 0;
+			TaskIndex = 0;
 			if (!m_Over)
 			{
 				m_Over = true;
@@ -66,16 +73,18 @@ public class Worker : MonoBehaviour
 			}
 			if (Loop)
 			{
-				m_Moving = true;
-				NavAgent.SetDestination(Tasks.GetChild(m_TaskIndex).position);
+				Destination = Tasks.GetChild(TaskIndex).position;
+				Moving = true;
+				if (NavAgent.enabled)
+				NavAgent.SetDestination(Tasks.GetChild(TaskIndex).position);
 			}
 		}
 	}
 
 	public IEnumerator Do()
 	{
-		m_Moving = false;
-		string tag = Tasks.GetChild(m_TaskIndex).tag;
+		Moving = false;
+		string tag = Tasks.GetChild(TaskIndex).tag;
 		// if (tag == "GetIn")
 		// {
 		// }
@@ -87,34 +96,43 @@ public class Worker : MonoBehaviour
 		// }
 		// else if(tag == )
 
-		Transform mPosSlot = gameObject.transform.Find("Slot");
-		GameObject my_interact = Tasks.GetChild(m_TaskIndex).gameObject.GetComponent<Task>().Interactable;
+		Transform slot = gameObject.transform.Find("Slot");
+		GameObject my_interact = Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Interactable;
 		switch(tag) 
 		{
 			case "GetIn":
-				Debug.Log("GetIn");
+				if (slot.childCount == 0)
+					my_interact.GetComponent<Vehicule>().GetIn(gameObject);
 				break;
 			case "GetOut":
-				Debug.Log("GetOut");
+				if (Vehicule)
+					Vehicule.GetComponent<Vehicule>().GetOut();
 				break;
 			case "PickUp":
-				Animator.SetBool("Carrying", true);
-				yield return new WaitForSeconds(1f);
-				if (my_interact.GetComponent<Storage>() != null){
-					my_interact.GetComponent<Storage>().PickUp(mPosSlot);
+				if(Vehicule){
+					Vehicule.GetComponent<Vehicule>().PickUp(my_interact);
 				}
-				else if(my_interact.GetComponent<Station>() != null){
-					my_interact.GetComponent<Station>().PickUp(mPosSlot);
+				else{
+					Animator.SetBool("Carrying", true);
+					yield return new WaitForSeconds(1f);
+					if (my_interact.GetComponent<Storage>() != null && slot.childCount == 0){
+						my_interact.GetComponent<Storage>().PickUp(slot);
+					}
+					else if(my_interact.GetComponent<Station>() != null && slot.childCount == 0){
+						my_interact.GetComponent<Station>().PickUp(slot);
+					}
 				}
 				break;
 			case "Drop":
 				Animator.SetBool("Carrying", false);
 				yield return new WaitForSeconds(1f);
-				if (my_interact.GetComponent<Storage>() != null){
-					my_interact.GetComponent<Storage>().DropIn(mPosSlot);
+				if (!my_interact)
+					DropGround(slot);
+				else if (my_interact.GetComponent<Storage>() != null && slot.childCount > 0){
+					my_interact.GetComponent<Storage>().DropIn(slot);
 				}
-				else if(my_interact.GetComponent<Station>() != null){
-					my_interact.GetComponent<Station>().DropIn(mPosSlot);
+				else if(my_interact.GetComponent<Station>() != null && slot.childCount > 0){
+					my_interact.GetComponent<Station>().DropIn(slot);
 				}
 				break;
 			case "Use":
@@ -124,37 +142,52 @@ public class Worker : MonoBehaviour
 				break;
 		}
 
-		yield return new WaitForSeconds(0.5f);
-		m_TaskIndex += 1;
+		float wait = Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Wait;
+		yield return new WaitForSeconds(wait);
+		TaskIndex += 1;
 		Move();
+	}
+
+	void DropGround(Transform slot)
+	{
+		if (slot.childCount > 0)
+		{
+			slot.GetChild(0).parent = slot.parent.parent.parent;
+		}
+		else if (Vehicule)
+		{
+			Vehicule.GetComponent<Vehicule>().Drop();
+		}
 	}
 
 	void Update()
 	{
-		if (!NavAgent.pathPending && m_Moving && NavAgent.enabled)
+		if (!NavAgent.pathPending && Moving && NavAgent.enabled)
 		{
 			if (NavAgent.remainingDistance <= NavAgent.stoppingDistance)
 			{
 				if (!NavAgent.hasPath || NavAgent.velocity.sqrMagnitude == 0f)
 				{
-					// m_Moving = false;
+					// Moving = false;
 					StartCoroutine(Do());
 				}
 			}
 		}
+		if (Moving && Destination != Tasks.GetChild(TaskIndex).position)
+		{
+			Destination = Tasks.GetChild(TaskIndex).position;
+			Moving = true;
+			if (NavAgent.enabled)
+			NavAgent.SetDestination(Tasks.GetChild(TaskIndex).position);
+		}
 		Animator.SetFloat("Speed", NavAgent.velocity.magnitude);
 	}
 
-	void OnTriggerEnter(Collider other)
+	void OnTriggerStay(Collider other)
     {
-		Debug.Log("lolilol");
-		Debug.Log(other);
-		Debug.Log(other.gameObject.name);
-		Debug.Log(other.transform.parent.parent.gameObject.name);
 		GameObject m_inter = other.transform.parent.parent.gameObject;
-        if(m_Moving && m_inter == Tasks.GetChild(m_TaskIndex).gameObject.GetComponent<Task>().Interactable )
+        if(Moving && m_inter == Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Interactable )
 		{
-			
 			StartCoroutine(Do());
 		}
     }
