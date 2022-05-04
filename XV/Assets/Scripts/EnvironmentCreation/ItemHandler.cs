@@ -62,7 +62,8 @@ public class ItemHandler : MonoBehaviour
         ItemData itemData = m_CurrentObjectToPlace.GetComponentInChildren<Item>().Data;
         itemData.PrefabName = i_ItemToPlace.name;
         itemData.ItemName = i_ItemToPlace.name;
-        m_CurrentObjectToPlace.transform.parent = GameObject.FindGameObjectWithTag("Scene").transform;
+		Transform scene = GameObject.FindGameObjectWithTag("Scene").transform;
+        m_CurrentObjectToPlace.transform.parent = scene.Find(m_CurrentObjectToPlace.tag);
         m_CurrentObjectToPlace.transform.Find("Hitbox").gameObject.SetActive(false);
         m_CurrentObjectToPlace.transform.Find("PlacementBubble").gameObject.SetActive(true);
         if (ModeChanged != null)

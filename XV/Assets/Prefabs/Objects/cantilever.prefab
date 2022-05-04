@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8612277174741859470, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
       propertyPath: m_Name
-      value: ItemShell
+      value: cantilever
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}

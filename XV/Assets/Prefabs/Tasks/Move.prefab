@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6854266640589565144}
   m_Layer: 31
   m_Name: Move
-  m_TagString: Untagged
+  m_TagString: Move
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266b2be4df3f945788316585ff431cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TaskPrefab: {fileID: 6159928273177466691, guid: ebd99e61564f9469fae5bed4c18d2efb, type: 3}
 --- !u!120 &5262196289231503859
 LineRenderer:
   m_ObjectHideFlags: 0

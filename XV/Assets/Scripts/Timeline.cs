@@ -5,19 +5,18 @@ using UnityEngine.UI;
 
 public class Timeline : MonoBehaviour
 {
-	private GameObject m_workers;
+	private GameObject m_Workers;
 	public bool Running = false;
 	public int Working = 0;
 	public int Timer = 0;
+	private float m_Timer = 0;
 	[SerializeField]
-	private float m_timer = 0;
+	private Button m_PlayButton;
 	[SerializeField]
-	private Button m_playButton;
-	[SerializeField]
-	private Button m_stopButton;
+	private Button m_StopButton;
 	void Awake()
 	{
-		m_workers = GameObject.Find("Workers");
+		m_Workers = GameObject.Find("Worker");
 	}
 	void Start()
 	{
@@ -25,35 +24,37 @@ public class Timeline : MonoBehaviour
 
 	public void Play()
 	{
-		foreach (Transform child in m_workers.transform)
+		foreach (Transform child in m_Workers.transform)
 		{
-			child.gameObject.GetComponent<Worker>().Move();
+			child.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = true;
+			child.gameObject.GetComponent<Worker>().Go();
 		}
-		Working = m_workers.transform.childCount;
+		Working = m_Workers.transform.childCount;
 		Running = true;
 	}
 
 	public void Stop()
 	{
-		m_stopButton.gameObject.SetActive(false);
-		m_playButton.gameObject.SetActive(true);
-		foreach (Transform child in m_workers.transform)
+		m_StopButton.gameObject.SetActive(false);
+		m_PlayButton.gameObject.SetActive(true);
+		foreach (Transform child in m_Workers.transform)
 		{
 			child.gameObject.GetComponent<Worker>().Reset();
+			child.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
 		}
 		Running = false;
-		m_timer = 0;
+		m_Timer = 0;
 	}
 
 	void FixedUpdate()
 	{
 		if (Running)
 		{
-			if (Working <= 0 && Timer < m_timer)
+			if (Working <= 0 && Timer < m_Timer)
 				Stop();
 			else
 			{
-				m_timer += Time.deltaTime;
+				m_Timer += Time.deltaTime;
 			}
 		}
 	}
