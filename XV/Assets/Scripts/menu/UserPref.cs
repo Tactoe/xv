@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class UserPref : MonoBehaviour
 {
     string savesNames;
     int nbSaves;
+    public GameObject Pause;
 
     void Start()
     {
@@ -23,6 +26,13 @@ public class UserPref : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(Pause.activeInHierarchy)
+                Pause.SetActive(false);
+            else
+                Pause.SetActive(true);
+        }
         
     }
 
@@ -34,5 +44,14 @@ public class UserPref : MonoBehaviour
         PlayerPrefs.SetString("savesNames", "");
         PlayerPrefs.SetInt("nbSaves", 0);
         Save();
+    }
+
+    public void quit(){
+        Application.Quit();
+        //UnityEditor.EditorApplication.isPlaying = false;
+    }
+
+    public void ReturnToMenu(){
+        SceneManager.LoadScene("titre_menu");
     }
 }
