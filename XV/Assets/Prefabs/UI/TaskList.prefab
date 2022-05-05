@@ -1666,6 +1666,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4416483036851904211}
   - component: {fileID: 210126830379909107}
+  - component: {fileID: 501489536902843735}
   m_Layer: 5
   m_Name: TaskList
   m_TagString: Untagged
@@ -1710,6 +1711,18 @@ MonoBehaviour:
   TaskPrefab: {fileID: 6159928273177466691, guid: ebd99e61564f9469fae5bed4c18d2efb, type: 3}
   m_Content: {fileID: 8780371696234657000}
   m_Loop: {fileID: 4416483036803949307}
+--- !u!114 &501489536902843735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416483036851904212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5c0f14da8e92cb4ba0dca74dad1f106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4416483036986892817
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,8 +2110,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Lorem : Ipsum'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
