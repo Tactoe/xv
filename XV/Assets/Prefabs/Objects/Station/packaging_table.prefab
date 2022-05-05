@@ -143,6 +143,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5954556591490441003, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
+      propertyPath: Data.Tags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5954556591490441003, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
+      propertyPath: Data.Tags.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5954556591490441003, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
+      propertyPath: Data.Tags.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7054504960530439468, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -198,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c516f2bd51d49ea865b633b0cd7969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myPrefab: {fileID: 6282454643328492624, guid: 198b1cfadea8f4a5e9ccedfb4d7af77d, type: 3}
+  myPrefab: {fileID: 4789761956443935527, guid: a5d0ab4f8933240158c91371ee418259, type: 3}
 --- !u!4 &6447662533926694085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2872940335394815182, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
