@@ -8,12 +8,15 @@ using TMPro;
 public class LoadSaves : MonoBehaviour
 {
     public GameObject SavePrefab;
+    // public int IndexSave;
 
     private string m_saves;
     private string[] m_aSaves;
     // Start is called before the first frame update
     void Start()
     {
+        // Debug.Log("-----------------------------------------------");
+        // Debug.Log(gameObject.name);
 
     }
 
@@ -25,25 +28,47 @@ public class LoadSaves : MonoBehaviour
 
     void Awake()
     {
-        PlayerPrefs.SetString("saves", "test1###test2###test3###test4###test5###test6###test7###test8###test9");
-        m_saves = PlayerPrefs.GetString("saves");
-        Debug.Log("m_saves = ");
-        Debug.Log(m_saves);
-        m_aSaves = m_saves.Split("###");
-        Debug.Log("m_aSaves = ");
-        Debug.Log( m_aSaves);
+        PlayerPrefs.SetInt("nbSaves", 9);
+        PlayerPrefs.SetString("savesNames", "atelier1;atelier2;balbla;12atelier1;usine;usinedetonton;test7;miaou;test9");
+        string[] lol = PlayerPrefs.GetString("savesNames").Split(";");
+        foreach (string lilol in lol)
+        {
+            PlayerPrefs.SetString(lilol, lilol+"alablblabalablablablalabalablablalbalbalalabablalbabab");
+        }
+        m_saves = PlayerPrefs.GetString("savesNames");
+        m_aSaves = m_saves.Split(";");
 
-        // int x = -50;
 
         foreach(string line in m_aSaves)
         {
-            Debug.Log("line = " + line);
             GameObject tmp =  Instantiate(SavePrefab, transform);
-            // tmp.transform.localPosition = new Vector2(0, x);
-            Debug.Log("tmp = ");
-            Debug.Log( tmp);
-            tmp.GetComponentInChildren<TextMeshProUGUI>().SetText(line);
-            // x -= 100;
+            tmp.GetComponentInChildren<TextMeshProUGUI>().SetText("  " +line);
+            tmp.GetComponent<Button>().onClick.AddListener(() => PreLoadSave(line));
         }
+        if(m_aSaves.Length > 0)
+            PreLoadSave(m_aSaves[0]);
+    }
+
+    public void PreLoadSave(string name){
+
+        // int index = i_index;
+        Debug.Log("in preload de  = " + name);
+        GameObject.Find("Button_launch").GetComponent<Button>().onClick.RemoveAllListeners();
+        GameObject.Find("Button_del").GetComponent<Button>().onClick.RemoveAllListeners();
+
+        GameObject.Find("name_save").GetComponent<TextMeshProUGUI>().SetText("  " +name);
+        GameObject.Find("Button_launch").GetComponent<Button>().onClick.AddListener(() => LoadSave(name));
+        GameObject.Find("Button_del").GetComponent<Button>().onClick.AddListener(() => DelSave(name));
+    }
+
+
+    public void LoadSave(string name){
+        Debug.Log("Load scene index " + name);
+        Debug.Log("data  = " + PlayerPrefs.GetString(name));
+    }
+    
+    public void DelSave(string name){
+        Debug.Log("DEL scene index " + name);
+        Debug.Log("data  = " + PlayerPrefs.GetString(name));
     }
 }
