@@ -51,6 +51,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3125764547438106739, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125764547438106739, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5954556591490441003, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
       propertyPath: Data.Tags.Array.size
       value: 1

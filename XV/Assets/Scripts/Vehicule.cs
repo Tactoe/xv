@@ -16,8 +16,8 @@ public class Vehicule : MonoBehaviour
     {
         m_NavObstacle = gameObject.GetComponent<NavMeshObstacle>();
         m_NavAgent = gameObject.GetComponent<NavMeshAgent>();
-        m_Seat = transform.GetChild(3);
-        m_Dismount = transform.GetChild(4);
+        m_Seat = transform.Find("Seat");
+        m_Dismount = transform.Find("Target");
 		m_NavAgent.enabled = false;
     }
 

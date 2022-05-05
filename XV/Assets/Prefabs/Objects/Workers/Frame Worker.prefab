@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7400500063169446079}
   - component: {fileID: 6164440926363363701}
+  - component: {fileID: 3863351954100541943}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Object
@@ -46,6 +47,26 @@ CapsuleCollider:
   m_Height: 2.2
   m_Direction: 1
   m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!114 &3863351954100541943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113499712285529954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b8061a55cb9a2439c25bc0ebb52b2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data:
+    PrefabName: 
+    ItemName: 
+    ColorOverride: []
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+    Scale: {x: 0, y: 0, z: 0}
+    Tags: 02000000
 --- !u!1 &2044988895592424010
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +279,10 @@ MonoBehaviour:
   Animator: {fileID: 8238061878327864773}
   Tasks: {fileID: 5782370991446463625}
   NavAgent: {fileID: 3743972063176818126}
-  m_TaskIndex: 0
+  Destination: {x: 0, y: 0, z: 0}
+  Moving: 0
+  Vehicule: {fileID: 0}
+  TaskIndex: 0
   m_Over: 0
 --- !u!114 &3823792251059992279
 MonoBehaviour:
@@ -279,6 +303,7 @@ MonoBehaviour:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0}
     Scale: {x: 0, y: 0, z: 0}
+    Tags: 
 --- !u!136 &2496835682796484231
 CapsuleCollider:
   m_ObjectHideFlags: 0
