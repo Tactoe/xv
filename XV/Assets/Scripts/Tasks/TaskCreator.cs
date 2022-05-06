@@ -27,23 +27,31 @@ public class TaskCreator : MonoBehaviour
 				Cancel();
 			m_TmpTask =
 			Instantiate(m_TaskPrefab, transform.parent.parent.parent.GetComponent<TaskList>().Worker.transform.Find("Tasks"));
+			ItemHandler.Instance.PlaceOrderMode();
 			m_TmpTask.name = m_TaskPrefab.name;
 		}
 	}
+
+	void ReleaseOrder()
+	{
+		m_TmpTask = null;
+		ItemHandler.Instance.EditMode();
+	}
+
 	void Create(RaycastHit i_Hit)
 	{
 		if (m_TmpTask.CompareTag("Move") || m_TmpTask.CompareTag("GetOut"))
 		{
 			m_TmpTask.transform.position = new Vector3(m_TmpTask.transform.position.x, 0, m_TmpTask.transform.position.z);
-			m_TmpTask = null;
+			ReleaseOrder();
 		}
 
 		else if (m_TmpTask.CompareTag("PickUp")){
 			if (i_Hit.transform.parent.CompareTag("Storage") || i_Hit.transform.parent.CompareTag("Station"))
 			{
-				m_TmpTask.GetComponent<Task>().Interactable = i_Hit.transform.parent.gameObject;
+				m_TmpTask.GetComponent<Task>().SetInteractable(i_Hit.transform.parent.gameObject);
 				m_TmpTask.transform.position = i_Hit.transform.position;
-				m_TmpTask = null;
+				ReleaseOrder();
 			}
 			else
 				Cancel();
@@ -56,12 +64,12 @@ public class TaskCreator : MonoBehaviour
 			{
 				if (!i_Hit.transform.CompareTag("Ground"))
 				{
-					m_TmpTask.GetComponent<Task>().Interactable = i_Hit.transform.parent.gameObject;
+					m_TmpTask.GetComponent<Task>().SetInteractable(i_Hit.transform.parent.gameObject);
 					m_TmpTask.transform.position = i_Hit.transform.position;
 				}
 				else
 					m_TmpTask.transform.position = new Vector3(m_TmpTask.transform.position.x, 0, m_TmpTask.transform.position.z);
-				m_TmpTask = null;
+				ReleaseOrder();
 			}
 			//TODO if sol et ANYWHERE
 			else
@@ -72,9 +80,9 @@ public class TaskCreator : MonoBehaviour
 		{
 			if (i_Hit.transform.parent.CompareTag("Station"))
 			{
-				m_TmpTask.GetComponent<Task>().Interactable = i_Hit.transform.parent.gameObject;
+				m_TmpTask.GetComponent<Task>().SetInteractable(i_Hit.transform.parent.gameObject);
 				m_TmpTask.transform.position = i_Hit.transform.position;
-				m_TmpTask = null;
+				ReleaseOrder();
 			}
 			else
 				Cancel();
@@ -83,9 +91,9 @@ public class TaskCreator : MonoBehaviour
 		{
 			if (i_Hit.transform.parent.CompareTag("Vehicule"))
 			{
-				m_TmpTask.GetComponent<Task>().Interactable = i_Hit.transform.parent.gameObject;
+				m_TmpTask.GetComponent<Task>().SetInteractable(i_Hit.transform.parent.gameObject);
 				m_TmpTask.transform.position = i_Hit.transform.position;
-				m_TmpTask = null;
+				ReleaseOrder();
 			}
 			else
 				Cancel();
@@ -96,7 +104,7 @@ public class TaskCreator : MonoBehaviour
 		if (m_TmpTask)
 		{
 			Destroy(m_TmpTask);
-			m_TmpTask = null;
+			ReleaseOrder();
 		}
 	}
 	public void SetHovering(bool i)

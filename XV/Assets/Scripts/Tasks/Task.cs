@@ -12,6 +12,7 @@ public class Task : MonoBehaviour
 	public GameObject Interactable;
 	public int Wait = 0;
 	public bool Target;
+	public TaskData Data;
 	void Awake()
 	{
 		m_Camera = GameObject.Find("Main Camera");
@@ -21,11 +22,19 @@ public class Task : MonoBehaviour
 	void Start()
 	{
 		Target = false;
+		Data.RelatedWorkerID = transform.parent.parent.GetSiblingIndex();
 		if (Interactable)
 		{
 			if (Interactable.transform.Find("Target"))
 				Target = true;
 		}
+	}
+
+	public void SetInteractable(GameObject i_Interactable)
+	{
+		Interactable = i_Interactable;
+		Data.HasParent = true;
+		Data.RelatedParentID = Interactable.transform.GetSiblingIndex();
 	}
 
 	void Update()

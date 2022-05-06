@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum EditorState { normal, editItem, placingItem, exploring };
+public enum EditorState { normal, editItem, placingItem, placingOrder, exploring };
 
 public class ItemHandler : MonoBehaviour
 {
@@ -59,10 +59,11 @@ public class ItemHandler : MonoBehaviour
         ModeChanged?.Invoke(m_CurrentState);
     }
 
-    public void EditMode(GameObject i_ItemToEdit)
+    public void EditMode(GameObject i_ItemToEdit = null)
     {
         m_CurrentState = EditorState.editItem;
-        EditWindow.Instance.EnableWindow(i_ItemToEdit.transform.parent.gameObject);
+        if (i_ItemToEdit != null)
+			EditWindow.Instance.EnableWindow(i_ItemToEdit.transform.parent.gameObject);
         ModeChanged?.Invoke(m_CurrentState);
     }
 
@@ -82,6 +83,12 @@ public class ItemHandler : MonoBehaviour
         SetupItem(i_ItemToPlace);
         ModeChanged?.Invoke(m_CurrentState);
     }
+
+	public void PlaceOrderMode()
+	{
+		m_CurrentState = EditorState.placingOrder;
+		ModeChanged?.Invoke(m_CurrentState);
+	}
 
     public void SetupItem(GameObject i_ItemToPlace)
     {

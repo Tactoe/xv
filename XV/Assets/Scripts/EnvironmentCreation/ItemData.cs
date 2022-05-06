@@ -16,3 +16,13 @@ public class ItemData
     public Vector3 Scale;
 	public List<ItemTags> Tags;
 }
+
+[Serializable]
+public class TaskData
+{
+	public Vector3 Position;
+	public bool HasParent;
+	public int RelatedParentID;
+	public int RelatedWorkerID;
+	public string PrefabName;
+}
