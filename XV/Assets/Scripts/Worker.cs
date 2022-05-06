@@ -35,7 +35,7 @@ public class Worker : MonoBehaviour
 		m_Origin[0] = transform.localPosition;
 		m_Origin[1] = transform.localEulerAngles;
 		m_Origin[2] = transform.localScale;
-		Tasks.parent = Tasks.parent.parent.parent;
+		Tasks.parent = Tasks.parent.parent;
 		TaskIndex = 0;
 		if (Tasks.transform.childCount > 0)
 		{
@@ -79,16 +79,6 @@ public class Worker : MonoBehaviour
 	{
 		Moving = false;
 		string tag = Tasks.GetChild(TaskIndex).tag;
-		// if (tag == "GetIn")
-		// {
-		// }
-		// else if (tag == "GetOut")
-		// {
-		// }
-		// else if( tag == "PickUp")
-		// {
-		// }
-		// else if(tag == )
 
 		Transform slot = gameObject.transform.Find("Slot");
 		GameObject my_interact = Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Interactable;

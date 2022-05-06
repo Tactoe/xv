@@ -41,8 +41,9 @@ public class UserPref : MonoBehaviour
     }
 
     public void Reset() {
-        PlayerPrefs.SetString("savesNames", "");
-        PlayerPrefs.SetInt("nbSaves", 0);
+        // PlayerPrefs.SetString("savesNames", "");
+        // PlayerPrefs.SetInt("nbSaves", 0);
+        PlayerPrefs.DeleteAll();
         Save();
     }
 

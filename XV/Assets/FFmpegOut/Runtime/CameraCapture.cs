@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace FFmpegOut
 {
+    
     [AddComponentMenu("FFmpegOut/Camera Capture")]
     public sealed class CameraCapture : MonoBehaviour
     {
@@ -121,6 +122,10 @@ namespace FFmpegOut
             // }
         }
 
+        void Awake(){
+            _MyRecImg = GameObject.Find("Image_rec").GetComponent<Image>();
+        }
+
         IEnumerator Start()
         {
             // Sync with FFmpeg pipe thread at the end of every frame.
@@ -134,7 +139,6 @@ namespace FFmpegOut
 
         void Update()
         {
-            _MyRecImg = GameObject.Find("Image_rec").GetComponent<Image>();
             if(imRecording)
             {
                 RecorderOn();
@@ -215,8 +219,11 @@ namespace FFmpegOut
             }
         }
 
-        void RecorderOff()
+        public void RecorderOff()
         {
+            
+            imRecording = false;
+            Debug.Log("arret dans cc");
             if (_session != null)
             {
                 // Close and dispose the FFmpeg session.
@@ -243,6 +250,7 @@ namespace FFmpegOut
 
         public void startStopRecord()
         {
+            Debug.Log("imRecoding = " + imRecording);
             imRecording = imRecording ? false : true;
             if (!imRecording){ RecorderOff();}
 

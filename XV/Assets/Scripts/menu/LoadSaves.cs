@@ -28,15 +28,16 @@ public class LoadSaves : MonoBehaviour
 
     void Awake()
     {
-        PlayerPrefs.SetInt("nbSaves", 9);
-        PlayerPrefs.SetString("savesNames", "atelier1;atelier2;balbla;12atelier1;usine;usinedetonton;test7;miaou;test9");
-        string[] lol = PlayerPrefs.GetString("savesNames").Split(";");
-        foreach (string lilol in lol)
-        {
-            PlayerPrefs.SetString(lilol, lilol+"alablblabalablablablalabalablablalbalbalalabablalbabab");
-        }
+        // PlayerPrefs.SetInt("nbSaves", 9);
+        // PlayerPrefs.SetString("savesNames", "atelier1;atelier2;balbla;12atelier1;usine;usinedetonton;test7;miaou;test9");
+        // string[] lol = PlayerPrefs.GetString("savesNames").Split(";");
+        // foreach (string lilol in lol)
+        // {
+        //     PlayerPrefs.SetString(lilol, lilol+"alablblabalablablablalabalablablalbalbalalabablalbabab");
+        // }
         m_saves = PlayerPrefs.GetString("savesNames");
-        m_aSaves = m_saves.Split(";");
+        Debug.Log(m_saves);
+        m_aSaves = m_saves.Split(";",  System.StringSplitOptions.RemoveEmptyEntries);
 
 
         foreach(string line in m_aSaves)
@@ -65,6 +66,7 @@ public class LoadSaves : MonoBehaviour
     public void LoadSave(string name){
         Debug.Log("Load scene index " + name);
         Debug.Log("data  = " + PlayerPrefs.GetString(name));
+        SaveManager.Instance.Load(name);
     }
     
     public void DelSave(string name){

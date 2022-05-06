@@ -13,6 +13,8 @@ public class ItemHandler : MonoBehaviour
     [SerializeField]
     GameObject m_FPSController;
     [SerializeField]
+    GameObject m_PauseMenu;
+    [SerializeField]
     float m_RotationSpeed;
     EditorState m_CurrentState;
     GameObject m_CurrentObjectToPlace;
@@ -150,6 +152,12 @@ public class ItemHandler : MonoBehaviour
         if (CheckIfState(EditorState.exploring) && Input.GetKeyDown(KeyCode.Escape))
         {
             NormalMode();
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            m_PauseMenu.SetActive(!m_PauseMenu.activeInHierarchy);
+            Time.timeScale = m_PauseMenu.activeInHierarchy ? 0 : 1;
+            
         }
         if ((Input.GetKey(KeyCode.LeftArrow)
             || Input.GetKey(KeyCode.RightArrow))

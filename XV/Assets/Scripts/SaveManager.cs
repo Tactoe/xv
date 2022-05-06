@@ -11,6 +11,11 @@ public class SaveDataObject
 
 public class SaveManager : MonoBehaviour
 {
+    public static SaveManager Instance;
+    void Awake(){
+        Instance = this;
+    }
+
     [SerializeField]
     GameObject[] m_ObjectList;
     Transform m_SceneAnchor;
@@ -21,7 +26,7 @@ public class SaveManager : MonoBehaviour
     }
 
     [ContextMenu("Save")]
-    void Save()
+    public void Save(string i_SaveName)
     {
         List<ItemData> ToSerialize =  new List<ItemData>();
         foreach(Transform child in m_SceneAnchor.transform)
@@ -34,8 +39,8 @@ public class SaveManager : MonoBehaviour
         }
         SaveDataObject saveData = new SaveDataObject();
         saveData.Array = ToSerialize.ToArray();
-        PlayerPrefs.SetString("Save", JsonUtility.ToJson(saveData));
-        print(PlayerPrefs.GetString("Save"));
+        PlayerPrefs.SetString(i_SaveName, JsonUtility.ToJson(saveData));
+        // print(PlayerPrefs.GetString("Save"));
     }
 
     void SetItemDataPosition(Transform i_Transform, ItemData ok)
@@ -46,10 +51,10 @@ public class SaveManager : MonoBehaviour
     }
     
     [ContextMenu("Load")]
-    void Load()
+    public void Load(string i_SaveName)
     {
-        print(PlayerPrefs.GetString("Save"));
-        SaveDataObject saveDataObject = JsonUtility.FromJson<SaveDataObject>(PlayerPrefs.GetString("Save"));
+        print(PlayerPrefs.GetString(i_SaveName));
+        SaveDataObject saveDataObject = JsonUtility.FromJson<SaveDataObject>(PlayerPrefs.GetString(i_SaveName));
         ItemData[] ToBuild = saveDataObject.Array;
         foreach(ItemData item in ToBuild)
         {
@@ -83,16 +88,16 @@ public class SaveManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    // void Update()
+    // {
         
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Save();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Load();
-        }
-    }
+    //     if (Input.GetKeyDown(KeyCode.Alpha1))
+    //     {
+    //         Save();
+    //     }
+    //     if (Input.GetKeyDown(KeyCode.Alpha2))
+    //     {
+    //         Load();
+    //     }
+    // }
 }

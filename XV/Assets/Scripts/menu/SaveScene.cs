@@ -29,11 +29,14 @@ public class SaveScene : MonoBehaviour
         if(m_stringToCheck == ""){
             Err1.SetActive(true);
         }
-        else if (PlayerPrefs.HasKey(MyField.text)){
+        else if (PlayerPrefs.HasKey(m_stringToCheck)){
             Err2.SetActive(true);
         }
         else{
-            //TODO call SAVE du fichier SaveManager
+            Debug.Log("SAVE OK ");
+            SaveManager.Instance.Save(m_stringToCheck);
+            PlayerPrefs.SetString("savesNames", PlayerPrefs.GetString("savesNames") + ";" + m_stringToCheck);
+            Debug.Log(PlayerPrefs.GetString(m_stringToCheck));
         }
     }
 
