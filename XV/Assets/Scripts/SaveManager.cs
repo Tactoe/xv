@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 [Serializable]
 public class SaveDataObject
@@ -14,6 +16,13 @@ public class SaveManager : MonoBehaviour
 {
 	[SerializeField]
 	GameObject m_ScenePrefab;
+    public static SaveManager Instance;
+    void Awake(){
+        Instance = this;
+        
+
+    }
+
     [SerializeField]
     GameObject[] m_ObjectList;
 	[SerializeField]
@@ -22,11 +31,16 @@ public class SaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_SceneAnchor = GameObject.FindGameObjectWithTag("Scene").transform;
+        if (SceneManager.GetActiveScene().name != "titre_menu"){
+            m_SceneAnchor = GameObject.FindGameObjectWithTag("Scene").transform;
+            // Debug.Log("Current_Scene = " + PlayerPrefs.GetString("Current_Scene") );+
+            string tmp = PlayerPrefs.GetString("Current_Scene");
+            if (tmp != "" ){Load(tmp);}
+        }
     }
 
     [ContextMenu("Save")]
-    void Save()
+    public void Save(string i_SaveName)
     {
         List<ItemData> itemToSerialize =  new List<ItemData>();
 		List<TaskData> taskToSerialize =  new List<TaskData>();
@@ -56,8 +70,8 @@ public class SaveManager : MonoBehaviour
         SaveDataObject saveData = new SaveDataObject();
         saveData.itemArray = itemToSerialize.ToArray();
 		saveData.taskArray = taskToSerialize.ToArray();
-        PlayerPrefs.SetString("Save", JsonUtility.ToJson(saveData));
-        print(PlayerPrefs.GetString("Save"));
+        PlayerPrefs.SetString(i_SaveName, JsonUtility.ToJson(saveData));
+        print(PlayerPrefs.GetString(i_SaveName));
     }
 
     void SetTaskDataPosition(Transform i_Transform, TaskData ok)
@@ -73,12 +87,12 @@ public class SaveManager : MonoBehaviour
     }
     
     [ContextMenu("Load")]
-    void Load()
+    public void Load(string i_SaveName)
     {
 		DestroyImmediate(m_SceneAnchor.gameObject);
 		m_SceneAnchor = Instantiate(m_ScenePrefab).transform;
-        print(PlayerPrefs.GetString("Save"));
-        SaveDataObject saveDataObject = JsonUtility.FromJson<SaveDataObject>(PlayerPrefs.GetString("Save"));
+        print(PlayerPrefs.GetString(i_SaveName));
+        SaveDataObject saveDataObject = JsonUtility.FromJson<SaveDataObject>(PlayerPrefs.GetString(i_SaveName));
         foreach (ItemData item in saveDataObject.itemArray)
         {
             GameObject toInstantiate = null;
@@ -95,6 +109,8 @@ public class SaveManager : MonoBehaviour
                 Debug.Log("Saved object was not found in prefab list");
                 continue;
             }
+            Debug.Log(toInstantiate);
+            Debug.Log(m_SceneAnchor.transform);
             GameObject instantiated = Instantiate(toInstantiate, m_SceneAnchor.transform);
             instantiated.GetComponentInChildren<Item>().Data = item;
             instantiated.name = item.PrefabName;
@@ -143,16 +159,16 @@ public class SaveManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    // void Update()
+    // {
         
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Save();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Load();
-        }
-    }
+    //     if (Input.GetKeyDown(KeyCode.Alpha1))
+    //     {
+    //         Save();
+    //     }
+    //     if (Input.GetKeyDown(KeyCode.Alpha2))
+    //     {
+    //         Load();
+    //     }
+    // }
 }

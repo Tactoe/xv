@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3140562510724938970}
   - component: {fileID: 3140562510724938971}
   - component: {fileID: 3140562510724938968}
+  - component: {fileID: 6208477230996073803}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -104,6 +105,7 @@ MonoBehaviour:
   m_SceneItemListTF: {fileID: 0}
   m_SceneItemSelector: {fileID: 8636068760222815542, guid: 2170352e813f53e4f9889ad6756aec1d, type: 3}
   m_FPSController: {fileID: 0}
+  m_PauseMenu: {fileID: 0}
   m_RotationSpeed: 50
 --- !u!114 &3140562510724938970
 MonoBehaviour:
@@ -155,6 +157,22 @@ MonoBehaviour:
   MaxZoomFOV: 100
   CurrentZoom: 0
   Sensitivity: 1
+--- !u!114 &6208477230996073803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3140562510724938529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a66fbd5ffe9b9d64da304996f1919f40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _width: 1920
+  _height: 1080
+  _preset: 0
+  _frameRate: 60
 --- !u!1 &5196965561828633800
 GameObject:
   m_ObjectHideFlags: 0
