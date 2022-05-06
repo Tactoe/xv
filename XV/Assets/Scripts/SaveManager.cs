@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 [Serializable]
 public class SaveDataObject
@@ -14,6 +16,8 @@ public class SaveManager : MonoBehaviour
     public static SaveManager Instance;
     void Awake(){
         Instance = this;
+        
+
     }
 
     [SerializeField]
@@ -22,7 +26,12 @@ public class SaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_SceneAnchor = GameObject.FindGameObjectWithTag("Scene").transform;
+        if (SceneManager.GetActiveScene().name != "titre_menu"){
+            m_SceneAnchor = GameObject.FindGameObjectWithTag("Scene").transform;
+            // Debug.Log("Current_Scene = " + PlayerPrefs.GetString("Current_Scene") );+
+            string tmp = PlayerPrefs.GetString("Current_Scene");
+            if (tmp != "" ){Load(tmp);}
+        }
     }
 
     [ContextMenu("Save")]
@@ -72,6 +81,8 @@ public class SaveManager : MonoBehaviour
                 Debug.Log("Saved object was not found in prefab list");
                 continue;
             }
+            Debug.Log(toInstantiate);
+            Debug.Log(m_SceneAnchor.transform);
             GameObject instantiated = Instantiate(toInstantiate, m_SceneAnchor.transform);
             instantiated.GetComponentInChildren<Item>().Data = item;
             instantiated.name = item.PrefabName;

@@ -55,4 +55,10 @@ public class UserPref : MonoBehaviour
     public void ReturnToMenu(){
         SceneManager.LoadScene("titre_menu");
     }
+    
+    
+    public void CreateNew(){
+        PlayerPrefs.SetString("Current_Scene", "");
+        SceneManager.LoadScene("Default");
+    }
 }

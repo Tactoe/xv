@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 
 
 public class LoadSaves : MonoBehaviour
@@ -66,7 +68,9 @@ public class LoadSaves : MonoBehaviour
     public void LoadSave(string name){
         Debug.Log("Load scene index " + name);
         Debug.Log("data  = " + PlayerPrefs.GetString(name));
-        SaveManager.Instance.Load(name);
+        //SaveManager.Instance.Load(name);
+        PlayerPrefs.SetString("Current_Scene", name);
+        SceneManager.LoadScene("Default");
     }
     
     public void DelSave(string name){
