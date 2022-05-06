@@ -308,7 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8200395502468431046}
   m_Layer: 0
-  m_Name: MountPoint
+  m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -587,10 +587,10 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8612277174741859470}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.59
-  m_Speed: 2
+  m_Speed: 1.5
   m_Acceleration: 1
   avoidancePriority: 50
   m_AngularSpeed: 60

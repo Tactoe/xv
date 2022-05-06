@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &297817381672209744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7038014944981918964}
+  m_Layer: 0
+  m_Name: Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7038014944981918964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297817381672209744}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.821, y: 0, z: -0.041}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6447662533926694085}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7675730218421549885
 GameObject:
   m_ObjectHideFlags: 0
@@ -24,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7675730218421549885}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.09, y: 0.85, z: 0}
+  m_LocalPosition: {x: 0, y: 0.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -142,6 +173,22 @@ PrefabInstance:
     - target: {fileID: 2872940335394815182, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013906004333338954, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
+      propertyPath: m_Size.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013906004333338954, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
+      propertyPath: m_Size.y
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013906004333338954, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
+      propertyPath: m_Size.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013906004333338954, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
+      propertyPath: m_Center.x
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5954556591490441003, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
       propertyPath: Data.Tags.Array.size

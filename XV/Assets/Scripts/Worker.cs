@@ -37,32 +37,31 @@ public class Worker : MonoBehaviour
 		m_Origin[2] = transform.localScale;
 		Tasks.parent = Tasks.parent.parent.parent;
 		TaskIndex = 0;
-		Move();
+		if (Tasks.transform.childCount > 0)
+		{
+			Move();
+		}
+		else
+		{
+			m_Over = true;
+			m_Timeline.Working -= 1;
+		}
 	}
 
-	// public void Reset()
-	// {
-	// 	StopAllCoroutines();
-	// 	Moving = false;
-	// 	m_Over = false;
-	// 	TaskIndex = 0;
-	// 	transform.localPosition = m_Origin[0];
-	// 	transform.localEulerAngles = m_Origin[1];
-	// 	transform.localScale = m_Origin[2];		
-	// 	NavAgent.SetDestination(transform.position);
-	// 	Tasks.parent = transform;
-	// 	Tasks.parent.position = new Vector3(transform.position.x, 0, transform.position.z);
-	// }
-
+	void SetCourse()
+	{
+		if (Tasks.GetChild(TaskIndex).GetComponent<Task>().Target)
+			Destination = Tasks.GetChild(TaskIndex).GetComponent<Task>().Interactable.transform.Find("Target").position;
+		else
+			Destination = Tasks.GetChild(TaskIndex).position;
+		Moving = true;
+		if (NavAgent.enabled)
+		NavAgent.SetDestination(Destination);
+	}
 	void Move()
 	{
 		if (TaskIndex < Tasks.childCount)
-		{
-			Destination = Tasks.GetChild(TaskIndex).position;
-			Moving = true;
-			if (NavAgent.enabled)
-			NavAgent.SetDestination(Tasks.GetChild(TaskIndex).position);
-		}
+			SetCourse();
 		else 
 		{
 			TaskIndex = 0;
@@ -72,12 +71,7 @@ public class Worker : MonoBehaviour
 				m_Timeline.Working -= 1;
 			}
 			if (Loop)
-			{
-				Destination = Tasks.GetChild(TaskIndex).position;
-				Moving = true;
-				if (NavAgent.enabled)
-				NavAgent.SetDestination(Tasks.GetChild(TaskIndex).position);
-			}
+				SetCourse();
 		}
 	}
 
@@ -160,25 +154,45 @@ public class Worker : MonoBehaviour
 		}
 	}
 
+	private IEnumerator IsStuck(Vector3 i_Pos)
+	{
+		Debug.Log("Is...");
+		yield return new WaitForSeconds(3f);
+		Debug.Log("It.." + Vector3.Distance(i_Pos, transform.position));
+		if (Vector3.Distance(i_Pos, transform.position) < 0.05)
+		{
+		Debug.Log("STUCK");
+			StopAllCoroutines();
+			TaskIndex += 1;
+			Move();
+		}
+	}
+
 	void Update()
 	{
 		if (!NavAgent.pathPending && Moving && NavAgent.enabled)
 		{
+			StartCoroutine(IsStuck(transform.position));
 			if (NavAgent.remainingDistance <= NavAgent.stoppingDistance)
 			{
 				if (!NavAgent.hasPath || NavAgent.velocity.sqrMagnitude == 0f)
 				{
-					// Moving = false;
 					StartCoroutine(Do());
 				}
 			}
 		}
-		if (Moving && Destination != Tasks.GetChild(TaskIndex).position)
+		if (Moving)
 		{
-			Destination = Tasks.GetChild(TaskIndex).position;
-			Moving = true;
-			if (NavAgent.enabled)
-			NavAgent.SetDestination(Tasks.GetChild(TaskIndex).position);
+			if (!Tasks.GetChild(TaskIndex).GetComponent<Task>().Target)
+			{
+				if (Destination != Tasks.GetChild(TaskIndex).position)
+					SetCourse();
+			}
+			else 
+			{
+				if (Destination != Tasks.GetChild(TaskIndex).GetComponent<Task>().Interactable.transform.Find("Target").position)
+					SetCourse();
+			}
 		}
 		Animator.SetFloat("Speed", NavAgent.velocity.magnitude);
 	}
@@ -186,7 +200,9 @@ public class Worker : MonoBehaviour
 	void OnTriggerStay(Collider other)
     {
 		GameObject m_inter = other.transform.parent.parent.gameObject;
-        if(Moving && m_inter == Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Interactable )
+        if(Moving
+		&& m_inter == Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Interactable
+		&&!Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Target)
 		{
 			StartCoroutine(Do());
 		}

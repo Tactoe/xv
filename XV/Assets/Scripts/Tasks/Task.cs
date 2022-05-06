@@ -11,7 +11,7 @@ public class Task : MonoBehaviour
 	private GameObject m_Camera;
 	public GameObject Interactable;
 	public int Wait = 0;
-
+	public bool Target;
 	void Awake()
 	{
 		m_Camera = GameObject.Find("Main Camera");
@@ -20,6 +20,12 @@ public class Task : MonoBehaviour
 	}
 	void Start()
 	{
+		Target = false;
+		if (Interactable)
+		{
+			if (Interactable.transform.Find("Target"))
+				Target = true;
+		}
 	}
 
 	void Update()
