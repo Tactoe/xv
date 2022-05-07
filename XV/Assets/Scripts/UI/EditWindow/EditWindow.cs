@@ -63,7 +63,7 @@ public class EditWindow : MonoBehaviour
         {
             DestroyObject();
         }
-        if (m_TrackMovement)
+        if (Target && m_TrackMovement)
         {
             m_Fields[0].setFieldValues(Target.transform.localPosition);
             m_Fields[1].setFieldValues(Target.transform.localEulerAngles);

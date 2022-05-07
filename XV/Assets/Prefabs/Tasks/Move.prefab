@@ -46,6 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266b2be4df3f945788316585ff431cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Interactable: {fileID: 0}
+  Wait: 0
+  Target: 0
+  Data:
+    Position: {x: 0, y: 0, z: 0}
+    HasParent: 0
+    RelatedParentID: 0
+    RelatedWorkerID: 0
+    PrefabName: Move
 --- !u!120 &5262196289231503859
 LineRenderer:
   m_ObjectHideFlags: 0

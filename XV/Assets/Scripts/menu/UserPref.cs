@@ -17,7 +17,7 @@ public class UserPref : MonoBehaviour
         } else {
             PlayerPrefs.SetString("savesNames", "");
         }
-        if (PlayerPrefs.GetInt("nbSaves") != null) {
+        if (PlayerPrefs.GetInt("nbSaves") != 0) {
             nbSaves = PlayerPrefs.GetInt("nbSaves");
         } else {
             PlayerPrefs.SetInt("nbSaves", 0);

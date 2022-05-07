@@ -257,6 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c516f2bd51d49ea865b633b0cd7969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Busy: 0
   myPrefab: {fileID: 4789761956443935527, guid: a5d0ab4f8933240158c91371ee418259, type: 3}
 --- !u!4 &6447662533926694085 stripped
 Transform:

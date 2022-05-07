@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Positions.Array.data[1].x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5262196289231503860, guid: d55851bb413d945c0b1bafb3a006489f, type: 3}
+      propertyPath: Data.PrefabName
+      value: PickUp
+      objectReference: {fileID: 0}
     - target: {fileID: 5262196289231503861, guid: d55851bb413d945c0b1bafb3a006489f, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -18,6 +18,7 @@ public class Worker : MonoBehaviour
 	public int TaskIndex;
 
 	private Vector3[] m_Origin = new Vector3[3];
+	private bool m_CheckStuck = false;
 	private Camera m_Camera;
 	private Timeline m_Timeline;
 	[SerializeField]
@@ -77,6 +78,8 @@ public class Worker : MonoBehaviour
 
 	public IEnumerator Do()
 	{
+		if (!Vehicule)
+			NavAgent.isStopped = true;
 		Moving = false;
 		string tag = Tasks.GetChild(TaskIndex).tag;
 
@@ -97,31 +100,48 @@ public class Worker : MonoBehaviour
 					Vehicule.GetComponent<Vehicule>().PickUp(my_interact);
 				}
 				else{
-					Animator.SetBool("Carrying", true);
-					yield return new WaitForSeconds(1f);
-					if (my_interact.GetComponent<Storage>() != null && slot.childCount == 0){
+					if (my_interact.GetComponent<Storage>() != null && slot.childCount == 0)
+					{
+						my_interact.GetComponent<Storage>().ToggleBusy();
+						Animator.SetBool("Carrying", true);
+						yield return new WaitForSeconds(1f);
 						my_interact.GetComponent<Storage>().PickUp(slot);
 					}
-					else if(my_interact.GetComponent<Station>() != null && slot.childCount == 0){
+					else if (my_interact.GetComponent<Station>() != null && slot.childCount == 0 && my_interact.transform.Find("Slot").childCount > 0)
+					{
+						my_interact.GetComponent<Station>().ToggleBusy();
+						Animator.SetBool("Carrying", true);
+						yield return new WaitForSeconds(1f);
 						my_interact.GetComponent<Station>().PickUp(slot);
 					}
 				}
 				break;
 			case "Drop":
-				Animator.SetBool("Carrying", false);
-				yield return new WaitForSeconds(1f);
 				if (!my_interact)
 					DropGround(slot);
-				else if (my_interact.GetComponent<Storage>() != null && slot.childCount > 0){
+				else if (my_interact.GetComponent<Storage>() != null && slot.childCount > 0)
+				{
+					my_interact.GetComponent<Storage>().ToggleBusy();
+					Animator.SetBool("Carrying", false);
+					yield return new WaitForSeconds(1f);
 					my_interact.GetComponent<Storage>().DropIn(slot);
 				}
-				else if(my_interact.GetComponent<Station>() != null && slot.childCount > 0){
+				else if (my_interact.GetComponent<Station>() != null && slot.childCount > 0 && my_interact.transform.Find("Slot").childCount ==0)
+				{
+					my_interact.GetComponent<Station>().ToggleBusy();
+					Animator.SetBool("Carrying", false);
+					yield return new WaitForSeconds(1f);
 					my_interact.GetComponent<Station>().DropIn(slot);
 				}
 				break;
 			case "Use":
-				if(my_interact.GetComponent<Station>() != null){
+				if (my_interact.transform.Find("Slot").childCount > 0)
+				{
+					Animator.SetBool("Interacting", true);
+					my_interact.GetComponent<Station>().ToggleBusy();
+					yield return new WaitForSeconds(5f);
 					my_interact.GetComponent<Station>().Use();
+					Animator.SetBool("Interacting", false);
 				}
 				break;
 		}
@@ -129,6 +149,8 @@ public class Worker : MonoBehaviour
 		float wait = Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Wait;
 		yield return new WaitForSeconds(wait);
 		TaskIndex += 1;
+		if(!Vehicule)
+			NavAgent.isStopped = false;
 		Move();
 	}
 
@@ -146,33 +168,36 @@ public class Worker : MonoBehaviour
 
 	private IEnumerator IsStuck(Vector3 i_Pos)
 	{
-		Debug.Log("Is...");
-		yield return new WaitForSeconds(3f);
-		Debug.Log("It.." + Vector3.Distance(i_Pos, transform.position));
-		if (Vector3.Distance(i_Pos, transform.position) < 0.05)
+		m_CheckStuck = true;
+		// Debug.Log("Is...");
+		yield return new WaitForSeconds(0.5f);
+		// Debug.Log("It.." + Vector3.Distance(i_Pos, transform.position));
+		if (m_CheckStuck && Moving && Vector3.Distance(i_Pos, transform.position) < 0.05)
 		{
 		Debug.Log("STUCK");
 			StopAllCoroutines();
 			TaskIndex += 1;
 			Move();
 		}
+		m_CheckStuck = false;
 	}
 
 	void Update()
 	{
-		if (!NavAgent.pathPending && Moving && NavAgent.enabled)
-		{
-			StartCoroutine(IsStuck(transform.position));
-			if (NavAgent.remainingDistance <= NavAgent.stoppingDistance)
-			{
-				if (!NavAgent.hasPath || NavAgent.velocity.sqrMagnitude == 0f)
-				{
-					StartCoroutine(Do());
-				}
-			}
-		}
 		if (Moving)
 		{
+			if (!NavAgent.pathPending && NavAgent.enabled)
+			{
+				if (!m_CheckStuck && !NavAgent.isStopped)
+					StartCoroutine(IsStuck(transform.position));
+				if (NavAgent.remainingDistance <= NavAgent.stoppingDistance)
+				{
+					if (!NavAgent.hasPath || NavAgent.velocity.sqrMagnitude == 0f)
+					{
+						StartCoroutine(Do());
+					}
+				}
+			}
 			if (!Tasks.GetChild(TaskIndex).GetComponent<Task>().Target)
 			{
 				if (Destination != Tasks.GetChild(TaskIndex).position)
@@ -182,6 +207,31 @@ public class Worker : MonoBehaviour
 			{
 				if (Destination != Tasks.GetChild(TaskIndex).GetComponent<Task>().Interactable.transform.Find("Target").position)
 					SetCourse();
+			}
+			if (Tasks.GetChild(TaskIndex).GetComponent<Task>().Target)
+			{
+				int busy = -1;
+				if (Tasks.GetChild(TaskIndex).GetComponent<Task>().Interactable.tag == "Station"){
+					busy = Tasks.GetChild(TaskIndex).GetComponent<Task>().Interactable.GetComponent<Station>().Busy;
+					}
+				else if (Tasks.GetChild(TaskIndex).GetComponent<Task>().Interactable.tag == "Storage"){
+					busy = Tasks.GetChild(TaskIndex).GetComponent<Task>().Interactable.GetComponent<Storage>().Busy;
+					}
+					print (Tasks.GetChild(TaskIndex).GetComponent<Task>().Interactable.name + " is isk");
+				if (busy > 0)
+				{
+					print("WAIT");
+					m_CheckStuck = false;
+					if(!Vehicule)
+						NavAgent.isStopped = true;
+				}
+				else if (busy == 0)
+				{
+					print("GO");
+					if(!Vehicule)
+						NavAgent.isStopped = false;
+				}
+				busy = -1;
 			}
 		}
 		Animator.SetFloat("Speed", NavAgent.velocity.magnitude);

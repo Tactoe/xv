@@ -91,6 +91,7 @@ public class SaveManager : MonoBehaviour
     {
 		DestroyImmediate(m_SceneAnchor.gameObject);
 		m_SceneAnchor = Instantiate(m_ScenePrefab).transform;
+		m_SceneAnchor.name = m_ScenePrefab.name;
         print(PlayerPrefs.GetString(i_SaveName));
         SaveDataObject saveDataObject = JsonUtility.FromJson<SaveDataObject>(PlayerPrefs.GetString(i_SaveName));
         foreach (ItemData item in saveDataObject.itemArray)

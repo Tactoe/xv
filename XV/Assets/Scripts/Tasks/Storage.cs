@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class Storage : MonoBehaviour
 {
+	public int Busy;
 	public GameObject myPrefab;
-	// Start is called before the first frame update
+	
 	public void Start()
 	{
+		Busy = (transform.Find("Target")) ? 0 : -1;
 	}
 
-	// Update is called once per frame
+	public void ToggleBusy()
+	{
+		if (Busy == 0)
+			Busy = 1;
+	}
+
 	public void Update()
 	{
 		
@@ -21,6 +28,7 @@ public class Storage : MonoBehaviour
 		//Get the object in the worker's hands and destroy it
 		GameObject myObj = i_parent.GetChild(0).gameObject;
 		Destroy(myObj);
+		Busy = 0;
 	}
 
 	public void PickUp(Transform i_pos)
@@ -31,6 +39,7 @@ public class Storage : MonoBehaviour
 		tmp.transform.Find("Hitbox").Find("InteractionHitbox").gameObject.GetComponent<BoxCollider>().enabled = false;
 
 		tmp.transform.localPosition = Vector3.zero;
+		Busy = 0;
 	}
 
 }

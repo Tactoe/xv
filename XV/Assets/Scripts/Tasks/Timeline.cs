@@ -21,14 +21,6 @@ public class Timeline : MonoBehaviour
 	[SerializeField]
 	private GameObject m_Camera;
 
-	void Awake()
-	{
-		m_Scene = GameObject.Find("Scene");
-	}
-	void Start()
-	{
-	}
-
 	void Clone()
 	{
 		m_Clone = Instantiate(m_Scene);
@@ -36,6 +28,7 @@ public class Timeline : MonoBehaviour
 
 	public void Play()
 	{
+		m_Scene = GameObject.Find("Scene");
 		Clone();
 		m_StopButton.gameObject.SetActive(true);
 		m_PlayButton.gameObject.SetActive(false);

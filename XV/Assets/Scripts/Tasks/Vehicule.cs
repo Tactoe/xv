@@ -33,6 +33,8 @@ public class Vehicule : MonoBehaviour
 
 	public void GetIn(GameObject i_Worker)
 	{
+		if (Driver)
+			return;
 		m_NavAgent.enabled = true;
 		Driver = i_Worker;
 		m_Worker = Driver.GetComponent<Worker>();
