@@ -7,13 +7,13 @@ using TMPro;
 public class RendererObject
 {
     public Material mat;
-    public List<MeshRenderer> meshRenderers;
+    public List<Renderer> meshRenderers;
     public List<int> meshRenderMatIndexes;
 
-    public RendererObject(Material i_Mat, MeshRenderer i_MeshRend, int i_MeshRendMatIndex)
+    public RendererObject(Material i_Mat, Renderer i_MeshRend, int i_MeshRendMatIndex)
     {
         mat = i_Mat;
-        meshRenderers = new List<MeshRenderer>();
+        meshRenderers = new List<Renderer>();
         meshRenderMatIndexes = new List<int>();
         meshRenderers.Add(i_MeshRend);
         meshRenderMatIndexes.Add(i_MeshRendMatIndex);
@@ -193,7 +193,7 @@ public class EditWindow : MonoBehaviour
         m_TargetColors[i] = i_NewColor;
         for(int j = 0; j < m_TargetRenderers[i].meshRenderers.Count; j++)
         {
-            MeshRenderer meshRenderer = m_TargetRenderers[i].meshRenderers[j];
+            Renderer meshRenderer = m_TargetRenderers[i].meshRenderers[j];
             int materialIndex = m_TargetRenderers[i].meshRenderMatIndexes[j];
             meshRenderer.GetPropertyBlock(propertyBlock);
             propertyBlock.SetColor("_Color", m_TargetColors[i]);

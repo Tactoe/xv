@@ -8,7 +8,7 @@ public class ColorOverrider : MonoBehaviour
     {
         foreach (Transform child in target)
         {
-            MeshRenderer mesh = child.GetComponent<MeshRenderer>();
+            Renderer mesh = child.GetComponent<Renderer>();
             if (mesh != null)
             {
                 for (int i = 0; i < mesh.sharedMaterials.Length; i++)
@@ -51,7 +51,7 @@ public class ColorOverrider : MonoBehaviour
             {
                 Color colorOverride = new Color();
                 ColorUtility.TryParseHtmlString(i_ColorOverride[i], out colorOverride);
-                MeshRenderer meshRenderer = targetRenderers[i].meshRenderers[j];
+                Renderer meshRenderer = targetRenderers[i].meshRenderers[j];
                 int materialIndex = targetRenderers[i].meshRenderMatIndexes[j];
                 meshRenderer.GetPropertyBlock(propertyBlock);
                 propertyBlock.SetColor("_Color", colorOverride);
