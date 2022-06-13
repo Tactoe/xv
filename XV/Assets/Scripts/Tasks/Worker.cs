@@ -158,7 +158,7 @@ public class Worker : MonoBehaviour
 	{
 		if (slot.childCount > 0)
 		{
-			slot.GetChild(0).parent = slot.parent.parent.parent;
+			slot.GetChild(0).parent = transform.parent;
 		}
 		else if (Vehicule)
 		{
