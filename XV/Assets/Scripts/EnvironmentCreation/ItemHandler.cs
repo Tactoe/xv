@@ -95,8 +95,11 @@ public class ItemHandler : MonoBehaviour
     public void SetupItem(GameObject i_ItemToPlace)
     {
         ItemData itemData = m_CurrentObjectToPlace.GetComponentInChildren<Item>().Data;
-        itemData.PrefabName = i_ItemToPlace.name;
-        itemData.ItemName = i_ItemToPlace.name;
+        if (itemData.PrefabName == "")
+            itemData.PrefabName = i_ItemToPlace.name;
+        if (itemData.ItemName == "")
+            itemData.ItemName = i_ItemToPlace.name;
+        m_CurrentObjectToPlace.name = itemData.ItemName;
 		Transform scene = GameObject.FindGameObjectWithTag("Scene").transform;
         m_CurrentObjectToPlace.transform.parent = scene;
         m_CurrentObjectToPlace.transform.Find("Hitbox").gameObject.SetActive(false);

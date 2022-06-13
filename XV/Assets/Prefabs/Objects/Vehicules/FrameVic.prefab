@@ -202,7 +202,7 @@ MonoBehaviour:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0}
     Scale: {x: 0, y: 0, z: 0}
-    Tags: 
+    Tags: 05000000
 --- !u!33 &5173988506468144439
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -192,6 +192,14 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 1.2858557
       objectReference: {fileID: 0}
+    - target: {fileID: 5954556591490441003, guid: fecec52c486f2474f89c8c9e2b23b8c8, type: 3}
+      propertyPath: Data.Tags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5954556591490441003, guid: fecec52c486f2474f89c8c9e2b23b8c8, type: 3}
+      propertyPath: Data.Tags.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6528208656278591168, guid: fecec52c486f2474f89c8c9e2b23b8c8, type: 3}
       propertyPath: m_RootOrder
       value: 5

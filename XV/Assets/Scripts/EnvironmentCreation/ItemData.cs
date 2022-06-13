@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemTags{Heavy, Light, Worker, Station, Storage, Vehicle};
+public enum ItemTags{Heavy, Light, Worker, Station, Storage, Vehicle, Furniture};
 
 [Serializable]
 public class ItemData
