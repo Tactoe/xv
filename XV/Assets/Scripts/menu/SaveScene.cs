@@ -35,7 +35,7 @@ public class SaveScene : MonoBehaviour
         else{
             Debug.Log("SAVE OK ");
             SaveManager.Instance.Save(m_stringToCheck);
-            PlayerPrefs.SetString("savesNames", PlayerPrefs.GetString("savesNames") + ";" + m_stringToCheck);
+            PlayerPrefs.SetString("savesNames", PlayerPrefs.GetString("savesNames") + m_stringToCheck + ";" );
             Debug.Log(PlayerPrefs.GetString(m_stringToCheck));
         }
     }
