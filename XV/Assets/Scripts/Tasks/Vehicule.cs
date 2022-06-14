@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Vehicule : MonoBehaviour
 {
 	public GameObject Driver;
+	public bool m_Cart;
 	private Transform m_Dismount;
 	private Transform m_Seat;
 	private NavMeshAgent m_NavAgent;
@@ -26,6 +27,8 @@ public class Vehicule : MonoBehaviour
 		m_NavAgent.enabled = false;
 		transform.Find("Hitbox").gameObject.GetComponent<NavMeshObstacle>().enabled = true;
 		Driver.GetComponent<NavMeshAgent>().enabled = true;
+		if (!m_Cart)
+			Driver.GetComponent<Animator>().SetBool("Seat", false);
 		Driver.transform.position = m_Dismount.position;
 		m_Worker.Vehicule = null;
 		Driver = null;
@@ -40,6 +43,8 @@ public class Vehicule : MonoBehaviour
 		m_Worker = Driver.GetComponent<Worker>();
 		transform.Find("Hitbox").gameObject.GetComponent<NavMeshObstacle>().enabled = false;
 		Driver.GetComponent<NavMeshAgent>().enabled = false;
+		if (!m_Cart)
+			Driver.GetComponent<Animator>().SetBool("Seat", true);
 		m_Worker.Vehicule = gameObject;
 	}
 
@@ -70,6 +75,8 @@ public class Vehicule : MonoBehaviour
     {
         if (Driver)
 		{
+			if (m_Cart)
+				Driver.GetComponent<Animator>().SetFloat("Speed", m_NavAgent.velocity.magnitude);
 			Driver.transform.position = m_Seat.position;
 			Driver.transform.eulerAngles = m_Seat.eulerAngles;
 			if (m_Worker.Destination != m_NavAgent.destination)

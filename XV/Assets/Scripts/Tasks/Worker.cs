@@ -73,6 +73,8 @@ public class Worker : MonoBehaviour
 			}
 			if (Loop)
 				SetCourse();
+			else
+				NavAgent.isStopped = true;
 		}
 	}
 
@@ -170,9 +172,9 @@ public class Worker : MonoBehaviour
 	{
 		m_CheckStuck = true;
 		// Debug.Log("Is...");
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(1f);
 		// Debug.Log("It.." + Vector3.Distance(i_Pos, transform.position));
-		if (m_CheckStuck && Moving && Vector3.Distance(i_Pos, transform.position) < 0.05)
+		if (m_CheckStuck && Moving && Vector3.Distance(i_Pos, transform.position) < 0.01)
 		{
 		Debug.Log("STUCK");
 			StopAllCoroutines();
