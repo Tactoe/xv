@@ -154,22 +154,6 @@ public class SaveManager : MonoBehaviour
 			}
 			else
 				instantiated.transform.localPosition = taskData.Position;
-			
-
 		}
     }
-
-    // Update is called once per frame
-    // void Update()
-    // {
-        
-    //     if (Input.GetKeyDown(KeyCode.Alpha1))
-    //     {
-    //         Save();
-    //     }
-    //     if (Input.GetKeyDown(KeyCode.Alpha2))
-    //     {
-    //         Load();
-    //     }
-    // }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum EditorState { normal, editItem, placingItem, placingOrder, exploring };
 
@@ -19,6 +20,7 @@ public class ItemHandler : MonoBehaviour
     EditorState m_CurrentState;
     GameObject m_CurrentObjectToPlace;
     Camera m_Cam;
+    Zoom[] m_Zoomers;
     RaycastHit m_HitInfo;
 
     public delegate void ChangeMode(EditorState i_NewState);
@@ -34,6 +36,7 @@ public class ItemHandler : MonoBehaviour
      void Start()
     {
         m_Cam = GetComponent<Camera>();
+        m_Zoomers = GetComponentsInChildren<Zoom>();
         NormalMode();
     }
 
@@ -122,8 +125,13 @@ public class ItemHandler : MonoBehaviour
     private void Update()
     {
         Ray ray = m_Cam.ScreenPointToRay(Input.mousePosition);
+        bool mouseInScene = !EventSystem.current.IsPointerOverGameObject();
+        foreach(Zoom zoom in m_Zoomers)
+        {
+            zoom.CanZoom = mouseInScene;
+        }
 
-        if (Physics.Raycast(ray, out m_HitInfo))
+        if (Physics.Raycast(ray, out m_HitInfo) && mouseInScene)
         {
             switch (m_CurrentState)
             {

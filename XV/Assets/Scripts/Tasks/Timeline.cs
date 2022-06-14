@@ -24,6 +24,17 @@ public class Timeline : MonoBehaviour
 	void Clone()
 	{
 		m_Clone = Instantiate(m_Scene);
+		Item[] items = m_Clone.GetComponentsInChildren<Item>();
+		foreach (Item item in items)
+		{
+			GameObject itemGO = item.transform.parent.gameObject;
+            if (item.Data.ColorOverride.Count > 0)
+            {
+                ColorOverrider colorOverrider = itemGO.AddComponent<ColorOverrider>();
+                colorOverrider.ApplyColorOverride(item.Data.ColorOverride);
+                Destroy(colorOverrider);
+            }
+		}
 	}
 
 	public void Play()

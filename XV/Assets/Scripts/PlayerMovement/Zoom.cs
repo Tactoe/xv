@@ -3,6 +3,7 @@
 public class Zoom : MonoBehaviour
 {
     Camera m_Cam;
+    public bool CanZoom;
     public float MinFOV = 15;
     public float MaxZoomFOV = 60;
     [Range(0, 1)]
@@ -18,9 +19,12 @@ public class Zoom : MonoBehaviour
 
     void Update()
     {
-        // Update the currentZoom and the camera's fieldOfView.
-        CurrentZoom += Input.mouseScrollDelta.y * Sensitivity * .05f;
-        CurrentZoom = Mathf.Clamp01(CurrentZoom);
-        m_Cam.fieldOfView = Mathf.Lerp(MaxZoomFOV, MinFOV, CurrentZoom);
+        if (CanZoom)
+        {
+            // Update the currentZoom and the camera's fieldOfView.
+            CurrentZoom += Input.mouseScrollDelta.y * Sensitivity * .05f;
+            CurrentZoom = Mathf.Clamp01(CurrentZoom);
+            m_Cam.fieldOfView = Mathf.Lerp(MaxZoomFOV, MinFOV, CurrentZoom);
+        }
     }
 }

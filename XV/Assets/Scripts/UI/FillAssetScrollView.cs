@@ -26,16 +26,15 @@ public class FillAssetScrollView : MonoBehaviour
         foreach(GameObject asset in m_Assets)
         {
             Sprite assetThumbnail = null;
-            List<ItemTags> tags = new List<ItemTags>();
             foreach (Sprite thumbnail in i_Thumbnails)
             {
                 if (thumbnail.name == asset.name)
                 {
-                    tags = asset.GetComponentInChildren<Item>().Data.Tags;
                     assetThumbnail = thumbnail;
                     break;
                 }
             }
+            List<ItemTags> tags = asset.GetComponentInChildren<Item>().Data.Tags;
             foreach (ItemTags tag in tags)
             {
                 string tagName = tag.ToString();
