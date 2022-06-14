@@ -64,8 +64,6 @@ public class AssetLoader : MonoBehaviour {
                 timeout++;
             }
             byte[] bytes = texture.EncodeToPNG();
-            print(Application.dataPath);
-            print(asset.name);
             File.WriteAllBytes(dirPath + asset.name + ".png", bytes);
         }
     }

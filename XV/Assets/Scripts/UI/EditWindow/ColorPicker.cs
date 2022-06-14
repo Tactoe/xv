@@ -11,7 +11,7 @@ public class ColorPicker : MonoBehaviour
 
     void Start()
     {
-        List<string> colorOverride = EditWindow.Instance.Target.GetComponentInChildren<Item>().Data.ColorOverride;
+        List<string> colorOverride = EditWindow.Instance.Target.GetComponentInChildren<Item>(true).Data.ColorOverride;
         string overrideString = colorOverride[CurrentColorIndex];
         if (overrideString != null)
         {

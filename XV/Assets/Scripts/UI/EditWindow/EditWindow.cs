@@ -87,7 +87,6 @@ public class EditWindow : MonoBehaviour
         }
         Target = i_Target;
         ItemData itemData = Target.GetComponentInChildren<Item>().Data;
-        print(itemData.ItemName);
         m_NameText.text = itemData.ItemName;
         m_NameText.onEndEdit.AddListener(delegate (string i_Name) {
             Target.GetComponentInChildren<Item>().Data.ItemName = i_Name;
@@ -199,7 +198,6 @@ public class EditWindow : MonoBehaviour
             propertyBlock.SetColor("_Color", m_TargetColors[i]);
             meshRenderer.SetPropertyBlock(propertyBlock, materialIndex);
         }
-        print(Target.GetComponentInChildren<Item>().Data.ColorOverride.Count);
         Target.GetComponentInChildren<Item>().Data.ColorOverride[i] = "#" + ColorUtility.ToHtmlStringRGB(i_NewColor);
     }
 }
