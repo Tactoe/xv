@@ -45,7 +45,7 @@ public class ColorOverrider : MonoBehaviour
         MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
         for (int i = 0; i < targetRenderers.Count; i++)
         {
-            if (i_ColorOverride[i] == null)
+            if (i_ColorOverride[i] == null || i_ColorOverride[i] == "")
                 continue;
             for(int j = 0; j < targetRenderers[i].meshRenderers.Count; j++)
             {

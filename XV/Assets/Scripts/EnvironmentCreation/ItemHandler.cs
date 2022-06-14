@@ -80,7 +80,7 @@ public class ItemHandler : MonoBehaviour
             Destroy(m_CurrentObjectToPlace);
         if (i_InstantiateItem)
         {
-            m_CurrentObjectToPlace = Instantiate(i_ItemToPlace, Vector3.one * 1000, Quaternion.identity);
+            m_CurrentObjectToPlace = Instantiate(i_ItemToPlace, Vector3.zero, Quaternion.identity);
             GameObject tmp = Instantiate(m_SceneItemSelector, m_SceneItemListTF);
             tmp.GetComponent<SceneItemSelector>().Init(m_CurrentObjectToPlace, i_ItemToPlace.name);
         }
