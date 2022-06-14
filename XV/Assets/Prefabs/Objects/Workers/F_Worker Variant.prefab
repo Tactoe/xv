@@ -62,6 +62,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 18ebbe4f2422a419a8842b0a45f48230, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 18ebbe4f2422a419a8842b0a45f48230, type: 3}
+--- !u!4 &3061049560567130885 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 18ebbe4f2422a419a8842b0a45f48230, type: 3}
+  m_PrefabInstance: {fileID: 3733102084754756813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3733102085068994398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76,6 +81,18 @@ PrefabInstance:
     - target: {fileID: 3148995120404878105, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_Name
       value: F_Worker Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743972063176818126, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743972063176818126, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: avoidancePriority
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743972063176818126, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3823792251059992279, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: Data.Tags.Array.size
@@ -141,6 +158,10 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 6857731876249046892, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: m_AnimSlot
+      value: 
+      objectReference: {fileID: 3061049560567130885}
     - target: {fileID: 8238061878327864773, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_Avatar
       value: 

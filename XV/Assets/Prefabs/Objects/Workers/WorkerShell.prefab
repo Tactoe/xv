@@ -193,10 +193,9 @@ GameObject:
   - component: {fileID: 8238061878327864773}
   - component: {fileID: 3743972063176818126}
   - component: {fileID: 2581718492895858608}
-  - component: {fileID: 3823792251059992279}
   - component: {fileID: 2496835682796484231}
   m_Layer: 2
-  m_Name: Frame Worker
+  m_Name: WorkerShell
   m_TagString: Worker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,26 +283,6 @@ MonoBehaviour:
   Vehicule: {fileID: 0}
   TaskIndex: 0
   m_Over: 0
---- !u!114 &3823792251059992279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3148995120404878105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b8061a55cb9a2439c25bc0ebb52b2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data:
-    PrefabName: 
-    ItemName: 
-    ColorOverride: []
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    Tags: 
 --- !u!136 &2496835682796484231
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -358,6 +337,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1982389033012112976}
+  - component: {fileID: 6857731876249046892}
   m_Layer: 0
   m_Name: Slot
   m_TagString: Untagged
@@ -380,3 +360,16 @@ Transform:
   m_Father: {fileID: 5517462015301427994}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6857731876249046892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4797685514030080736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e6d4667e635419883accbf1a19074a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AnimSlot: {fileID: 0}
