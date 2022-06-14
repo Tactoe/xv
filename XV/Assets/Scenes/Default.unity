@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.49641287, b: 0.5748173, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1941,6 +1941,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 49359835795921466, guid: 4cbc14df971b24b38bffbc3905dc8659, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602586709587704059, guid: 4cbc14df971b24b38bffbc3905dc8659, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602586710900324699, guid: 4cbc14df971b24b38bffbc3905dc8659, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602586711008301699, guid: 4cbc14df971b24b38bffbc3905dc8659, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 524.6198
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602586711008301699, guid: 4cbc14df971b24b38bffbc3905dc8659, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 280.0218
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602586711008301699, guid: 4cbc14df971b24b38bffbc3905dc8659, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.3699
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602586711008301699, guid: 4cbc14df971b24b38bffbc3905dc8659, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -36.4515
+      objectReference: {fileID: 0}
+    - target: {fileID: 1760602403106789603, guid: 4cbc14df971b24b38bffbc3905dc8659, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -62
+      objectReference: {fileID: 0}
     - target: {fileID: 2431845401396898318, guid: 4cbc14df971b24b38bffbc3905dc8659, type: 3}
       propertyPath: m_Name
       value: Pause
@@ -2035,6 +2067,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2431845401396898357, guid: 4cbc14df971b24b38bffbc3905dc8659, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562107549331084984, guid: 4cbc14df971b24b38bffbc3905dc8659, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -49
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168376929360681456, guid: 4cbc14df971b24b38bffbc3905dc8659, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

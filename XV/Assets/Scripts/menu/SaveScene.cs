@@ -37,6 +37,7 @@ public class SaveScene : MonoBehaviour
             SaveManager.Instance.Save(m_stringToCheck);
             PlayerPrefs.SetString("savesNames", PlayerPrefs.GetString("savesNames") + m_stringToCheck + ";" );
             Debug.Log(PlayerPrefs.GetString(m_stringToCheck));
+            gameObject.SetActive(false);
         }
     }
 
@@ -45,6 +46,13 @@ public class SaveScene : MonoBehaviour
         Err2.SetActive(false);
     }
 
+    public void ForceSave(){
+        string m_stringToCheck = MyField.text;
+        Debug.Log("SAVE OK ");
+        SaveManager.Instance.Save(m_stringToCheck);
+        Debug.Log(PlayerPrefs.GetString(m_stringToCheck));
+        gameObject.SetActive(false);
+    }
 
  
     void sayChatMessage(string msg){
