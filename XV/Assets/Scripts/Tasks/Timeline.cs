@@ -77,7 +77,6 @@ public class Timeline : MonoBehaviour
 
 	public void Stop()
 	{
-		Debug.Log("arret");
 		Destroy(m_Clone);
 		m_InputTimer.gameObject.SetActive(true);
 		m_RunTimer.gameObject.SetActive(false);
@@ -96,7 +95,7 @@ public class Timeline : MonoBehaviour
 			m_WorkerCount.text = Working.ToString();
 			if (Working <= 0 && Timer < m_Timer)
 				Stop();
-			else if ( Timer < m_Timer)
+			else if (Timer >= m_Timer)
 			{
 				m_Timer += Time.deltaTime;
 			}

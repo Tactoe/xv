@@ -48,5 +48,7 @@ public class Task : MonoBehaviour
 			transform.position = Interactable.transform.position;
 		transform.LookAt(m_Camera.transform);
 		transform.localScale = Vector3.one * (Vector3.Distance(transform.position, m_Camera.transform.position) / 7f);
+		if (Data.HasParent && !Interactable)
+			Destroy(gameObject);
 	}
 }

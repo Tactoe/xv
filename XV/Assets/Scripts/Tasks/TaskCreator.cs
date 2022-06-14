@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TaskCreator : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class TaskCreator : MonoBehaviour
 	static private GameObject m_TmpTask;
 	[SerializeField]
 	static private Timeline m_Timeline;
-	static public bool Hovering;
 	void Awake()
 	{
 		m_Camera = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -47,7 +47,7 @@ public class TaskCreator : MonoBehaviour
 		}
 
 		else if (m_TmpTask.CompareTag("PickUp")){
-			if (i_Hit.transform.parent.CompareTag("Storage") || i_Hit.transform.parent.CompareTag("Station"))
+			if (i_Hit.transform.parent.CompareTag("Storage") || i_Hit.transform.parent.CompareTag("Station") || i_Hit.transform.parent.CompareTag("Ressource"))
 			{
 				m_TmpTask.GetComponent<Task>().SetInteractable(i_Hit.transform.parent.gameObject);
 				m_TmpTask.transform.position = i_Hit.transform.position;
@@ -107,16 +107,12 @@ public class TaskCreator : MonoBehaviour
 			ReleaseOrder();
 		}
 	}
-	public void SetHovering(bool i)
-	{
-		Hovering = i;
-		if (!m_TmpTask)
-			Hovering = false;
-	}
+
 	void Update()
 	{
 		if (m_TmpTask)
 		{
+        	bool mouseInScene = !EventSystem.current.IsPointerOverGameObject();
 			if (m_Timeline.Running)
 			{
 				Cancel();
@@ -126,7 +122,7 @@ public class TaskCreator : MonoBehaviour
 			Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out hit))
 				m_TmpTask.transform.position = hit.point;
-			if (Input.GetMouseButton(0) && !Hovering)
+			if (Input.GetMouseButton(0) && mouseInScene)
 				Create(hit);
 			else if (Input.GetMouseButton(1))
 				Cancel();

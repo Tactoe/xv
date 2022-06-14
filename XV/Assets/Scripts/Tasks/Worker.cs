@@ -102,6 +102,12 @@ public class Worker : MonoBehaviour
 					Vehicule.GetComponent<Vehicule>().PickUp(my_interact);
 				}
 				else{
+					if (my_interact.CompareTag("Ressource") && slot.childCount == 0)
+					{
+						Animator.SetBool("Carrying", true);
+						yield return new WaitForSeconds(1f);
+						PickUpGround(my_interact, slot);
+					}
 					if (my_interact.GetComponent<Storage>() != null && slot.childCount == 0)
 					{
 						my_interact.GetComponent<Storage>().ToggleBusy();
@@ -154,6 +160,15 @@ public class Worker : MonoBehaviour
 		if(!Vehicule)
 			NavAgent.isStopped = false;
 		Move();
+	}
+
+	void PickUpGround(GameObject my_interact, Transform slot)
+	{
+		my_interact.transform.parent = slot;
+		my_interact.transform.position = slot.position;
+		my_interact.GetComponent<BoxCollider>().enabled = false;
+		my_interact.GetComponent<UnityEngine.AI.NavMeshObstacle>().enabled = false;
+		my_interact.transform.Find("InteractionHitbox").gameObject.GetComponent<BoxCollider>().enabled = false;
 	}
 
 	void DropGround(Transform slot)

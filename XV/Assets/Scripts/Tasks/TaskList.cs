@@ -61,5 +61,7 @@ public class TaskList : MonoBehaviour
 	{
 		if (m_Target.Target && m_Target.Target.CompareTag("Worker"))
 			UpdateList();
+		else if (m_Target.Target && !m_Target.Target.CompareTag("Worker"))
+			m_Content.SetActive(false);
 	}
 }
