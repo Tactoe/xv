@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 2581718492895858608}
   - component: {fileID: 2496835682796484231}
   m_Layer: 2
-  m_Name: Frame Worker
+  m_Name: WorkerShell
   m_TagString: Worker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
