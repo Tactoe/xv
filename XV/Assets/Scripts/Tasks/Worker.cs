@@ -166,9 +166,9 @@ public class Worker : MonoBehaviour
 	{
 		my_interact.transform.parent = slot;
 		my_interact.transform.position = slot.position;
-		my_interact.GetComponent<BoxCollider>().enabled = false;
-		my_interact.GetComponent<UnityEngine.AI.NavMeshObstacle>().enabled = false;
-		my_interact.transform.Find("InteractionHitbox").gameObject.GetComponent<BoxCollider>().enabled = false;
+		my_interact.transform.Find("Hitbox").gameObject.GetComponent<BoxCollider>().enabled = false;
+		my_interact.transform.Find("Hitbox").gameObject.GetComponent<UnityEngine.AI.NavMeshObstacle>().enabled = false;
+		my_interact.transform.Find("Hitbox").Find("InteractionHitbox").gameObject.GetComponent<BoxCollider>().enabled = false;
 	}
 
 	void DropGround(Transform slot)

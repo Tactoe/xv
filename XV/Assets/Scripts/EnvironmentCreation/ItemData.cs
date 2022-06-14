@@ -25,4 +25,5 @@ public class TaskData
 	public int RelatedParentID;
 	public int RelatedWorkerID;
 	public string PrefabName;
+	public string TaskDescription;
 }

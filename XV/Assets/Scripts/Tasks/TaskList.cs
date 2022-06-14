@@ -9,6 +9,9 @@ public class TaskList : MonoBehaviour
 {
 	public GameObject Worker;
 	public GameObject TaskPrefab;
+	[HideInInspector]
+	public TaskData CurrentDesc;
+	public GameObject DescInput;
 	[SerializeField]
 	private GameObject m_Content;
 	[SerializeField]
@@ -19,7 +22,6 @@ public class TaskList : MonoBehaviour
 	void Awake()
 	{
 		m_Loop.isOn = false;
-		// m_TaskList = transform.GetChild(0).GetChild(6).GetChild(0).GetChild(0);
 		m_TaskList = GameObject.Find("Content2").transform;
 		m_Target = GameObject.Find("ItemWindow").GetComponent<EditWindow>();
 		m_Content.SetActive(false);
@@ -64,4 +66,11 @@ public class TaskList : MonoBehaviour
 		else if (m_Target.Target && !m_Target.Target.CompareTag("Worker"))
 			m_Content.SetActive(false);
 	}
+
+	public void ChangeDescription(string i_Desc)
+	{
+		CurrentDesc.TaskDescription = i_Desc;
+		DescInput.SetActive(false);
+	}
+
 }

@@ -13,6 +13,7 @@ public class Task : MonoBehaviour
 	public int Wait = 0;
 	public bool Target;
 	public TaskData Data;
+	
 	void Awake()
 	{
 		m_Camera = GameObject.Find("Main Camera");

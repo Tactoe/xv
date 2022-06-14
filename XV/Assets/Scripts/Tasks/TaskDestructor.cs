@@ -9,9 +9,11 @@ public class TaskDestructor : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI m_Wait;
 	private TaskList m_TaskList;
+	private GameObject m_DescInput;
 	void Awake()
 	{
 		m_TaskList = GameObject.Find("TaskList").GetComponent<TaskList>();
+		m_DescInput = GameObject.Find("TaskList").GetComponent<TaskList>().DescInput;
 	}
 	public void ChangeWait(string i_Wait)
 	{
@@ -29,6 +31,14 @@ public class TaskDestructor : MonoBehaviour
 			Task.transform.SetSiblingIndex(index + 1);
 			transform.parent.parent.parent.parent.parent.gameObject.GetComponent<TaskList>().UpdateList(true);
 	}
+
+	public void SetDescription()
+	{
+		m_DescInput.SetActive(true);
+		m_DescInput.GetComponent<TMP_InputField>().text = Task.GetComponent<Task>().Data.TaskDescription;
+		m_TaskList.CurrentDesc = Task.GetComponent<Task>().Data;
+	}
+
 	public void Destroy()
 	{
 		Destroy(Task);
