@@ -62,9 +62,15 @@ public class CreateAssetBundles
         {
             Directory.CreateDirectory(assetBundleDirectory);
         }
+        #if UNITY_EDITOR_WINDOWS
+        BuildTarget target = BuildTarget.StandaloneWindows;
+        #endif
+        #if UNITY_EDITOR_OSX
+        BuildTarget target = BuildTarget.StandaloneOSX;
+        #endif
         BuildPipeline.BuildAssetBundles(assetBundleDirectory, 
                                         BuildAssetBundleOptions.None, 
-                                        BuildTarget.StandaloneWindows);
+                                        target);
         Debug.Log("Build ok");
     }
 

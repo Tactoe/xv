@@ -6,6 +6,7 @@ using UnityEditor;
 
 namespace FFmpegOut
 {
+    #if UNITY_EDITOR
     [CanEditMultipleObjects]
     [CustomEditor(typeof(FrameRateController))]
     public class FrameRateControllerEditor : Editor
@@ -65,4 +66,5 @@ namespace FFmpegOut
             serializedObject.ApplyModifiedProperties();
         }
     }
+    #endif
 }

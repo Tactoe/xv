@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace FFmpegOut
 {
+    #if UNITY_EDITOR
     [CanEditMultipleObjects]
     [CustomEditor(typeof(CameraCapture))]
     public class CameraCaptureEditor : Editor
@@ -60,4 +61,5 @@ namespace FFmpegOut
             serializedObject.ApplyModifiedProperties();
         }
     }
+    #endif
 }
