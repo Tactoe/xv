@@ -28,6 +28,8 @@ public class FillAssetScrollView : MonoBehaviour
             Sprite assetThumbnail = null;
             foreach (Sprite thumbnail in i_Thumbnails)
             {
+                if (thumbnail == null)
+                    continue;    
                 if (thumbnail.name == asset.name)
                 {
                     assetThumbnail = thumbnail;
@@ -44,8 +46,12 @@ public class FillAssetScrollView : MonoBehaviour
                     containers[tagName].GetComponentInChildren<TextMeshProUGUI>().text = tagName;
                 }
                 Transform anchor = containers[tagName].transform.Find("Content");
-                GameObject itemThumbnail = Instantiate(m_Thumbnail, anchor);
-                itemThumbnail.GetComponent<AssetThumbnail>().Init(asset, assetThumbnail);
+                if (m_Thumbnail != null)
+                {
+                    GameObject itemThumbnail = Instantiate(m_Thumbnail, anchor);
+                    itemThumbnail.GetComponent<AssetThumbnail>().Init(asset, assetThumbnail);
+
+                }
             }
         }
     }
