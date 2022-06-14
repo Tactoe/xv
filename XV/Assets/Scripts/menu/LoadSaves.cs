@@ -70,6 +70,7 @@ public class LoadSaves : MonoBehaviour
         Debug.Log("data  = " + PlayerPrefs.GetString(name));
         //SaveManager.Instance.Load(name);
         PlayerPrefs.SetString("Current_Scene", name);
+        Time.timeScale = 1;
         SceneManager.LoadScene("Default");
     }
     

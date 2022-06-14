@@ -31,6 +31,7 @@ public class ItemHandler : MonoBehaviour
         if (Instance != null)
             Destroy(Instance.gameObject);
         Instance = this;
+        Time.timeScale = m_PauseMenu.activeInHierarchy ? 0 : 1;
     }
 
      void Start()
