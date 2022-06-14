@@ -23,7 +23,7 @@ public class AssetLoader : MonoBehaviour {
 
     void Start() {
         string bundlePath = Path.Combine(Application.streamingAssetsPath, "Bundles");
-        if (Directory.Exists(bundlePath))
+        if (Directory.Exists(bundlePath) && File.Exists(bundlePath+"/export"))
         {
             AssetBundle bundle = AssetBundle.LoadFromFile(bundlePath + "/export");
             if (bundle == null) {
