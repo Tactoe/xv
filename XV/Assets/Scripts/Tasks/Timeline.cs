@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Timeline : MonoBehaviour
 {
@@ -12,17 +13,28 @@ public class Timeline : MonoBehaviour
 	public int Timer = 0;
 	private float m_Timer = 0;
 	[SerializeField]
+	private TextMeshProUGUI m_WorkerCount;
+	[SerializeField]
+	private TMP_InputField m_InputTimer;
+	[SerializeField]
+	private TextMeshProUGUI m_RunTimer;
+	[SerializeField]
 	private Button m_PlayButton;
 	[SerializeField]
 	private Button m_StopButton;
 	
 	[SerializeField]
 	private Toggle m_Toggle;
-	[SerializeField]
 	private GameObject m_Camera;
+
+	void Awake()
+	{
+		m_Camera = GameObject.Find("Main Camera");
+	}
 
 	void Clone()
 	{
+		m_Scene = GameObject.Find("Scene");
 		m_Clone = Instantiate(m_Scene);
 		Item[] items = m_Clone.GetComponentsInChildren<Item>();
 		foreach (Item item in items)
@@ -39,8 +51,10 @@ public class Timeline : MonoBehaviour
 
 	public void Play()
 	{
-		m_Scene = GameObject.Find("Scene");
 		Clone();
+		Timer = (m_InputTimer.text == "") ? 0 : int.Parse(m_InputTimer.text);
+		m_InputTimer.gameObject.SetActive(false);
+		m_RunTimer.gameObject.SetActive(true);
 		m_StopButton.gameObject.SetActive(true);
 		m_PlayButton.gameObject.SetActive(false);
 		Working = 0;
@@ -65,6 +79,8 @@ public class Timeline : MonoBehaviour
 	{
 		Debug.Log("arret");
 		Destroy(m_Clone);
+		m_InputTimer.gameObject.SetActive(true);
+		m_RunTimer.gameObject.SetActive(false);
 		m_StopButton.gameObject.SetActive(false);
 		m_PlayButton.gameObject.SetActive(true);
 		Running = false;
@@ -77,12 +93,45 @@ public class Timeline : MonoBehaviour
 	{
 		if (Running)
 		{
+			m_WorkerCount.text = Working.ToString();
 			if (Working <= 0 && Timer < m_Timer)
 				Stop();
-			else
+			else if ( Timer < m_Timer)
 			{
 				m_Timer += Time.deltaTime;
 			}
+			m_RunTimer.text = (Timer - (int)m_Timer).ToString();
 		}
+		else
+		{
+			Working = 0;
+			if (m_Scene)
+			{
+				foreach (Transform child in m_Scene.transform)
+				{
+					if (child.gameObject.CompareTag("Worker"))
+					{
+						Working++;
+					}
+				}
+				m_WorkerCount.text = Working.ToString();
+			}
+			else 
+				m_Scene = GameObject.Find("Scene");
+		}
+	}
+
+	public void Pause()
+	{
+		Time.timeScale = 0f;
+	}
+	public void Normal()
+	{
+		Time.timeScale = 1f;
+	}
+
+	public void Fast()
+	{
+		Time.timeScale = 2f;
 	}
 }
