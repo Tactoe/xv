@@ -39,7 +39,7 @@ namespace FFmpegOut
             set { _preset = value; }
         }
 
-        [SerializeField] float _frameRate = 60;
+        [SerializeField] float _frameRate = 30;
         public float frameRate {
             get { return _frameRate; }
             set { _frameRate = value; }
@@ -154,7 +154,6 @@ namespace FFmpegOut
         {
             var camera = GetComponent<Camera>();
 
-            // Lazy initialization
             if (_session == null)
             {
                 // Give a newly created temporary render texture to the camera
@@ -252,6 +251,7 @@ namespace FFmpegOut
         {
             Debug.Log("imRecoding = " + imRecording);
             imRecording = imRecording ? false : true;
+            Debug.Log("imRecoding = " + imRecording);
             if (!imRecording){ RecorderOff();}
 
         }

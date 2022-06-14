@@ -130,6 +130,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 66826166}
     m_Modifications:
+    - target: {fileID: 4416483036391849983, guid: ff2701a66cb344f8bbea3bcc6660b1e2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416483036391849983, guid: ff2701a66cb344f8bbea3bcc6660b1e2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4416483036851904211, guid: ff2701a66cb344f8bbea3bcc6660b1e2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -217,6 +225,14 @@ PrefabInstance:
     - target: {fileID: 4416483036851904212, guid: ff2701a66cb344f8bbea3bcc6660b1e2, type: 3}
       propertyPath: m_Name
       value: TaskList
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416483037964984592, guid: ff2701a66cb344f8bbea3bcc6660b1e2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416483037964984592, guid: ff2701a66cb344f8bbea3bcc6660b1e2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff2701a66cb344f8bbea3bcc6660b1e2, type: 3}
@@ -434,6 +450,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 265808186}
+    - target: {fileID: 38045757250389294, guid: 4b419925f10e01b4dac6915098895ef9, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 38045757250389295, guid: 4b419925f10e01b4dac6915098895ef9, type: 3}
       propertyPath: m_Pivot.x
       value: 0

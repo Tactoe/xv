@@ -71,6 +71,7 @@ public class Timeline : MonoBehaviour
 		m_Scene.SetActive(false);
 
 		if (m_Toggle.isOn){
+			Debug.Log("ta mere la pute = ");
 			m_Camera.GetComponent<FFmpegOut.CameraCapture>().startStopRecord();
 		}
 	}
@@ -85,6 +86,7 @@ public class Timeline : MonoBehaviour
 		Running = false;
 		m_Timer = 0;
 		m_Scene.SetActive(true);
+		Debug.Log("ta mere la pute 2 = ");
 		m_Camera.GetComponent<FFmpegOut.CameraCapture>().RecorderOff();
 	}
 
