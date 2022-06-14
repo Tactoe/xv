@@ -34,7 +34,7 @@ public class SaveScene : MonoBehaviour
         }
         else{
             Debug.Log("SAVE OK ");
-            SaveManager.Instance.Save(m_stringToCheck);
+            SaveManager.Instance.Save(m_stringToCheck, true);
             PlayerPrefs.SetString("savesNames", PlayerPrefs.GetString("savesNames") + m_stringToCheck + ";" );
             Debug.Log(PlayerPrefs.GetString(m_stringToCheck));
             gameObject.SetActive(false);
@@ -49,7 +49,7 @@ public class SaveScene : MonoBehaviour
     public void ForceSave(){
         string m_stringToCheck = MyField.text;
         Debug.Log("SAVE OK ");
-        SaveManager.Instance.Save(m_stringToCheck);
+        SaveManager.Instance.Save(m_stringToCheck, true);
         Debug.Log(PlayerPrefs.GetString(m_stringToCheck));
         gameObject.SetActive(false);
     }

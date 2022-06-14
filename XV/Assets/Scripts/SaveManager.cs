@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 
 [Serializable]
@@ -40,7 +41,7 @@ public class SaveManager : MonoBehaviour
     }
 
     [ContextMenu("Save")]
-    public void Save(string i_SaveName)
+    public void Save(string i_SaveName, bool i_SaveOnline)
     {
         List<ItemData> itemToSerialize =  new List<ItemData>();
 		List<TaskData> taskToSerialize =  new List<TaskData>();
@@ -71,7 +72,31 @@ public class SaveManager : MonoBehaviour
         saveData.itemArray = itemToSerialize.ToArray();
 		saveData.taskArray = taskToSerialize.ToArray();
         PlayerPrefs.SetString(i_SaveName, JsonUtility.ToJson(saveData));
+        if (i_SaveOnline)
+            StartCoroutine(UploadSave(JsonUtility.ToJson(saveData)));
         print(PlayerPrefs.GetString(i_SaveName));
+    }
+
+    IEnumerator UploadSave(string i_SaveData)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("saveContent", i_SaveData);
+
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/setSave.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                string responseText = www.downloadHandler.text;
+                Debug.Log("Response Text:" + responseText);
+                Debug.Log("Form upload complete!");
+            }
+        }
     }
 
     void SetTaskDataPosition(Transform i_Transform, TaskData ok)
@@ -86,14 +111,51 @@ public class SaveManager : MonoBehaviour
         ok.Scale = i_Transform.localScale;
     }
     
-    [ContextMenu("Load")]
-    public void Load(string i_SaveName)
+    public void LoadLocal(string i_SaveName)
     {
 		DestroyImmediate(m_SceneAnchor.gameObject);
 		m_SceneAnchor = Instantiate(m_ScenePrefab).transform;
 		m_SceneAnchor.name = m_ScenePrefab.name;
         print(PlayerPrefs.GetString(i_SaveName));
-        SaveDataObject saveDataObject = JsonUtility.FromJson<SaveDataObject>(PlayerPrefs.GetString(i_SaveName));
+        Load(PlayerPrefs.GetString(i_SaveName));
+    }
+    
+    [ContextMenu("Load")]
+    public void LoadOnline()
+    {
+        StartCoroutine(GetOnlineSave());
+    }
+
+    IEnumerator GetOnlineSave()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("saveId", "neww");
+
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/getSave.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                string responseText = www.downloadHandler.text;
+                Debug.Log("Response Text:" + responseText);
+                Debug.Log("Form upload complete!");
+            }
+        }
+		// DestroyImmediate(m_SceneAnchor.gameObject);
+		// m_SceneAnchor = Instantiate(m_ScenePrefab).transform;
+		// m_SceneAnchor.name = m_ScenePrefab.name;
+        // Load(PlayerPrefs.GetString(i_SaveName));
+
+    }
+    
+    public void Load(string i_Save)
+    {
+        SaveDataObject saveDataObject = JsonUtility.FromJson<SaveDataObject>(i_Save);
         foreach (ItemData item in saveDataObject.itemArray)
         {
             GameObject toInstantiate = null;
