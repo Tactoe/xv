@@ -69,9 +69,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1982389033012112976, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3148995120404878105, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_Name
       value: F_Worker Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823792251059992279, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: Data.Tags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823792251059992279, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: Data.Tags.Array.data[0]
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5517462015301427994, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_RootOrder
@@ -119,7 +131,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5782370991446463625, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6164440926363363701, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_Height

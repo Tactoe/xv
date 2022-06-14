@@ -76,5 +76,32 @@ public class LoadSaves : MonoBehaviour
     public void DelSave(string name){
         Debug.Log("DEL scene index " + name);
         Debug.Log("data  = " + PlayerPrefs.GetString(name));
+        Debug.Log("PlayerPrefs.GetString(savesNames =  " + PlayerPrefs.GetString("savesNames"));
+        PlayerPrefs.SetString(name, "");
+        PlayerPrefs.DeleteKey(name);
+        string text = PlayerPrefs.GetString("savesNames");
+        text = text.Replace(name+";", "");
+        PlayerPrefs.SetString("savesNames", text);
+        Debug.Log("PlayerPrefs.GetString(savesNames =  " + PlayerPrefs.GetString("savesNames"));
+
+        Debug.Log("has ?" + PlayerPrefs.HasKey(name));
+
+        PlayerPrefs.Save();
+
+        foreach (Transform child in transform) {
+            GameObject.Destroy(child.gameObject);
+        }
+        m_saves = PlayerPrefs.GetString("savesNames");
+        Debug.Log(m_saves);
+        m_aSaves = m_saves.Split(";",  System.StringSplitOptions.RemoveEmptyEntries);
+        foreach(string line in m_aSaves)
+        {
+            GameObject tmp =  Instantiate(SavePrefab, transform);
+            tmp.GetComponentInChildren<TextMeshProUGUI>().SetText("  " +line);
+            tmp.GetComponent<Button>().onClick.AddListener(() => PreLoadSave(line));
+        }
+        if(m_aSaves.Length > 0)
+            PreLoadSave(m_aSaves[0]);
+
     }
 }

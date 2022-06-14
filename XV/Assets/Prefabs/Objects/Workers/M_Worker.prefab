@@ -7,9 +7,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 800175761234934980, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982389033012112976, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3148995120404878105, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_Name
       value: M_Worker
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823792251059992279, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: Data.Tags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823792251059992279, guid: c65099695dd27484ba6c65011224da1a, type: 3}
+      propertyPath: Data.Tags.Array.data[0]
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4337406281740473220, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_Size.y
@@ -65,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5782370991446463625, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5782370991446463625, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: m_LocalPosition.y
