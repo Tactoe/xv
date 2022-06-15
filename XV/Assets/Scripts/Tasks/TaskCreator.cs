@@ -47,7 +47,7 @@ public class TaskCreator : MonoBehaviour
 		}
 
 		else if (m_TmpTask.CompareTag("PickUp")){
-			if (i_Hit.transform.parent.CompareTag("Storage") || i_Hit.transform.parent.CompareTag("Station") || i_Hit.transform.parent.CompareTag("Ressource"))
+			if (i_Hit.transform.parent.gameObject.GetComponent<Storage>() != null || i_Hit.transform.parent.gameObject.GetComponent<Station>() != null || i_Hit.transform.parent.gameObject.GetComponent<Ressource>() != null)
 			{
 				m_TmpTask.GetComponent<Task>().SetInteractable(i_Hit.transform.parent.gameObject);
 				m_TmpTask.transform.position = i_Hit.transform.position;
@@ -58,9 +58,9 @@ public class TaskCreator : MonoBehaviour
 
 		}
 		else if (m_TmpTask.CompareTag("Drop")){
-			if (i_Hit.transform.parent.CompareTag("Storage")
+			if (i_Hit.transform.parent.gameObject.GetComponent<Storage>() != null
 			|| i_Hit.transform.CompareTag("Ground") 
-			|| i_Hit.transform.parent.CompareTag("Station"))
+			|| i_Hit.transform.parent.gameObject.GetComponent<Station>() != null)
 			{
 				if (!i_Hit.transform.CompareTag("Ground"))
 				{
@@ -78,7 +78,7 @@ public class TaskCreator : MonoBehaviour
 		}
 		else if (m_TmpTask.CompareTag("Use"))
 		{
-			if (i_Hit.transform.parent.CompareTag("Station"))
+			if (i_Hit.transform.parent.gameObject.GetComponent<Station>() != null)
 			{
 				m_TmpTask.GetComponent<Task>().SetInteractable(i_Hit.transform.parent.gameObject);
 				m_TmpTask.transform.position = i_Hit.transform.position;
@@ -89,7 +89,7 @@ public class TaskCreator : MonoBehaviour
 		}
 		else if (m_TmpTask.CompareTag("GetIn"))
 		{
-			if (i_Hit.transform.parent.CompareTag("Vehicule"))
+			if (i_Hit.transform.parent.gameObject.GetComponent<Vehicle>() != null)
 			{
 				m_TmpTask.GetComponent<Task>().SetInteractable(i_Hit.transform.parent.gameObject);
 				m_TmpTask.transform.position = i_Hit.transform.position;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Vehicule : MonoBehaviour
+public class Vehicle : MonoBehaviour
 {
 	public GameObject Driver;
 	public bool m_Cart;
@@ -30,7 +30,7 @@ public class Vehicule : MonoBehaviour
 		if (!m_Cart)
 			Driver.GetComponent<Animator>().SetBool("Seat", false);
 		Driver.transform.position = m_Dismount.position;
-		m_Worker.Vehicule = null;
+		m_Worker.Vehicle = null;
 		Driver = null;
 	}
 
@@ -45,7 +45,7 @@ public class Vehicule : MonoBehaviour
 		Driver.GetComponent<NavMeshAgent>().enabled = false;
 		if (!m_Cart)
 			Driver.GetComponent<Animator>().SetBool("Seat", true);
-		m_Worker.Vehicule = gameObject;
+		m_Worker.Vehicle = gameObject;
 	}
 
 	public void PickUp(GameObject i_interact)
@@ -63,10 +63,10 @@ public class Vehicule : MonoBehaviour
 		if (transform.Find("Slot").childCount == 1)
 		{
 			Transform item = transform.Find("Slot").GetChild(0);
-			Debug.Log(item.gameObject.name);
 			item.Find("Hitbox").gameObject.GetComponent<BoxCollider>().enabled = true;
 			item.Find("Hitbox").gameObject.GetComponent<UnityEngine.AI.NavMeshObstacle>().enabled = true;
 			item.parent = transform.parent;
+			item.localPosition = new Vector3 (item.localPosition.x, 0.045f, item.localPosition.z);
 		}
 	}
 	

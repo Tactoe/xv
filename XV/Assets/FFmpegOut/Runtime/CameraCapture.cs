@@ -222,7 +222,6 @@ namespace FFmpegOut
         {
             
             imRecording = false;
-            Debug.Log("arret dans cc");
             if (_session != null)
             {
                 // Close and dispose the FFmpeg session.

@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 780f90e951d635f439326ea715cd97e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanZoom: 0
   MinFOV: 15
   MaxZoomFOV: 100
   CurrentZoom: 0
@@ -261,6 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 780f90e951d635f439326ea715cd97e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanZoom: 0
   MinFOV: 15
   MaxZoomFOV: 100
   CurrentZoom: 0

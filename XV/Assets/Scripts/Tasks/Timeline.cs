@@ -11,6 +11,7 @@ public class Timeline : MonoBehaviour
 	public bool Running = false;
 	public int Working = 0;
 	public int Timer = 0;
+	[SerializeField]
 	private float m_Timer = 0;
 	[SerializeField]
 	private TextMeshProUGUI m_WorkerCount;
@@ -26,6 +27,10 @@ public class Timeline : MonoBehaviour
 	[SerializeField]
 	private Toggle m_Toggle;
 	private GameObject m_Camera;
+	[SerializeField]
+	private TextMeshProUGUI m_LogText;
+	private string m_Log = "";
+	
 
 	void Awake()
 	{
@@ -52,6 +57,7 @@ public class Timeline : MonoBehaviour
 	public void Play()
 	{
 		Clone();
+		m_Log = "";
 		Timer = (m_InputTimer.text == "") ? 0 : int.Parse(m_InputTimer.text);
 		m_InputTimer.gameObject.SetActive(false);
 		m_RunTimer.gameObject.SetActive(true);
@@ -71,7 +77,6 @@ public class Timeline : MonoBehaviour
 		m_Scene.SetActive(false);
 
 		if (m_Toggle.isOn){
-			Debug.Log("ta mere la pute = ");
 			m_Camera.GetComponent<FFmpegOut.CameraCapture>().startStopRecord();
 		}
 	}
@@ -86,22 +91,20 @@ public class Timeline : MonoBehaviour
 		Running = false;
 		m_Timer = 0;
 		m_Scene.SetActive(true);
-		Debug.Log("ta mere la pute 2 = ");
 		m_Camera.GetComponent<FFmpegOut.CameraCapture>().RecorderOff();
 	}
 
 	void FixedUpdate()
 	{
+		if (m_LogText.text != m_Log)
+			m_LogText.text = m_Log;
 		if (Running)
 		{
 			m_WorkerCount.text = Working.ToString();
 			if (Working <= 0 && Timer < m_Timer)
 				Stop();
-			else if (Timer >= m_Timer)
-			{
 				m_Timer += Time.deltaTime;
-			}
-			m_RunTimer.text = (Timer - (int)m_Timer).ToString();
+			m_RunTimer.text = (m_Timer > Timer) ? "0" : (Timer - (int)m_Timer).ToString();
 		}
 		else
 		{
@@ -120,6 +123,11 @@ public class Timeline : MonoBehaviour
 			else 
 				m_Scene = GameObject.Find("Scene");
 		}
+	}
+
+	public void AddLogEntry(string i_Entry)
+	{
+		m_Log += m_Timer.ToString("0.00") + "-" + i_Entry + '\n';
 	}
 
 	public void Pause()

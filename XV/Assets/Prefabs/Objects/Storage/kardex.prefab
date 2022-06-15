@@ -124,7 +124,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5954556591490441003, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
       propertyPath: Data.Tags.Array.data[0]
-      value: 3
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5954556591490441003, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
+      propertyPath: Data.Tags.Array.data[1]
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6665273555493317929, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
       propertyPath: m_Size.z
@@ -206,6 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4425f21da503d456d9d5301542bc60f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Busy: 0
   myPrefab: {fileID: 1658156981021168576, guid: 525110f8b2e004b71b96daaef3e81477, type: 3}
 --- !u!1001 &7885012691912799320
 PrefabInstance:
