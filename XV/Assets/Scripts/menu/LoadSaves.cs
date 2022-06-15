@@ -73,6 +73,8 @@ public class LoadSaves : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("Default");
     }
+
+
     
     public void DelSave(string name){
         Debug.Log("DEL scene index " + name);

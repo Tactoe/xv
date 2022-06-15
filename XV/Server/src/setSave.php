@@ -19,8 +19,7 @@ $stmt = $conn->prepare("INSERT INTO `saves`(`saveId`, `saveContent`) VALUES (UUI
 $stmt->bind_param("s", $saveContent);
 $stmt->execute();
 
-$stmt = $conn->prepare("SELECT id, saveId, saveContent FROM saves WHERE saveContent = ?");
-$stmt->bind_param("s", $saveContent);
+$stmt = $conn->prepare("SELECT id, saveId, saveContent FROM saves WHERE id = LAST_INSERT_ID()");
 $stmt->execute();
 $result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) {

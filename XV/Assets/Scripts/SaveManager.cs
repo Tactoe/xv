@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
-
+using TMPro;
 
 [Serializable]
 public class SaveDataObject
@@ -18,6 +19,7 @@ public class SaveManager : MonoBehaviour
 	[SerializeField]
 	GameObject m_ScenePrefab;
     public static SaveManager Instance;
+    public string saveId_Aftersave;
     void Awake(){
         Instance = this;
         
@@ -29,6 +31,11 @@ public class SaveManager : MonoBehaviour
 	[SerializeField]
 	GameObject[] m_TaskList;
     Transform m_SceneAnchor;
+    [SerializeField]
+    GameObject err_id_not_found;
+    
+    [SerializeField]
+    TMP_InputField MyFieldId;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +43,7 @@ public class SaveManager : MonoBehaviour
             m_SceneAnchor = GameObject.FindGameObjectWithTag("Scene").transform;
             // Debug.Log("Current_Scene = " + PlayerPrefs.GetString("Current_Scene") );+
             string tmp = PlayerPrefs.GetString("Current_Scene");
-            if (tmp != "" ){Load(tmp);}
+            if (tmp != "" ){LoadLocal(tmp);}
         }
     }
 
@@ -95,6 +102,7 @@ public class SaveManager : MonoBehaviour
                 string responseText = www.downloadHandler.text;
                 Debug.Log("Response Text:" + responseText);
                 Debug.Log("Form upload complete!");
+                saveId_Aftersave = responseText;
             }
         }
     }
@@ -123,13 +131,14 @@ public class SaveManager : MonoBehaviour
     [ContextMenu("Load")]
     public void LoadOnline()
     {
-        StartCoroutine(GetOnlineSave());
+        string save_id = MyFieldId.text;
+        StartCoroutine(GetOnlineSave(save_id));
     }
 
-    IEnumerator GetOnlineSave()
+    IEnumerator GetOnlineSave(string save_id)
     {
         WWWForm form = new WWWForm();
-        form.AddField("saveId", "neww");
+        form.AddField("saveId", save_id);
 
         using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/getSave.php", form))
         {
@@ -144,6 +153,18 @@ public class SaveManager : MonoBehaviour
                 string responseText = www.downloadHandler.text;
                 Debug.Log("Response Text:" + responseText);
                 Debug.Log("Form upload complete!");
+
+                if(responseText != ""){
+                    Debug.Log("Load scene index " + save_id);
+                    PlayerPrefs.SetString(save_id, responseText);
+                    Debug.Log("data  = " + PlayerPrefs.GetString(save_id));
+                    PlayerPrefs.SetString("Current_Scene", save_id);
+                    Time.timeScale = 1;
+                    SceneManager.LoadScene("Default");
+                }
+                else{
+                    err_id_not_found.SetActive(false);
+                }
             }
         }
 		// DestroyImmediate(m_SceneAnchor.gameObject);
