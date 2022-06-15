@@ -24,7 +24,7 @@ public class TaskList : MonoBehaviour
 	void Awake()
 	{
 		m_TaskList = GameObject.Find("Content2").transform;
-		m_Target = GameObject.Find("ItemWindow").GetComponent<EditWindow>();
+		m_Target = GameObject.Find("EditWindow").GetComponent<EditWindow>();
 		m_Content.SetActive(false);
 		DescInput.SetActive(false);
 	}
