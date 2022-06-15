@@ -28,7 +28,7 @@ public class CategoryContainer : MonoBehaviour
         else
         {
             m_ContentSizeFitter.enabled = false;
-            m_RT.sizeDelta = new Vector2(m_RT.sizeDelta.x, 64);
+            m_RT.sizeDelta = new Vector2(m_RT.sizeDelta.x, 50);
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(m_LayoutGroup);
     }

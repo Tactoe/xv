@@ -14,7 +14,7 @@ public class Worker : MonoBehaviour
 	[HideInInspector]
 	public bool Moving = false;
 	[HideInInspector]
-	public GameObject Vehicule;
+	public GameObject Vehicle;
 	public int TaskIndex;
 
 	private Vector3[] m_Origin = new Vector3[3];
@@ -73,14 +73,15 @@ public class Worker : MonoBehaviour
 			}
 			if (Loop)
 				SetCourse();
-			else
+			else if (!Vehicle)
 				NavAgent.isStopped = true;
+
 		}
 	}
 
 	public IEnumerator Do()
 	{
-		if (!Vehicule)
+		if (!Vehicle)
 			NavAgent.isStopped = true;
 		Moving = false;
 		string tag = Tasks.GetChild(TaskIndex).tag;
@@ -90,55 +91,58 @@ public class Worker : MonoBehaviour
 		switch(tag) 
 		{
 			case "GetIn":
-				if (slot.childCount == 0)
-					my_interact.GetComponent<Vehicule>().GetIn(gameObject);
+					my_interact.GetComponent<Vehicle>().GetIn(gameObject);
 				break;
 			case "GetOut":
-				if (Vehicule)
-					Vehicule.GetComponent<Vehicule>().GetOut();
+				if (Vehicle)
+					Vehicle.GetComponent<Vehicle>().GetOut();
 				break;
 			case "PickUp":
-				if(Vehicule){
-					Vehicule.GetComponent<Vehicule>().PickUp(my_interact);
+				if(Vehicle){
+					Vehicle.GetComponent<Vehicle>().PickUp(my_interact);
 				}
 				else{
-					if (my_interact.CompareTag("Ressource") && slot.childCount == 0)
+					if (my_interact.GetComponent<Ressource>() != null && slot.childCount == 0)
 					{
 						Animator.SetBool("Carrying", true);
-						yield return new WaitForSeconds(1f);
+						yield return new WaitForSeconds(0.75f);
 						PickUpGround(my_interact, slot);
 					}
 					if (my_interact.GetComponent<Storage>() != null && slot.childCount == 0)
 					{
 						my_interact.GetComponent<Storage>().ToggleBusy();
 						Animator.SetBool("Carrying", true);
-						yield return new WaitForSeconds(1f);
+						yield return new WaitForSeconds(0.75f);
 						my_interact.GetComponent<Storage>().PickUp(slot);
 					}
 					else if (my_interact.GetComponent<Station>() != null && slot.childCount == 0 && my_interact.transform.Find("Slot").childCount > 0)
 					{
 						my_interact.GetComponent<Station>().ToggleBusy();
 						Animator.SetBool("Carrying", true);
-						yield return new WaitForSeconds(1f);
+						yield return new WaitForSeconds(0.75f);
 						my_interact.GetComponent<Station>().PickUp(slot);
 					}
 				}
 				break;
 			case "Drop":
 				if (!my_interact)
+				{
+					Animator.SetBool("Carrying", false);
+					yield return new WaitForSeconds(0.75f);					
 					DropGround(slot);
+				}
 				else if (my_interact.GetComponent<Storage>() != null && slot.childCount > 0)
 				{
 					my_interact.GetComponent<Storage>().ToggleBusy();
 					Animator.SetBool("Carrying", false);
-					yield return new WaitForSeconds(1f);
+					yield return new WaitForSeconds(0.75f);
 					my_interact.GetComponent<Storage>().DropIn(slot);
 				}
 				else if (my_interact.GetComponent<Station>() != null && slot.childCount > 0 && my_interact.transform.Find("Slot").childCount ==0)
 				{
 					my_interact.GetComponent<Station>().ToggleBusy();
 					Animator.SetBool("Carrying", false);
-					yield return new WaitForSeconds(1f);
+					yield return new WaitForSeconds(0.75f);
 					my_interact.GetComponent<Station>().DropIn(slot);
 				}
 				break;
@@ -156,8 +160,13 @@ public class Worker : MonoBehaviour
 
 		float wait = Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Wait;
 		yield return new WaitForSeconds(wait);
+
+		if (Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Data.TaskDescription != "")
+			m_Timeline.AddLogEntry(gameObject.GetComponentInChildren<Item>().Data.ItemName + " : " + Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Data.TaskDescription);
+		else
+			m_Timeline.AddLogEntry(gameObject.GetComponentInChildren<Item>().Data.ItemName + " : " + Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Data.PrefabName);
 		TaskIndex += 1;
-		if(!Vehicule)
+		if(!Vehicle)
 			NavAgent.isStopped = false;
 		Move();
 	}
@@ -168,30 +177,30 @@ public class Worker : MonoBehaviour
 		my_interact.transform.position = slot.position;
 		my_interact.transform.Find("Hitbox").gameObject.GetComponent<BoxCollider>().enabled = false;
 		my_interact.transform.Find("Hitbox").gameObject.GetComponent<UnityEngine.AI.NavMeshObstacle>().enabled = false;
-		my_interact.transform.Find("Hitbox").Find("InteractionHitbox").gameObject.GetComponent<BoxCollider>().enabled = false;
 	}
 
 	void DropGround(Transform slot)
 	{
 		if (slot.childCount > 0)
 		{
-			slot.GetChild(0).parent = transform.parent;
+			Transform dropped = slot.GetChild(0);
+			dropped.parent = transform.parent;
+			dropped.Find("Hitbox").gameObject.GetComponent<BoxCollider>().enabled = true;
+			dropped.Find("Hitbox").gameObject.GetComponent<UnityEngine.AI.NavMeshObstacle>().enabled = true;
+			dropped.localPosition = new Vector3 (dropped.localPosition.x, 0.045f, dropped.localPosition.z);
 		}
-		else if (Vehicule)
+		else if (Vehicle)
 		{
-			Vehicule.GetComponent<Vehicule>().Drop();
+			Vehicle.GetComponent<Vehicle>().Drop();
 		}
 	}
 
 	private IEnumerator IsStuck(Vector3 i_Pos)
 	{
 		m_CheckStuck = true;
-		// Debug.Log("Is...");
-		yield return new WaitForSeconds(1f);
-		// Debug.Log("It.." + Vector3.Distance(i_Pos, transform.position));
+		yield return new WaitForSeconds(0.75f);
 		if (m_CheckStuck && Moving && Vector3.Distance(i_Pos, transform.position) < 0.01)
 		{
-		Debug.Log("STUCK");
 			StopAllCoroutines();
 			TaskIndex += 1;
 			Move();
@@ -234,18 +243,17 @@ public class Worker : MonoBehaviour
 				else if (Tasks.GetChild(TaskIndex).GetComponent<Task>().Interactable.tag == "Storage"){
 					busy = Tasks.GetChild(TaskIndex).GetComponent<Task>().Interactable.GetComponent<Storage>().Busy;
 					}
-					print (Tasks.GetChild(TaskIndex).GetComponent<Task>().Interactable.name + " is isk");
 				if (busy > 0)
 				{
 					print("WAIT");
 					m_CheckStuck = false;
-					if(!Vehicule)
+					if(!Vehicle)
 						NavAgent.isStopped = true;
 				}
 				else if (busy == 0)
 				{
 					print("GO");
-					if(!Vehicule)
+					if(!Vehicle)
 						NavAgent.isStopped = false;
 				}
 				busy = -1;
@@ -255,13 +263,13 @@ public class Worker : MonoBehaviour
 	}
 
 	void OnTriggerStay(Collider other)
-    {
+		{
 		GameObject m_inter = other.transform.parent.parent.gameObject;
-        if(Moving
+		if(Moving
 		&& m_inter == Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Interactable
 		&&!Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Target)
 		{
 			StartCoroutine(Do());
 		}
-    }
+		}
 }

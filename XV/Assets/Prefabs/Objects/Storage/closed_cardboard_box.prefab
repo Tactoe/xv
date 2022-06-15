@@ -53,15 +53,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5954556591490441003, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
       propertyPath: Data.Tags.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5954556591490441003, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
       propertyPath: Data.Tags.Array.data[0]
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5954556591490441003, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
       propertyPath: Data.Tags.Array.data[1]
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5954556591490441003, guid: e492c0cfbd07fd94fad4557f92f19f35, type: 3}
       propertyPath: Data.Tags.Array.data[2]
@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4425f21da503d456d9d5301542bc60f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Busy: 0
   myPrefab: {fileID: 7039373376006932096, guid: 9a2e971ead0784c8e9902a9d4fb414c0, type: 3}
 --- !u!1001 &5039951290885403751
 PrefabInstance:

@@ -24,7 +24,9 @@ public class EditWindow : MonoBehaviour
 {
     public static EditWindow Instance;
     public GameObject Target;
-    
+
+	[SerializeField]
+	Toggle m_Loop;
     [SerializeField]
     GameObject m_TaskButton;
     [SerializeField]
@@ -96,7 +98,10 @@ public class EditWindow : MonoBehaviour
         m_Fields[2].setFieldValues(Target.transform.localScale);
 
 		if (Target.CompareTag("Worker"))
+		{
+			m_Loop.isOn = Target.GetComponent<Worker>().Loop;
 			m_TaskButton.SetActive(true);
+		}
 		else
 			m_TaskButton.SetActive(false);
 

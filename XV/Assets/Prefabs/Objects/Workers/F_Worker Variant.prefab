@@ -82,18 +82,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: F_Worker Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 3743972063176818126, guid: c65099695dd27484ba6c65011224da1a, type: 3}
-      propertyPath: m_Radius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3743972063176818126, guid: c65099695dd27484ba6c65011224da1a, type: 3}
-      propertyPath: avoidancePriority
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 3743972063176818126, guid: c65099695dd27484ba6c65011224da1a, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 3823792251059992279, guid: c65099695dd27484ba6c65011224da1a, type: 3}
       propertyPath: Data.Tags.Array.size
       value: 1

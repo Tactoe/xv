@@ -15,29 +15,34 @@ public class TaskList : MonoBehaviour
 	[SerializeField]
 	private GameObject m_Content;
 	[SerializeField]
+	private TextMeshProUGUI m_WorkerName;
+	[SerializeField]
 	private Toggle m_Loop;
 	private EditWindow m_Target;
 	private Worker m_ScriptWorker;
 	private Transform m_TaskList;
 	void Awake()
 	{
-		m_Loop.isOn = false;
 		m_TaskList = GameObject.Find("Content2").transform;
 		m_Target = GameObject.Find("ItemWindow").GetComponent<EditWindow>();
 		m_Content.SetActive(false);
+		DescInput.SetActive(false);
 	}
 
 	public void SwitchList()
 	{
 		m_Content.SetActive(!m_Content.activeInHierarchy);
 		if (m_Content.activeInHierarchy)
+		{
 			UpdateList();
+		}
 	}
 
 	public void UpdateList(bool i_idxChanged = false)
 	{
 		Worker = m_Target.Target;
 		m_ScriptWorker = Worker.GetComponent<Worker>();
+		m_WorkerName.text = m_ScriptWorker.GetComponentInChildren<Item>().Data.ItemName;
 		if (m_ScriptWorker.Tasks.childCount != m_TaskList.childCount || i_idxChanged)
 		{
 			foreach (Transform child in m_TaskList)
@@ -61,11 +66,14 @@ public class TaskList : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (m_Target.Target && m_Target.Target.CompareTag("Worker"))
-			UpdateList();
-		else if (m_Target.Target && !m_Target.Target.CompareTag("Worker"))
+		if (m_Target.Target && m_Target.Target.GetComponent<Worker>() == null)
+		{
 			m_Content.SetActive(false);
+		}
+		else if (m_Target.Target && m_Target.Target.GetComponent<Worker>() != null)
+			UpdateList();
 	}
+
 
 	public void ChangeDescription(string i_Desc)
 	{
