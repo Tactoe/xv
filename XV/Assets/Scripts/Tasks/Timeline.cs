@@ -27,6 +27,7 @@ public class Timeline : MonoBehaviour
 	[SerializeField]
 	private Toggle m_Toggle;
 	private GameObject m_Camera;
+	private GameObject m_WindowsUI;
 	[SerializeField]
 	private TextMeshProUGUI m_LogText;
 	private string m_Log = "";
@@ -35,6 +36,7 @@ public class Timeline : MonoBehaviour
 	void Awake()
 	{
 		m_Camera = GameObject.Find("Main Camera");
+		m_WindowsUI = GameObject.Find("WindowsUI");
 	}
 
 	void Clone()
@@ -75,6 +77,7 @@ public class Timeline : MonoBehaviour
 		}
 		Running = true;
 		m_Scene.SetActive(false);
+		m_WindowsUI.SetActive(false);
 
 		if (m_Toggle.isOn){
 			m_Camera.GetComponent<FFmpegOut.CameraCapture>().startStopRecord();
@@ -91,6 +94,7 @@ public class Timeline : MonoBehaviour
 		Running = false;
 		m_Timer = 0;
 		m_Scene.SetActive(true);
+		m_WindowsUI.SetActive(true);
 		m_Camera.GetComponent<FFmpegOut.CameraCapture>().RecorderOff();
 	}
 

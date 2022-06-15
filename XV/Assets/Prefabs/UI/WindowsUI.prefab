@@ -111,7 +111,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1321188915148299594, guid: 9ebd9ae241400c74f9eb74daeb2cbe1d, type: 3}
       propertyPath: m_Name
-      value: EditWindow
+      value: ItemWindow
       objectReference: {fileID: 0}
     - target: {fileID: 1596065879657335892, guid: 9ebd9ae241400c74f9eb74daeb2cbe1d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -381,6 +381,10 @@ PrefabInstance:
       propertyPath: m_Loop
       value: 
       objectReference: {fileID: 4619623000181326300}
+    - target: {fileID: 4885529634665387672, guid: 9ebd9ae241400c74f9eb74daeb2cbe1d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 9204452145920089300}
     - target: {fileID: 5230055371598227215, guid: 9ebd9ae241400c74f9eb74daeb2cbe1d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -523,6 +527,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4416483036813615612, guid: ff2701a66cb344f8bbea3bcc6660b1e2, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4416483036851904211, guid: ff2701a66cb344f8bbea3bcc6660b1e2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -641,3 +649,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4416483036851904211, guid: ff2701a66cb344f8bbea3bcc6660b1e2, type: 3}
   m_PrefabInstance: {fileID: 9031491077444772647}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9204452145920089300 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 210126830379909107, guid: ff2701a66cb344f8bbea3bcc6660b1e2, type: 3}
+  m_PrefabInstance: {fileID: 9031491077444772647}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ffa488097ab4f528f2c76b253ab0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

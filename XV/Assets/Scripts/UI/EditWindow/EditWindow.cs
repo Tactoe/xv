@@ -97,8 +97,10 @@ public class EditWindow : MonoBehaviour
         m_Fields[1].setFieldValues(Target.transform.localEulerAngles);
         m_Fields[2].setFieldValues(Target.transform.localScale);
 
-		if (Target.CompareTag("Worker"))
+		if (Target.GetComponent<Worker>() != null)
 		{
+			Debug.Log(m_Loop);
+			Debug.Log(Target.GetComponent<Worker>().Loop);
 			m_Loop.isOn = Target.GetComponent<Worker>().Loop;
 			m_TaskButton.SetActive(true);
 		}

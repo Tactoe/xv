@@ -24,7 +24,7 @@ public class TaskList : MonoBehaviour
 	void Awake()
 	{
 		m_TaskList = GameObject.Find("Content2").transform;
-		m_Target = GameObject.Find("EditWindow").GetComponent<EditWindow>();
+		m_Target = GameObject.Find("ItemWindow").GetComponent<EditWindow>();
 		m_Content.SetActive(false);
 		DescInput.SetActive(false);
 	}
@@ -34,7 +34,7 @@ public class TaskList : MonoBehaviour
 		m_Content.SetActive(!m_Content.activeInHierarchy);
 		if (m_Content.activeInHierarchy)
 		{
-			UpdateList();
+			UpdateList(true);
 		}
 	}
 
@@ -42,7 +42,7 @@ public class TaskList : MonoBehaviour
 	{
 		Worker = m_Target.Target;
 		m_ScriptWorker = Worker.GetComponent<Worker>();
-		m_WorkerName.text = m_ScriptWorker.GetComponentInChildren<Item>().Data.ItemName;
+		m_WorkerName.text = Worker.GetComponentInChildren<Item>(true).Data.ItemName;
 		if (m_ScriptWorker.Tasks.childCount != m_TaskList.childCount || i_idxChanged)
 		{
 			foreach (Transform child in m_TaskList)
