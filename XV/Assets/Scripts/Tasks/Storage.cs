@@ -12,6 +12,10 @@ public class Storage : MonoBehaviour
 		Busy = (transform.Find("Target")) ? 0 : -1;
 	}
 
+	// This script handles the logic of object tagged as storages
+	// These functions are called into Worker.cs when they are needed
+	// Station can "store" (destroy) objects when given, while creating an infinite amount of myPrefab
+
 	public void ToggleBusy()
 	{
 		if (Busy == 0)

@@ -10,6 +10,11 @@ public class TaskDestructor : MonoBehaviour
 	private TextMeshProUGUI m_Wait;
 	private TaskList m_TaskList;
 	private GameObject m_DescInput;
+
+	// This script handles the logic of vizualisation of tasks into the TaskList
+	// The script names come from the first feature of the task list, wich was to destroy tasks
+	// It can now handle other things, like reordering the list, give description, and wait timer
+
 	void Awake()
 	{
 		m_TaskList = GameObject.Find("TaskList").GetComponent<TaskList>();

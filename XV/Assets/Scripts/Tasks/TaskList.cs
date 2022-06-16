@@ -21,6 +21,10 @@ public class TaskList : MonoBehaviour
 	private EditWindow m_Target;
 	private Worker m_ScriptWorker;
 	private Transform m_TaskList;
+
+	// This script handles the logic of displaying the list of tasks in the UI
+	// handles the creation and update of tasks UI elements for the selected worker and most feature of the list
+
 	void Awake()
 	{
 		m_TaskList = GameObject.Find("Content2").transform;

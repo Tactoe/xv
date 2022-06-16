@@ -99,8 +99,6 @@ public class EditWindow : MonoBehaviour
 
 		if (Target.GetComponent<Worker>() != null)
 		{
-			Debug.Log(m_Loop);
-			Debug.Log(Target.GetComponent<Worker>().Loop);
 			m_Loop.isOn = Target.GetComponent<Worker>().Loop;
 			m_TaskButton.SetActive(true);
 		}

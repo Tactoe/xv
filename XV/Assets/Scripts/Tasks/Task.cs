@@ -14,6 +14,9 @@ public class Task : MonoBehaviour
 	public bool Target;
 	public TaskData Data;
 	
+	// This script handles the logic and visualization of tasks
+	// It contains most of the task data, like what object is the task linked to or not, the position...
+
 	void Awake()
 	{
 		m_Camera = GameObject.Find("Main Camera");

@@ -7,11 +7,17 @@ public class Vehicle : MonoBehaviour
 {
 	public GameObject Driver;
 	public bool m_Cart;
+	[HideInInspector]
+	public bool Carrying = false;
 	private Transform m_Dismount;
 	private Transform m_Seat;
 	private NavMeshAgent m_NavAgent;
 	private NavMeshObstacle m_NavObstacle;
 	private Worker m_Worker;
+
+	// This script handle the logic of vehicles and carts
+	// While similar to the workers, it is still controlled in Worker.cs
+	// A vehicle can carry a single heavy object, and move it around
 
     void Awake()
     {
@@ -50,16 +56,21 @@ public class Vehicle : MonoBehaviour
 
 	public void PickUp(GameObject i_interact)
 	{
+		if (Carrying)
+			return;
 		if (i_interact.GetComponentInChildren<Item>().Data.Tags.Contains(ItemTags.Heavy))
 		{
 			i_interact.transform.Find("Hitbox").gameObject.GetComponent<BoxCollider>().enabled = false;
 			i_interact.transform.Find("Hitbox").gameObject.GetComponent<UnityEngine.AI.NavMeshObstacle>().enabled = false;
 			i_interact.transform.parent = transform.Find("Slot");
 			i_interact.transform.localPosition = Vector3.zero;
+			Carrying = true;
 		}
 	}
 	public void Drop()
 	{
+		if (!Carrying)
+			return;
 		if (transform.Find("Slot").childCount == 1)
 		{
 			Transform item = transform.Find("Slot").GetChild(0);
@@ -67,6 +78,7 @@ public class Vehicle : MonoBehaviour
 			item.Find("Hitbox").gameObject.GetComponent<UnityEngine.AI.NavMeshObstacle>().enabled = true;
 			item.parent = transform.parent;
 			item.localPosition = new Vector3 (item.localPosition.x, 0.045f, item.localPosition.z);
+			Carrying = false;
 		}
 	}
 	

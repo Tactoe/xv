@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class Ressource : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	// This script helps with logic in Worker.cs, it is of no use by itself.
+	// It should be present on all Objects with the tag "Ressource"
 }

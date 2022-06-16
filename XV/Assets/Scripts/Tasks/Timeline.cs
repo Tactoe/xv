@@ -32,6 +32,10 @@ public class Timeline : MonoBehaviour
 	private TextMeshProUGUI m_LogText;
 	private string m_Log = "";
 	
+	// This script handles the logic of pause, play and record in the simulation
+	// A simulation is actually a clone of the entire edited scene, where workers go throught their orders
+	// A simulation is ended when all tasks are over, and the timer (user input) is over
+	// the cloned scene is then destroyed, and the editable scene is active again
 
 	void Awake()
 	{
@@ -58,6 +62,12 @@ public class Timeline : MonoBehaviour
 
 	public void Play()
 	{
+		if (TaskCreator.TmpTask)
+		{
+			DestroyImmediate(TaskCreator.TmpTask);
+			TaskCreator.TmpTask = null;
+			ItemHandler.Instance.EditMode();
+		}
 		Clone();
 		m_Log = "";
 		Timer = (m_InputTimer.text == "") ? 0 : int.Parse(m_InputTimer.text);

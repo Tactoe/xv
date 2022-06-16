@@ -11,6 +11,10 @@ public class Station : MonoBehaviour
 		Busy = (transform.Find("Target")) ? 0 : -1;
 	}
 
+	// This script handles the logic of object tagged as stations
+	// These functions are called into Worker.cs when they are needed
+	// Station can carry a single light ressource into their slot, and they "transform" them into myPrefab
+
 	public void ToggleBusy()
 	{
 		if (Busy == 0)
@@ -36,10 +40,8 @@ public class Station : MonoBehaviour
 
     public void Use()
 	{
-        //destruction object surla table
         Destroy(transform.Find("Slot").GetChild(0).gameObject);
 
-        //instantiation du nouvel objet 
         GameObject tmp =  Instantiate(myPrefab, transform.Find("Slot"));
 		tmp.transform.Find("Hitbox").gameObject.GetComponent<BoxCollider>().enabled = false;
 		tmp.transform.Find("Hitbox").gameObject.GetComponent<UnityEngine.AI.NavMeshObstacle>().enabled = false;

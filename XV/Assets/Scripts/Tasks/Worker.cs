@@ -24,6 +24,11 @@ public class Worker : MonoBehaviour
 	[SerializeField]
 	private bool m_Over = false;
 
+	// This script handle the logic of Workers
+	// It goes down the worker's assigned list of tasks, completing them one after the other, looping if needed
+	// It also handles the logic of all tasks, and objects interacted with
+	// A worker should only carry a single light ressource
+
 	void Awake()
 	{
 		m_Timeline = GameObject.Find("Timeline").GetComponent<Timeline>();
@@ -165,10 +170,30 @@ public class Worker : MonoBehaviour
 			m_Timeline.AddLogEntry(gameObject.GetComponentInChildren<Item>().Data.ItemName + " : " + Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Data.TaskDescription);
 		else
 			m_Timeline.AddLogEntry(gameObject.GetComponentInChildren<Item>().Data.ItemName + " : " + Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Data.PrefabName);
-		TaskIndex += 1;
+		NextDoableTask(slot);
 		if(!Vehicle)
 			NavAgent.isStopped = false;
 		Move();
+	}
+
+	void NextDoableTask(Transform i_Slot)
+	{
+		while(TaskIndex < Tasks.childCount)
+		{
+			TaskIndex += 1;
+			if (TaskIndex >= Tasks.childCount)
+				return;
+			string tag = Tasks.GetChild(TaskIndex).tag;
+			if ((tag == "GetIn" && Vehicle) ||
+				(tag == "GetOut" && !Vehicle) ||
+				(tag == "Use" && Vehicle) ||
+				(tag == "PickUp" && Vehicle && Vehicle.GetComponent<Vehicle>().Carrying) ||
+				(tag == "Drop" && Vehicle && !Vehicle.GetComponent<Vehicle>().Carrying) ||
+				(tag == "PickUp" && !Vehicle && i_Slot.childCount > 0) ||
+				(tag == "Drop" && !Vehicle && i_Slot.childCount == 0))
+				continue;
+			return ;
+		}
 	}
 
 	void PickUpGround(GameObject my_interact, Transform slot)
