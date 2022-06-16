@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
             if ((Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E)))
             {
                 float direction = Input.GetKey(KeyCode.E) ? 1 : -1; 
-                transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * m_RotationSpeed * direction);
+                transform.RotateAround(transform.position, Vector3.up, Time.unscaledDeltaTime * m_RotationSpeed * direction);
             }
         }
     }

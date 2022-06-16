@@ -62,6 +62,11 @@ public class Timeline : MonoBehaviour
 
 	public void Play()
 	{
+
+		if (ItemHandler.Instance.CheckIfState(EditorState.placingItem))
+		{
+			ItemHandler.Instance.NormalMode();
+		}
 		if (TaskCreator.TmpTask)
 		{
 			DestroyImmediate(TaskCreator.TmpTask);

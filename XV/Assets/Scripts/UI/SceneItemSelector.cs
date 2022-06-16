@@ -25,17 +25,37 @@ public class SceneItemSelector : MonoBehaviour
         m_ButtonText = GetComponentInChildren<TextMeshProUGUI>();
         m_ButtonText.text = i_ItemName;
         m_ItemReference = i_ItemReference;
+        StartCoroutine(WatchOverReference());
         m_Button.onClick.AddListener(delegate {
-            foreach (Transform sibling in transform.parent)
-            {
-                sibling.GetComponentInChildren<TextMeshProUGUI>().color = m_TextColor;
-                sibling.GetComponent<Image>().color = m_ButtonColor;
-            }
-            GetComponent<Image>().color = m_ButtonColorHighlighted;
-            m_ButtonText.color = m_TextColorHighlighted;
+            HighlightButton();
             EditWindow.Instance.EnableWindow(m_ItemReference);
         });
 
+    }
+
+    void HighlightButton()
+    {
+        foreach (Transform sibling in transform.parent)
+        {
+            sibling.GetComponentInChildren<TextMeshProUGUI>().color = m_TextColor;
+            sibling.GetComponent<Image>().color = m_ButtonColor;
+        }
+        GetComponent<Image>().color = m_ButtonColorHighlighted;
+        m_ButtonText.color = m_TextColorHighlighted;
+    }
+
+    IEnumerator WatchOverReference()
+    {
+        while (m_ItemReference != null)
+        {
+            if (EditWindow.Instance.Target == m_ItemReference)
+            {
+                HighlightButton();
+            }
+            m_ButtonText.text = m_ItemReference.GetComponentInChildren<Item>(true).Data.ItemName;
+            yield return new WaitForSeconds(0.1f);
+        }
+        Destroy(gameObject);
     }
 
     void OnDisable()

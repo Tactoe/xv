@@ -16,16 +16,15 @@ public class SaveDataObject
 
 public class SaveManager : MonoBehaviour
 {
+    public static SaveManager Instance;
+    public string SaveIdAfterSave;
+
+    [SerializeField]
+    Transform m_SceneItemListTF;
+    [SerializeField]
+    GameObject m_SceneItemSelector;
 	[SerializeField]
 	GameObject m_ScenePrefab;
-    public static SaveManager Instance;
-    public string saveId_Aftersave;
-    void Awake(){
-        Instance = this;
-        
-
-    }
-
     [SerializeField]
     GameObject[] m_ObjectList;
 	[SerializeField]
@@ -37,6 +36,13 @@ public class SaveManager : MonoBehaviour
     [SerializeField]
     TMP_InputField MyFieldId;
     // Start is called before the first frame update
+
+    void Awake(){
+        Instance = this;
+        
+
+    }
+
     void Start()
     {
         if (SceneManager.GetActiveScene().name != "titre_menu"){
@@ -102,21 +108,21 @@ public class SaveManager : MonoBehaviour
                 string responseText = www.downloadHandler.text;
                 Debug.Log("Response Text:" + responseText);
                 Debug.Log("Form upload complete!");
-                saveId_Aftersave = responseText;
+                SaveIdAfterSave = responseText;
             }
         }
     }
 
-    void SetTaskDataPosition(Transform i_Transform, TaskData ok)
+    void SetTaskDataPosition(Transform i_Transform, TaskData i_Data)
     {
-        ok.Position = i_Transform.localPosition;
+        i_Data.Position = i_Transform.localPosition;
     }
 
-    void SetItemDataPosition(Transform i_Transform, ItemData ok)
+    void SetItemDataPosition(Transform i_Transform, ItemData i_Data)
     {
-        ok.Position = i_Transform.localPosition;
-        ok.Rotation = i_Transform.localEulerAngles;
-        ok.Scale = i_Transform.localScale;
+        i_Data.Position = i_Transform.localPosition;
+        i_Data.Rotation = i_Transform.localEulerAngles;
+        i_Data.Scale = i_Transform.localScale;
     }
     
     public void LoadLocal(string i_SaveName)
@@ -135,10 +141,10 @@ public class SaveManager : MonoBehaviour
         StartCoroutine(GetOnlineSave(save_id));
     }
 
-    IEnumerator GetOnlineSave(string save_id)
+    IEnumerator GetOnlineSave(string i_SaveId)
     {
         WWWForm form = new WWWForm();
-        form.AddField("saveId", save_id);
+        form.AddField("saveId", i_SaveId);
 
         using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/getSave.php", form))
         {
@@ -152,13 +158,10 @@ public class SaveManager : MonoBehaviour
             {
                 string responseText = www.downloadHandler.text;
                 Debug.Log("Response Text:" + responseText);
-                Debug.Log("Form upload complete!");
 
                 if(responseText != ""){
-                    Debug.Log("Load scene index " + save_id);
-                    PlayerPrefs.SetString(save_id, responseText);
-                    Debug.Log("data  = " + PlayerPrefs.GetString(save_id));
-                    PlayerPrefs.SetString("Current_Scene", save_id);
+                    PlayerPrefs.SetString(i_SaveId, responseText);
+                    PlayerPrefs.SetString("Current_Scene", i_SaveId);
                     Time.timeScale = 1;
                     SceneManager.LoadScene("Default");
                 }
@@ -167,11 +170,6 @@ public class SaveManager : MonoBehaviour
                 }
             }
         }
-		// DestroyImmediate(m_SceneAnchor.gameObject);
-		// m_SceneAnchor = Instantiate(m_ScenePrefab).transform;
-		// m_SceneAnchor.name = m_ScenePrefab.name;
-        // Load(PlayerPrefs.GetString(i_SaveName));
-
     }
     
     public void Load(string i_Save)
@@ -193,8 +191,6 @@ public class SaveManager : MonoBehaviour
                 Debug.Log("Saved object was not found in prefab list");
                 continue;
             }
-            Debug.Log(toInstantiate);
-            Debug.Log(m_SceneAnchor.transform);
             GameObject instantiated = Instantiate(toInstantiate, m_SceneAnchor.transform);
             instantiated.GetComponentInChildren<Item>().Data = item;
             instantiated.name = item.PrefabName;
@@ -207,12 +203,12 @@ public class SaveManager : MonoBehaviour
                 colorOverrider.ApplyColorOverride(item.ColorOverride);
                 Destroy(colorOverrider);
             }
-			print("Instantiated " + instantiated.name + " With index = " + instantiated.transform.GetSiblingIndex());
+            GameObject tmp = Instantiate(m_SceneItemSelector, m_SceneItemListTF);
+            tmp.GetComponent<SceneItemSelector>().Init(instantiated, item.PrefabName);
         }
 		foreach (TaskData taskData in saveDataObject.taskArray)
 		{
 			GameObject toInstantiate = null;
-			print("Looking for " + taskData.RelatedWorkerID);
 			Transform workerTF = m_SceneAnchor.GetChild(taskData.RelatedWorkerID);
 			Transform taskAnchor = workerTF.Find("Tasks");
 			foreach (GameObject task in m_TaskList)

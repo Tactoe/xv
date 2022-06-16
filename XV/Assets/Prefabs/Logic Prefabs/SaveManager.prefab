@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0665d0eae91e74b944768e15b97987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SaveIdAfterSave: 
+  m_SceneItemListTF: {fileID: 0}
+  m_SceneItemSelector: {fileID: 8636068760222815542, guid: 2170352e813f53e4f9889ad6756aec1d, type: 3}
   m_ScenePrefab: {fileID: 8724772076622324733, guid: 0ca0d5914d3494510b62bbaf5a6db8c7, type: 3}
   m_ObjectList:
   - {fileID: 2753278193609614906, guid: ecce527c3f3e24d4fa381553045dcc56, type: 3}
@@ -89,3 +92,5 @@ MonoBehaviour:
   - {fileID: 5262196289231503862, guid: d55851bb413d945c0b1bafb3a006489f, type: 3}
   - {fileID: 4109680983643138633, guid: a536c91138495424baee47698beb8b06, type: 3}
   - {fileID: 4661280395249306635, guid: 2e4752c0bd92c442cb945e152e7977c7, type: 3}
+  err_id_not_found: {fileID: 0}
+  MyFieldId: {fileID: 0}

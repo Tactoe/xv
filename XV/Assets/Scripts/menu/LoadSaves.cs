@@ -66,6 +66,8 @@ public class LoadSaves : MonoBehaviour
 
 
     public void LoadSave(string name){
+        if (PlayerPrefs.GetString(name) == "")
+            return;
         Debug.Log("Load scene index " + name);
         Debug.Log("data  = " + PlayerPrefs.GetString(name));
         //SaveManager.Instance.Load(name);

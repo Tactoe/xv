@@ -62,7 +62,7 @@ public class CreateAssetBundles
         {
             Directory.CreateDirectory(assetBundleDirectory);
         }
-        #if UNITY_EDITOR_WINDOWS
+        #if UNITY_EDITOR_WIN
         BuildTarget target = BuildTarget.StandaloneWindows;
         #endif
         #if UNITY_EDITOR_OSX

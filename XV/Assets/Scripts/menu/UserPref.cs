@@ -6,27 +6,27 @@ using UnityEngine.SceneManagement;
 
 public class UserPref : MonoBehaviour
 {
-    string savesNames;
-    int nbSaves;
+    string m_SaveNames;
+    int m_nbSaves;
     public GameObject Pause;
 
     void Start()
     {
-        if (PlayerPrefs.GetString("savesNames") != null) {
-            savesNames = PlayerPrefs.GetString("savesNames");
+        if (PlayerPrefs.GetString("m_SaveNames") != null) {
+            m_SaveNames = PlayerPrefs.GetString("m_SaveNames");
         } else {
-            PlayerPrefs.SetString("savesNames", "");
+            PlayerPrefs.SetString("m_SaveNames", "");
         }
-        if (PlayerPrefs.GetInt("nbSaves") != 0) {
-            nbSaves = PlayerPrefs.GetInt("nbSaves");
+        if (PlayerPrefs.GetInt("m_nbSaves") != 0) {
+            m_nbSaves = PlayerPrefs.GetInt("m_nbSaves");
         } else {
-            PlayerPrefs.SetInt("nbSaves", 0);
+            PlayerPrefs.SetInt("m_nbSaves", 0);
         }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name != "titre_menu")
         {
             if(Pause.activeInHierarchy)
                 Pause.SetActive(false);
@@ -41,15 +41,12 @@ public class UserPref : MonoBehaviour
     }
 
     public void Reset() {
-        // PlayerPrefs.SetString("savesNames", "");
-        // PlayerPrefs.SetInt("nbSaves", 0);
         PlayerPrefs.DeleteAll();
         Save();
     }
 
     public void quit(){
         Application.Quit();
-        //UnityEditor.EditorApplication.isPlaying = false;
     }
 
     public void ReturnToMenu(){

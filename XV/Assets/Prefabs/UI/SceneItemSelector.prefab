@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2e1fdb53a11984882274bd22c26c1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ButtonColor: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
+  m_ButtonColor: {r: 1, g: 0.5764706, b: 0, a: 1}
   m_ButtonColorHighlighted: {r: 0.22745098, g: 0.44705883, b: 0.6901961, a: 1}
-  m_TextColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
+  m_TextColor: {r: 0.94509804, g: 0.94509804, b: 0.94509804, a: 1}
   m_TextColorHighlighted: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
