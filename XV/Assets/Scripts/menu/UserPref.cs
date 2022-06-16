@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class UserPref : MonoBehaviour
 {
     string m_SaveNames;
-    int m_nbSaves;
     public GameObject Pause;
 
     void Start()
@@ -16,11 +15,6 @@ public class UserPref : MonoBehaviour
             m_SaveNames = PlayerPrefs.GetString("m_SaveNames");
         } else {
             PlayerPrefs.SetString("m_SaveNames", "");
-        }
-        if (PlayerPrefs.GetInt("m_nbSaves") != 0) {
-            m_nbSaves = PlayerPrefs.GetInt("m_nbSaves");
-        } else {
-            PlayerPrefs.SetInt("m_nbSaves", 0);
         }
     }
 
@@ -46,13 +40,28 @@ public class UserPref : MonoBehaviour
     }
 
     public void quit(){
+        AutoSave();
         Application.Quit();
     }
 
+    void OnApplicationQuit()
+    {
+        AutoSave();
+    }
+
     public void ReturnToMenu(){
+        AutoSave();
         SceneManager.LoadScene("titre_menu");
     }
     
+    void AutoSave()
+    {
+        if (SceneManager.GetActiveScene().name == "titre_menu")
+            return;
+        SaveManager.Instance.Save("--autosave--", false);
+        PlayerPrefs.SetString("savesNames", PlayerPrefs.GetString("savesNames") + "--autosave--;" );
+
+    }
     
     public void CreateNew(){
         PlayerPrefs.SetString("Current_Scene", "");

@@ -30,13 +30,6 @@ public class LoadSaves : MonoBehaviour
 
     void Awake()
     {
-        // PlayerPrefs.SetInt("nbSaves", 9);
-        // PlayerPrefs.SetString("savesNames", "atelier1;atelier2;balbla;12atelier1;usine;usinedetonton;test7;miaou;test9");
-        // string[] lol = PlayerPrefs.GetString("savesNames").Split(";");
-        // foreach (string lilol in lol)
-        // {
-        //     PlayerPrefs.SetString(lilol, lilol+"alablblabalablablablalabalablablalbalbalalabablalbabab");
-        // }
         m_saves = PlayerPrefs.GetString("savesNames");
         Debug.Log(m_saves);
         m_aSaves = m_saves.Split(";",  System.StringSplitOptions.RemoveEmptyEntries);
