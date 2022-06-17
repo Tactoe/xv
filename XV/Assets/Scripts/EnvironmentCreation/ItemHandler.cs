@@ -24,6 +24,7 @@ public class ItemHandler : MonoBehaviour
     Camera m_Cam;
     Zoom[] m_Zoomers;
     RaycastHit m_HitInfo;
+    bool m_Replacing;
 
     public delegate void ChangeMode(EditorState i_NewState);
     public static event ChangeMode ModeChanged;
@@ -78,9 +79,12 @@ public class ItemHandler : MonoBehaviour
         ModeChanged?.Invoke(m_CurrentState);
     }
 
-    public void PlaceMode(GameObject i_ItemToPlace, bool i_InstantiateItem = true)
+    public void PlaceMode(GameObject i_ItemToPlace, bool i_InstantiateItem = true, bool i_Replacing = false)
     {
+        if (m_CurrentState == EditorState.placingItem)
+            return;
         m_CurrentState = EditorState.placingItem;
+        m_Replacing = i_Replacing;
         if (m_CurrentObjectToPlace != null)
             Destroy(m_CurrentObjectToPlace);
         if (i_InstantiateItem)
@@ -163,7 +167,17 @@ public class ItemHandler : MonoBehaviour
                     if (Input.GetMouseButtonDown(0) && m_HitInfo.collider.CompareTag("Ground"))
                     {
                         if (TryPlaceObject())
-                            NormalMode();
+                        {
+                            if (!m_Replacing)
+                            {
+                                NormalMode();
+                            }
+                            else
+                            {
+                                EditMode(m_CurrentObjectToPlace);
+                                m_Replacing = false;
+                            }
+                        }
                     }
                 break;
             }
@@ -184,7 +198,8 @@ public class ItemHandler : MonoBehaviour
             Time.timeScale = m_PauseMenu.activeInHierarchy ? 0 : 1;
 			if (ItemHandler.Instance.CheckIfState(EditorState.placingItem))
 			{
-				ItemHandler.Instance.NormalMode();
+                TryPlaceObject();
+				ItemHandler.Instance.EditMode();
 			}
 			if (TaskCreator.TmpTask)
 			{

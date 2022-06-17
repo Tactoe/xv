@@ -125,7 +125,7 @@ public class EditWindow : MonoBehaviour
     public void MoveObjectAgain()
     {
         m_TrackMovement = true;
-        ItemHandler.Instance.PlaceMode(Target, false);
+        ItemHandler.Instance.PlaceMode(Target, false, true);
     }
 
     public void ChangeTargetPosition(Vector3 i_NewPos)
