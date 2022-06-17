@@ -134,10 +134,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1896718772}
-    - target: {fileID: 1851236711, guid: 4b419925f10e01b4dac6915098895ef9, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ExploreMode
-      objectReference: {fileID: 0}
     - target: {fileID: 38045756856625131, guid: 4b419925f10e01b4dac6915098895ef9, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -250,20 +246,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 38045757589217281, guid: 4b419925f10e01b4dac6915098895ef9, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.0006713867
-      objectReference: {fileID: 0}
     - target: {fileID: 38045758177732199, guid: 4b419925f10e01b4dac6915098895ef9, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 38045758177732199, guid: 4b419925f10e01b4dac6915098895ef9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 38045758177732199, guid: 4b419925f10e01b4dac6915098895ef9, type: 3}
-      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -595,9 +583,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3140562510724938973, guid: 5eb79e9d4974a9f4ba4f1f108b4ddc0f, type: 3}
+      propertyPath: EnvUI
+      value: 
+      objectReference: {fileID: 1887500742}
+    - target: {fileID: 3140562510724938973, guid: 5eb79e9d4974a9f4ba4f1f108b4ddc0f, type: 3}
       propertyPath: m_PauseMenu
       value: 
       objectReference: {fileID: 1827808624}
+    - target: {fileID: 3140562510724938973, guid: 5eb79e9d4974a9f4ba4f1f108b4ddc0f, type: 3}
+      propertyPath: EnvironnementUI
+      value: 
+      objectReference: {fileID: 1887500742}
     - target: {fileID: 3140562510724938973, guid: 5eb79e9d4974a9f4ba4f1f108b4ddc0f, type: 3}
       propertyPath: m_FPSController
       value: 
@@ -852,6 +848,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!223 &1887500742 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 38045757250389294, guid: 4b419925f10e01b4dac6915098895ef9, type: 3}
+  m_PrefabInstance: {fileID: 153948168}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1896718772 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3140562510724938973, guid: 5eb79e9d4974a9f4ba4f1f108b4ddc0f, type: 3}

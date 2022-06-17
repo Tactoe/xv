@@ -17,6 +17,8 @@ public class ItemHandler : MonoBehaviour
     GameObject m_PauseMenu;
     [SerializeField]
     float m_RotationSpeed;
+    [SerializeField]
+	Canvas EnvUI;
     EditorState m_CurrentState;
     GameObject m_CurrentObjectToPlace;
     Camera m_Cam;
@@ -48,7 +50,6 @@ public class ItemHandler : MonoBehaviour
 
     public void NormalMode()
     {
-		print("Debfu");
         m_CurrentState = EditorState.normal;
         GetComponent<PlayerMovement>().enabled = true;
         m_FPSController.SetActive(false);
@@ -63,6 +64,7 @@ public class ItemHandler : MonoBehaviour
         m_CurrentState = EditorState.exploring;
         Cursor.lockState = CursorLockMode.Locked;
         m_FPSController.SetActive(true);
+		EnvUI.enabled = false;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<PlayerMovement>().enabled = false;
         ModeChanged?.Invoke(m_CurrentState);
@@ -173,6 +175,7 @@ public class ItemHandler : MonoBehaviour
     {
         if (CheckIfState(EditorState.exploring) && Input.GetKeyDown(KeyCode.Escape))
         {
+			EnvUI.enabled = true;
             NormalMode();
         }
         else if(Input.GetKeyDown(KeyCode.Escape))
