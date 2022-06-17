@@ -47,6 +47,7 @@ public class TaskCreator : MonoBehaviour
 		if (TmpTask.CompareTag("Move") || TmpTask.CompareTag("GetOut"))
 		{
 			TmpTask.transform.position = new Vector3(TmpTask.transform.position.x, 0, TmpTask.transform.position.z);
+			TmpTask.GetComponent<Task>().SetStatic();
 			ReleaseOrder();
 		}
 

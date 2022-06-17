@@ -13,6 +13,8 @@ public class Task : MonoBehaviour
 	public int Wait = 0;
 	public bool Target;
 	public TaskData Data;
+	private bool m_Static = false;
+	private Vector3 m_StaticPos;
 	
 	// This script handles the logic and visualization of tasks
 	// It contains most of the task data, like what object is the task linked to or not, the position...
@@ -34,6 +36,12 @@ public class Task : MonoBehaviour
 		}
 	}
 
+	public void SetStatic ()
+	{
+		m_Static = true;
+		m_StaticPos = transform.position;
+	}
+
 	public void SetInteractable(GameObject i_Interactable)
 	{
 		Interactable = i_Interactable;
@@ -50,6 +58,8 @@ public class Task : MonoBehaviour
 			m_Line.SetPosition(1, transform.parent.position);
 		if (Interactable && Interactable.transform.position != transform.position)
 			transform.position = Interactable.transform.position;
+		else if (m_Static && m_StaticPos != transform.position)
+			transform.position = m_StaticPos;
 		transform.LookAt(m_Camera.transform);
 		transform.localScale = Vector3.one * (Vector3.Distance(transform.position, m_Camera.transform.position) / 7f);
 		if (Data.HasParent && !Interactable && transform.parent.parent.name != "Scene(Clone)")
