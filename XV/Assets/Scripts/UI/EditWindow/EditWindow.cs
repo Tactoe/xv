@@ -91,7 +91,7 @@ public class EditWindow : MonoBehaviour
         ItemData itemData = Target.GetComponentInChildren<Item>().Data;
         m_NameText.text = itemData.ItemName;
         m_NameText.onEndEdit.AddListener(delegate (string i_Name) {
-            Target.GetComponentInChildren<Item>().Data.ItemName = i_Name;
+            Target.GetComponentInChildren<Item>(true).Data.ItemName = i_Name;
         });
         m_Fields[0].setFieldValues(Target.transform.localPosition);
         m_Fields[1].setFieldValues(Target.transform.localEulerAngles);
@@ -117,7 +117,6 @@ public class EditWindow : MonoBehaviour
             child.gameObject.SetActive(false);
         }
         m_TrackMovement = false;
-        ItemHandler.Instance.NormalMode();
     }
 
     // ########### TRANSFORM CHANGE ##################
@@ -185,7 +184,7 @@ public class EditWindow : MonoBehaviour
             tmp.GetComponent<Image>().color = m_TargetColors.Last();
             index++;
         }
-        Target.GetComponentInChildren<Item>().Data.ColorOverride = i_ColorOverride;
+        Target.GetComponentInChildren<Item>(true).Data.ColorOverride = i_ColorOverride;
     }
 
     
@@ -203,6 +202,6 @@ public class EditWindow : MonoBehaviour
             propertyBlock.SetColor("_Color", m_TargetColors[i]);
             meshRenderer.SetPropertyBlock(propertyBlock, materialIndex);
         }
-        Target.GetComponentInChildren<Item>().Data.ColorOverride[i] = "#" + ColorUtility.ToHtmlStringRGB(i_NewColor);
+        Target.GetComponentInChildren<Item>(true).Data.ColorOverride[i] = "#" + ColorUtility.ToHtmlStringRGB(i_NewColor);
     }
 }

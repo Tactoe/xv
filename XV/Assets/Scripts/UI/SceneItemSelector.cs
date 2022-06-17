@@ -52,6 +52,11 @@ public class SceneItemSelector : MonoBehaviour
             {
                 HighlightButton();
             }
+            else 
+            {
+                GetComponent<Image>().color = m_ButtonColor;
+                m_ButtonText.color = m_TextColor;
+            }
             m_ButtonText.text = m_ItemReference.GetComponentInChildren<Item>(true).Data.ItemName;
             yield return new WaitForSeconds(0.1f);
         }

@@ -49,6 +49,12 @@ public class Task : MonoBehaviour
 		Data.RelatedParentID = Interactable.transform.GetSiblingIndex();
 	}
 
+	void CorrectScale(Transform i_Parent)
+	{
+		transform.LookAt(m_Camera.transform);
+		transform.localScale = Vector3.one * (Vector3.Distance(transform.position, m_Camera.transform.position) / 7f);
+	}
+
 	void Update()
 	{
 		m_Line.SetPosition(0, transform.position);
@@ -60,8 +66,7 @@ public class Task : MonoBehaviour
 			transform.position = Interactable.transform.position;
 		else if (m_Static && m_StaticPos != transform.position)
 			transform.position = m_StaticPos;
-		transform.LookAt(m_Camera.transform);
-		transform.localScale = Vector3.one * (Vector3.Distance(transform.position, m_Camera.transform.position) / 7f);
+		CorrectScale(transform.parent);
 		if (Data.HasParent && !Interactable && transform.parent.parent.name != "Scene(Clone)")
 			Destroy(gameObject);
 	}

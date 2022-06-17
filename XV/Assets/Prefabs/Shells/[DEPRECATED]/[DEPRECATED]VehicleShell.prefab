@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 8355932000926285363}
   - component: {fileID: 3855561086230990092}
   m_Layer: 0
-  m_Name: VehicleShell
+  m_Name: '[DEPRECATED]VehicleShell'
   m_TagString: Vehicule
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -47,7 +47,9 @@ public class FieldInput : MonoBehaviour
             newValue = 0;
         }
         else
-            newValue = float.Parse(m_Fields[index].text);
+            if (!float.TryParse(m_Fields[index].text, out newValue))
+                return;
+        newValue = Mathf.Clamp(newValue, -1000000000, 1000000000);
         m_Value[index] = newValue;
         
         switch (m_FieldType)

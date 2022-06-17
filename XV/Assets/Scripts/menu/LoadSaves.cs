@@ -61,9 +61,6 @@ public class LoadSaves : MonoBehaviour
     public void LoadSave(string name){
         if (PlayerPrefs.GetString(name) == "")
             return;
-        Debug.Log("Load scene index " + name);
-        Debug.Log("data  = " + PlayerPrefs.GetString(name));
-        //SaveManager.Instance.Load(name);
         PlayerPrefs.SetString("Current_Scene", name);
         Time.timeScale = 1;
         SceneManager.LoadScene("Default");
@@ -72,17 +69,11 @@ public class LoadSaves : MonoBehaviour
 
     
     public void DelSave(string name){
-        Debug.Log("DEL scene index " + name);
-        Debug.Log("data  = " + PlayerPrefs.GetString(name));
-        Debug.Log("PlayerPrefs.GetString(savesNames =  " + PlayerPrefs.GetString("savesNames"));
         PlayerPrefs.SetString(name, "");
         PlayerPrefs.DeleteKey(name);
         string text = PlayerPrefs.GetString("savesNames");
         text = text.Replace(name+";", "");
         PlayerPrefs.SetString("savesNames", text);
-        Debug.Log("PlayerPrefs.GetString(savesNames =  " + PlayerPrefs.GetString("savesNames"));
-
-        Debug.Log("has ?" + PlayerPrefs.HasKey(name));
 
         PlayerPrefs.Save();
 
@@ -90,7 +81,6 @@ public class LoadSaves : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
         m_saves = PlayerPrefs.GetString("savesNames");
-        Debug.Log(m_saves);
         m_aSaves = m_saves.Split(";",  System.StringSplitOptions.RemoveEmptyEntries);
         foreach(string line in m_aSaves)
         {

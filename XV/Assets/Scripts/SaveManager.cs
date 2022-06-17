@@ -159,13 +159,15 @@ public class SaveManager : MonoBehaviour
                 string responseText = www.downloadHandler.text;
                 Debug.Log("Response Text:" + responseText);
 
-                if(responseText != ""){
+                if(responseText.Trim() != ""){
                     PlayerPrefs.SetString(i_SaveId, responseText);
                     PlayerPrefs.SetString("Current_Scene", i_SaveId);
                     Time.timeScale = 1;
                     SceneManager.LoadScene("Default");
                 }
                 else{
+                    err_id_not_found.SetActive(true);
+                    yield return new WaitForSeconds(3);
                     err_id_not_found.SetActive(false);
                 }
             }
@@ -233,6 +235,7 @@ public class SaveManager : MonoBehaviour
 			}
 			else
 				instantiated.transform.localPosition = taskData.Position;
+				instantiated.GetComponent<Task>().SetStatic();
 		}
     }
 }

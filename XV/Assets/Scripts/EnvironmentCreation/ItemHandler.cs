@@ -85,6 +85,12 @@ public class ItemHandler : MonoBehaviour
             return;
         m_CurrentState = EditorState.placingItem;
         m_Replacing = i_Replacing;
+        if (!i_Replacing)
+        {
+
+            EditWindow.Instance.Target = null;
+            EditWindow.Instance.CloseWindow();
+        }
         if (m_CurrentObjectToPlace != null)
             Destroy(m_CurrentObjectToPlace);
         if (i_InstantiateItem)
@@ -198,8 +204,13 @@ public class ItemHandler : MonoBehaviour
             Time.timeScale = m_PauseMenu.activeInHierarchy ? 0 : 1;
 			if (ItemHandler.Instance.CheckIfState(EditorState.placingItem))
 			{
-                TryPlaceObject();
-				ItemHandler.Instance.EditMode();
+                if (!TryPlaceObject())
+                {
+                    EditWindow.Instance.CloseWindow();
+                    ItemHandler.Instance.NormalMode();
+                }
+                else
+                    ItemHandler.Instance.EditMode();
 			}
 			if (TaskCreator.TmpTask)
 			{

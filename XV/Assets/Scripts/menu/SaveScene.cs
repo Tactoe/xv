@@ -13,7 +13,7 @@ public class SaveScene : MonoBehaviour
     [SerializeField]
     Toggle m_OnlineSave;
     [SerializeField]
-    TextMeshProUGUI m_SaveIdDisplayText;
+    TMP_InputField m_SaveIdDisplayText;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,22 +45,22 @@ public class SaveScene : MonoBehaviour
         int timer = 100;
         while (SaveManager.Instance.SaveIdAfterSave == "" && timer >= 0)
         {
-            m_SaveIdDisplayText.text ="waiting for saveId...";
+            m_SaveIdDisplayText.text ="Waiting for saveId...";
             timer--;
             yield return new WaitForSecondsRealtime(0.1f);
         }
         if(timer <= 0){
-            m_SaveIdDisplayText.text ="Server did not respond...";
+            m_SaveIdDisplayText.text ="Server did not respond... Please try again later";
         }
         else{
-            m_SaveIdDisplayText.text = "Save online done id is :" + SaveManager.Instance.SaveIdAfterSave;   
+            m_SaveIdDisplayText.text = "Your save id is :" + SaveManager.Instance.SaveIdAfterSave;   
         }
-        m_SaveIdDisplayText.gameObject.SetActive(false);
         SaveManager.Instance.SaveIdAfterSave = "";
     }
     
     void OnDisable()
     {
+        m_SaveIdDisplayText.gameObject.SetActive(false);
         StopCoroutine(WaitForSaveId());
     }
 

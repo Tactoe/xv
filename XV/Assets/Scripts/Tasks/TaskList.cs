@@ -70,7 +70,7 @@ public class TaskList : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (m_Target.Target && m_Target.Target.GetComponent<Worker>() == null)
+		if (!m_Target.Target || m_Target.Target.GetComponent<Worker>() == null)
 		{
 			m_Content.SetActive(false);
 		}
