@@ -18,18 +18,6 @@ public class UserPref : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name != "titre_menu")
-        {
-            if(Pause.activeInHierarchy)
-                Pause.SetActive(false);
-            else
-                Pause.SetActive(true);
-        }
-        
-    }
-
     public void Save() {
         PlayerPrefs.Save();
     }
@@ -59,7 +47,8 @@ public class UserPref : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "titre_menu")
             return;
         SaveManager.Instance.Save("--autosave--", false);
-        PlayerPrefs.SetString("savesNames", PlayerPrefs.GetString("savesNames") + "--autosave--;" );
+		if (!PlayerPrefs.GetString("savesNames").Contains("--autosave--"))
+	        PlayerPrefs.SetString("savesNames", PlayerPrefs.GetString("savesNames") + "--autosave--;" );
 
     }
     

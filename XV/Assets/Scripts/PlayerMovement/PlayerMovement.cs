@@ -25,11 +25,8 @@ public class PlayerMovement : MonoBehaviour
         IsFlying = false;
     }
 
-    void Update(){
-    }
-
-    void FixedUpdate()
-    {
+    void Update()
+	{
         IsRunning = canRun && Input.GetKey(runningKey);
 
         float targetMovingSpeed = IsRunning ? runSpeed : speed;
@@ -63,5 +60,9 @@ public class PlayerMovement : MonoBehaviour
                 transform.RotateAround(transform.position, Vector3.up, Time.unscaledDeltaTime * m_RotationSpeed * direction);
             }
         }
+    }
+
+    void FixedUpdate()
+    {
     }
 }

@@ -17,6 +17,7 @@ public class Worker : MonoBehaviour
 	public GameObject Vehicle;
 	public int TaskIndex;
 
+	private Transform m_Slot;
 	private Vector3[] m_Origin = new Vector3[3];
 	private bool m_CheckStuck = false;
 	private Camera m_Camera;
@@ -34,6 +35,7 @@ public class Worker : MonoBehaviour
 		m_Timeline = GameObject.Find("Timeline").GetComponent<Timeline>();
 		m_Camera = GameObject.Find("Main Camera").GetComponent<Camera>();
 		Tasks = transform.Find("Tasks");
+		m_Slot = gameObject.transform.Find("Slot");
 	}
 
 	public void Go()
@@ -42,7 +44,8 @@ public class Worker : MonoBehaviour
 		m_Origin[1] = transform.localEulerAngles;
 		m_Origin[2] = transform.localScale;
 		Tasks.parent = Tasks.parent.parent;
-		TaskIndex = 0;
+		TaskIndex = -1;
+		NextDoableTask();
 		if (Tasks.transform.childCount > 0)
 		{
 			Move();
@@ -70,7 +73,8 @@ public class Worker : MonoBehaviour
 			SetCourse();
 		else 
 		{
-			TaskIndex = 0;
+			TaskIndex = -1;
+			NextDoableTask();
 			if (!m_Over)
 			{
 				m_Over = true;
@@ -91,7 +95,6 @@ public class Worker : MonoBehaviour
 		Moving = false;
 		string tag = Tasks.GetChild(TaskIndex).tag;
 
-		Transform slot = gameObject.transform.Find("Slot");
 		GameObject my_interact = Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Interactable;
 		switch(tag) 
 		{
@@ -107,25 +110,25 @@ public class Worker : MonoBehaviour
 					Vehicle.GetComponent<Vehicle>().PickUp(my_interact);
 				}
 				else{
-					if (my_interact.GetComponent<Ressource>() != null && slot.childCount == 0)
+					if (my_interact.GetComponent<Ressource>() != null && m_Slot.childCount == 0)
 					{
 						Animator.SetBool("Carrying", true);
 						yield return new WaitForSeconds(0.75f);
-						PickUpGround(my_interact, slot);
+						PickUpGround(my_interact, m_Slot);
 					}
-					if (my_interact.GetComponent<Storage>() != null && slot.childCount == 0)
+					if (my_interact.GetComponent<Storage>() != null && m_Slot.childCount == 0)
 					{
 						my_interact.GetComponent<Storage>().ToggleBusy();
 						Animator.SetBool("Carrying", true);
 						yield return new WaitForSeconds(0.75f);
-						my_interact.GetComponent<Storage>().PickUp(slot);
+						my_interact.GetComponent<Storage>().PickUp(m_Slot);
 					}
-					else if (my_interact.GetComponent<Station>() != null && slot.childCount == 0 && my_interact.transform.Find("Slot").childCount > 0)
+					else if (my_interact.GetComponent<Station>() != null && m_Slot.childCount == 0 && my_interact.transform.Find("Slot").childCount > 0)
 					{
 						my_interact.GetComponent<Station>().ToggleBusy();
 						Animator.SetBool("Carrying", true);
 						yield return new WaitForSeconds(0.75f);
-						my_interact.GetComponent<Station>().PickUp(slot);
+						my_interact.GetComponent<Station>().PickUp(m_Slot);
 					}
 				}
 				break;
@@ -134,21 +137,21 @@ public class Worker : MonoBehaviour
 				{
 					Animator.SetBool("Carrying", false);
 					yield return new WaitForSeconds(0.75f);					
-					DropGround(slot);
+					DropGround(m_Slot);
 				}
-				else if (my_interact.GetComponent<Storage>() != null && slot.childCount > 0)
+				else if (my_interact.GetComponent<Storage>() != null && m_Slot.childCount > 0)
 				{
 					my_interact.GetComponent<Storage>().ToggleBusy();
 					Animator.SetBool("Carrying", false);
 					yield return new WaitForSeconds(0.75f);
-					my_interact.GetComponent<Storage>().DropIn(slot);
+					my_interact.GetComponent<Storage>().DropIn(m_Slot);
 				}
-				else if (my_interact.GetComponent<Station>() != null && slot.childCount > 0 && my_interact.transform.Find("Slot").childCount ==0)
+				else if (my_interact.GetComponent<Station>() != null && m_Slot.childCount > 0 && my_interact.transform.Find("Slot").childCount ==0)
 				{
 					my_interact.GetComponent<Station>().ToggleBusy();
 					Animator.SetBool("Carrying", false);
 					yield return new WaitForSeconds(0.75f);
-					my_interact.GetComponent<Station>().DropIn(slot);
+					my_interact.GetComponent<Station>().DropIn(m_Slot);
 				}
 				break;
 			case "Use":
@@ -170,13 +173,13 @@ public class Worker : MonoBehaviour
 			m_Timeline.AddLogEntry(gameObject.GetComponentInChildren<Item>().Data.ItemName + " : " + Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Data.TaskDescription);
 		else
 			m_Timeline.AddLogEntry(gameObject.GetComponentInChildren<Item>().Data.ItemName + " : " + Tasks.GetChild(TaskIndex).gameObject.GetComponent<Task>().Data.PrefabName);
-		NextDoableTask(slot);
+		NextDoableTask();
 		if(!Vehicle)
 			NavAgent.isStopped = false;
 		Move();
 	}
 
-	void NextDoableTask(Transform i_Slot)
+	void NextDoableTask()
 	{
 		while(TaskIndex < Tasks.childCount)
 		{
@@ -189,26 +192,26 @@ public class Worker : MonoBehaviour
 				(tag == "Use" && Vehicle) ||
 				(tag == "PickUp" && Vehicle && Vehicle.GetComponent<Vehicle>().Carrying) ||
 				(tag == "Drop" && Vehicle && !Vehicle.GetComponent<Vehicle>().Carrying) ||
-				(tag == "PickUp" && !Vehicle && i_Slot.childCount > 0) ||
-				(tag == "Drop" && !Vehicle && i_Slot.childCount == 0))
+				(tag == "PickUp" && !Vehicle && m_Slot.childCount > 0) ||
+				(tag == "Drop" && !Vehicle && m_Slot.childCount == 0))
 				continue;
 			return ;
 		}
 	}
 
-	void PickUpGround(GameObject my_interact, Transform slot)
+	void PickUpGround(GameObject my_interact, Transform m_Slot)
 	{
-		my_interact.transform.parent = slot;
-		my_interact.transform.position = slot.position;
+		my_interact.transform.parent = m_Slot;
+		my_interact.transform.position = m_Slot.position;
 		my_interact.transform.Find("Hitbox").gameObject.GetComponent<BoxCollider>().enabled = false;
 		my_interact.transform.Find("Hitbox").gameObject.GetComponent<UnityEngine.AI.NavMeshObstacle>().enabled = false;
 	}
 
-	void DropGround(Transform slot)
+	void DropGround(Transform m_Slot)
 	{
-		if (slot.childCount > 0)
+		if (m_Slot.childCount > 0)
 		{
-			Transform dropped = slot.GetChild(0);
+			Transform dropped = m_Slot.GetChild(0);
 			dropped.parent = transform.parent;
 			dropped.Find("Hitbox").gameObject.GetComponent<BoxCollider>().enabled = true;
 			dropped.Find("Hitbox").gameObject.GetComponent<UnityEngine.AI.NavMeshObstacle>().enabled = true;

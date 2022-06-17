@@ -48,10 +48,13 @@ public class ItemHandler : MonoBehaviour
 
     public void NormalMode()
     {
+		print("Debfu");
         m_CurrentState = EditorState.normal;
         GetComponent<PlayerMovement>().enabled = true;
         m_FPSController.SetActive(false);
         Cursor.lockState = CursorLockMode.None;
+		EditWindow.Instance.Target = null;
+		Destroy(m_CurrentObjectToPlace);
         ModeChanged?.Invoke(m_CurrentState);
     }
     
@@ -176,7 +179,16 @@ public class ItemHandler : MonoBehaviour
         {
             m_PauseMenu.SetActive(!m_PauseMenu.activeInHierarchy);
             Time.timeScale = m_PauseMenu.activeInHierarchy ? 0 : 1;
-            
+			if (ItemHandler.Instance.CheckIfState(EditorState.placingItem))
+			{
+				ItemHandler.Instance.NormalMode();
+			}
+			if (TaskCreator.TmpTask)
+			{
+				DestroyImmediate(TaskCreator.TmpTask);
+				TaskCreator.TmpTask = null;
+				ItemHandler.Instance.EditMode();
+			}
         }
         if ((Input.GetKey(KeyCode.LeftArrow)
             || Input.GetKey(KeyCode.RightArrow))
